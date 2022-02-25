@@ -1,7 +1,7 @@
 # hands-on-lab-neo4j-and-sagemaker
 Neo4j is the [leading graph database](https://neo4j.com/whitepapers/forrester-wave-graph-data-platforms/) vendor.  We’ve worked closely with AWS Engineering for years.  Our products, Neo4j Graph Database, Graph Data Science and Bloom are offered in the AWS Marketplace.
 
-We’re planning a series of hands on labs with AWS architects and their customer.  The goal of these workshops is to give a better understanding of how to identify use cases for Neo4j.  These sessions aren’t intended to make attendees experts in Neo4j.  Instead, the idea is to give them a good foundation to understand when to when to work with Neo4j.
+This workshop is a hands of lab with Neo4j and Vertex AI.  The goal of this workshop is to give tangible experience working with both products on AWS.  The data set we'll be using is from the SEC EDGAR database.  Specifically, the public filings of asset manages with $100m or more under management.  We'll use Neo4j to explore their holdings.  Then we'll use SageMaker to predict which holdings they'll have next quarter.
 
 ## Venue
 These workshops are organized onsite in an AWS office.
