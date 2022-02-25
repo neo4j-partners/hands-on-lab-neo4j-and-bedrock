@@ -30,7 +30,7 @@ These workshops are organized onsite in an AWS office.
     * Cypher Queries
     * Visualization with Bloom
 * Break (10 min)
-* [Lab 4 - Graph Data Science](Lab%204%20-%20Graph%20Data%20Science.md) (30 min)
+* Lecture - Graph Data Science (20 min)
     * Why Graph Data Science
     * Neo4j GDS Library and Catalog
     * Algorithm Families and Examples
@@ -38,7 +38,7 @@ These workshops are organized onsite in an AWS office.
     * Centrality
     * Community Detection
     * Graph Machine Learning
-* Lab 4 - Graph Data Science (30 min)
+* [Lab 4 - Graph Data Science](Lab%204%20-%20Graph%20Data%20Science.md) (30 min)
     * Creating a graph embedding
     * Exporting to pandas
     * Importing to SageMaker
