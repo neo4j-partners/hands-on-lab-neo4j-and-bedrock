@@ -89,7 +89,7 @@ Scroll to the right and locate the subnets in your default VPC.  Those are the o
 
 ![](images/16-defaultsubnet.png)
 
-## Deploying Neo4j Enterprise through the Marketplace
+## Deploying Neo4j Enterprise Edition through the Marketplace
 Alright, we're all read to deploy Neo4j!  To do so, let's go to AWS Marketplace.  We could go to the Marketplace and search.  But, instead, let's go directly to the AWS Marketplace seller profile for Neo4j.  That's [here](https://aws.amazon.com/marketplace/seller-profile?id=23ec694a-d2af-4641-b4d3-b7201ab2f5f9).
 
 On the seller profile page there are two options.  One is for Neo4j AuraDB Enterprise.  Aura is Neo4j's database as a service (DBaaS).  This is a software as a service (SaaS) offering.  The DB means this is the database version of Aura.  On AWS, there's an upcoming AuraDS, which is the data science version of Aura.

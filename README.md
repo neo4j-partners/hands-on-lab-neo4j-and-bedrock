@@ -15,11 +15,13 @@ These workshops are organized onsite in an AWS office.
     * Customer use cases
     * How is it deployed and managed on AWS?
 * [Lab 1 - Deploy Neo4j](Lab%201%20-%20Deploy%20Neo4j/README.md) (20 min)
-    * Deploying Neo4j Enterprise through the Marketplace
+    * Sign up for AWS
+    * Apply AWS Credits
+    * Pick a Region
+    * Create a Key Pair
+    * Configure VPC
+    * Deploying Neo4j Enterprise Edition through the Marketplace
     * Cloud Formation Template
-    * Graph Database
-    * Graph Data Science
-    * Bloom
 * Break (10 min)
 * Lecture - Neo4j and AWS (20 min)
     * Partnership overview
