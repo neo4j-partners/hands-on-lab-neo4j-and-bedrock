@@ -67,6 +67,55 @@ Then hit the little blue triangle play button to run it.  You should see the fol
 
 Assuming that all looks good, let's move on...
 
-## SSH into an EC2 Instance
-First off, let's SSH into 
 ## Neo4j Bloom
+Neo4j Bloom is a business intelligence (BI) tool.  It's running on that same 7474 port that the Neo4j Browser was.  So, to open it up, we can just edit that url slightly by add "bloom" to the end of it and hitting enter.
+
+![](images/15-bloomurl.png)
+
+That'll then navigate us to the bloom console.
+
+![](images/16-bloom.png)
+
+## Interacting via Shell
+These steps are really useful if something goes wrong with your Neo4j deployment.  We're going to connect to an instance and check out some logs.  To get the connection information, let's go back to the tab with your "instance summary."  If you closed it, you can follow the steps from above to find it again.
+
+Once that's open, click on the "Connect" button.
+
+![](images/17-instancesummary.png)
+
+In the connect dialog, we have a few options.  We're going to use simplest, the "EC2 Instance Connect."  Simply click on the "Connect" button.  That'll open up a terminal connection in a new window.
+
+![](images/18-connect.png)
+
+You should see a terminal like this.
+
+![](images/19-terminal.png)
+
+Now that we have a terminal, let's run a few commands to poke around.  This instance is running vanilla Amazon Linux 2, so looks very much like any other EC2 instance.  After deployment, AWS ran a startup script using cloud-init.  Let's check the log for that to make sure it looks good.  We'll have to sudo as it has restricted permissions.
+
+    sudo su
+    cd /var/log/
+    cat cloud-init-output.log
+
+Here's what it looks like.
+
+![](images/20-cloudinit.png)
+
+Now let's check out the Neo4j logs using these commands:
+
+    cd /var/log/neo4j
+    cat debug.log
+
+That should give us this:
+
+![](images/21-debug.png)
+
+Finally, let's check to make sure the neo4j process is running with this command:
+
+    ps -aux | grep neo4j
+
+That should give us this:
+
+![](images/22-process.png)
+
+Assuming that all looks good, let's move on...
