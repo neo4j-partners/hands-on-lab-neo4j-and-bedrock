@@ -89,11 +89,8 @@ Scroll to the right and locate the subnets in your default VPC.  Those are the o
 
 ![](images/15-defaultsubnet.png)
 
-## Ensure Public IPs are Enabled
-asd
-
 ## Deploying Neo4j Enterprise through the Marketplace
-asd
+Alright, we're all read to deploy Neo4j!  To do so, let's go to AWS Marketplace.  We could go to the Marketplace and search.  But, instead, let's go directly to the AWS Marketplace seller profile for Neo4j.  That's [here](https://aws.amazon.com/marketplace/seller-profile?id=23ec694a-d2af-4641-b4d3-b7201ab2f5f9).
 
 ## Cloud Formation Template
 asd
