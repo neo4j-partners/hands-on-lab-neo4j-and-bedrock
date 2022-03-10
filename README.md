@@ -22,17 +22,16 @@ These workshops are organized onsite in an AWS office.
     * Configure VPC
     * Deploying Neo4j Enterprise Edition through the Marketplace
     * Cloud Formation Template
-* [Lab 2 - Connect to Neo4j](Lab%202%20-%20Connect%20to%20Neo4j/README.md)
+* [Lab 2 - Connect to Neo4j](Lab%202%20-%20Connect%20to%20Neo4j/README.md) (15 min)
     * Neo4j Browser
     * Neo4j Bloom
     * Interacting via Shell
 * Break (10 min)
-* Lecture - Neo4j and AWS (20 min)
-    * Partnership overview
-    * Integration points
-* [Lab 2 - Moving Data](Lab%202%20-%20Moving%20Data/README.md) (20 min)
+* Lecture - Moving Data (10 min)
+    * Ways to move data
+* [Lab 3 - Moving Data](Lab%203%20-%20Moving%20Data/README.md) (20 min)
     * Import data into Neo4j
-* [Lab 3 - Exploring Data](Lab%203%20-%20Exploring%20Data/README.md) (20 min)
+* [Lab 4 - Exploring Data](Lab%204%20-%20Exploring%20Data/README.md) (20 min)
     * Cypher Queries
     * Visualization with Bloom
 * Break (10 min)
@@ -44,7 +43,7 @@ These workshops are organized onsite in an AWS office.
     * Centrality
     * Community Detection
     * Graph Machine Learning
-* [Lab 4 - Graph Data Science](Lab%204%20-%20Graph%20Data%20Science/README.md) (30 min)
+* [Lab 5 - Graph Data Science](Lab%205%20-%20Graph%20Data%20Science/README.md) (30 min)
     * Creating a graph embedding
     * Exporting to pandas
     * Importing to SageMaker
