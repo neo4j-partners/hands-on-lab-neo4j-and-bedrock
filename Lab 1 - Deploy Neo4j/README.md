@@ -217,6 +217,8 @@ When all done, you'll see "CREATE_COMPLETE" in the stacks mennu on the left.
 
 ![](images/39-complete.png)
 
+You're now all ready for the next lab where we're going to start using the Neo4j deployment we just created.
+
 ## Cloud Formation Template
 In this lab we worked through deploying via the Marketplace.  The Marketplace is essentially a nice GUI around Cloud Formation.  If you're a more technical user and like deploying from the command line there are a variety of options.  These options are also useful if you'd like to modify the Cloud Formation template.
 
