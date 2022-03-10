@@ -14,7 +14,7 @@ These workshops are organized onsite in an AWS office.
     * What is Neo4j?
     * Customer use cases
     * How is it deployed and managed on AWS?
-* [Lab 1 - Deploy Neo4j](Lab%201%20-%20Deploy%20Neo4j.md) (20 min)
+* [Lab 1 - Deploy Neo4j](Lab%201%20-%20Deploy%20Neo4j/README.md) (20 min)
     * Deploying Neo4j Enterprise through the Marketplace
     * Cloud Formation Template
     * Graph Database
@@ -24,9 +24,9 @@ These workshops are organized onsite in an AWS office.
 * Lecture - Neo4j and AWS (20 min)
     * Partnership overview
     * Integration points
-* [Lab 2 - Moving Data](Lab%202%20-%20Moving%20Data.md) (20 min)
+* [Lab 2 - Moving Data](Lab%202%20-%20Moving%20Data/README.md) (20 min)
     * Import data into Neo4j
-* [Lab 3 - Exploring Data](Lab%203%20-%20Exploring%20Data.md) (20 min)
+* [Lab 3 - Exploring Data](Lab%203%20-%20Exploring%20Data/README.md) (20 min)
     * Cypher Queries
     * Visualization with Bloom
 * Break (10 min)
@@ -38,7 +38,7 @@ These workshops are organized onsite in an AWS office.
     * Centrality
     * Community Detection
     * Graph Machine Learning
-* [Lab 4 - Graph Data Science](Lab%204%20-%20Graph%20Data%20Science.md) (30 min)
+* [Lab 4 - Graph Data Science](Lab%204%20-%20Graph%20Data%20Science/README.md) (30 min)
     * Creating a graph embedding
     * Exporting to pandas
     * Importing to SageMaker
