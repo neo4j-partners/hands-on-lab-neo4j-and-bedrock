@@ -22,6 +22,10 @@ These workshops are organized onsite in an AWS office.
     * Configure VPC
     * Deploying Neo4j Enterprise Edition through the Marketplace
     * Cloud Formation Template
+* [Lab 2 - Connect to Neo4j](Lab%202%20-%20Connect%20to%20Neo4j/README.md)
+    * SSH into an EC2 Instance
+    * Neo4j Browser
+    * Neo4j Bloom
 * Break (10 min)
 * Lecture - Neo4j and AWS (20 min)
     * Partnership overview
