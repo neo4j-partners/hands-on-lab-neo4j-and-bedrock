@@ -74,6 +74,8 @@ Neo4j Bloom is a business intelligence (BI) tool.  It's running on that same 747
 
 That'll then navigate us to the bloom console.
 
+TODO - Clean up bloom setup and add a screenshot of the bloom console.
+
 ![](images/16-bloom.png)
 
 ## Interacting via Shell
