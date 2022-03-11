@@ -41,3 +41,18 @@ You'll now get a message that it's deploying the SageMaker domain.  That will ta
 When it's all deployed, you'll see this message:
 
 ![](images/10-complete.png)
+
+## SageMaker Studio
+Now that the domain is setup, let's launch SageMaker studio.  In the AWS console, click on "Launch app" and then "Studio."
+
+![](images/11-launch.png)
+
+That'll then carry you through two redirect screens...
+
+![](images/12-redirect.png)
+
+![](images/13-redirect.png)
+
+After that we land on the SageMaker Studio console.
+
+![](images/14-studio.png)
