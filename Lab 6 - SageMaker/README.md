@@ -37,3 +37,7 @@ Then select the subnets under it and click "Save and continue."
 You'll now get a message that it's deploying the SageMaker domain.  That will take a few minutes.
 
 ![](images/09-deploy.png)
+
+When it's all deployed, you'll see this message:
+
+![](images/10-complete.png)
