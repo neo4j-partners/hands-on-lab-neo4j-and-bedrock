@@ -30,10 +30,8 @@ These workshops are organized onsite in an AWS office.
 * Lecture - Moving Data (10 min)
     * Ways to move data
 * [Lab 3 - Moving Data](Lab%203%20-%20Moving%20Data/README.md) (20 min)
-    * Import data into Neo4j
-* [Lab 4 - Exploring Data](Lab%204%20-%20Exploring%20Data/README.md) (20 min)
-    * Cypher Queries
-    * Visualization with Bloom
+    * LOAD CSV
+    * Data Importer
 * Break (10 min)
 * Lecture - Graph Data Science (20 min)
     * Why Graph Data Science
@@ -43,11 +41,11 @@ These workshops are organized onsite in an AWS office.
     * Centrality
     * Community Detection
     * Graph Machine Learning
-* [Lab 5 - Graph Data Science](Lab%205%20-%20Graph%20Data%20Science/README.md) (30 min)
+* [Lab 4 - Graph Data Science](Lab%204%20-%20Graph%20Data%20Science/README.md) (30 min)
     * Creating a graph embedding
     * Exporting to pandas
     * Importing to SageMaker
     * Training a model
-* [Lab 6 - SageMaker](Lab%206%20-%20SageMaker/README.md) (30 min)
+* [Lab 5 - SageMaker](Lab%205%20-%20SageMaker/README.md) (30 min)
     * Create a SageMaker Domain
 * Discussion - Questions and Next Steps (10 min)
