@@ -48,4 +48,6 @@ These workshops are organized onsite in an AWS office.
     * Exporting to pandas
     * Importing to SageMaker
     * Training a model
+* [Lab 6 - SageMaker](Lab%206%20-%20SageMaker/README.md) (30 min)
+    * Create a SageMaker Domain
 * Discussion - Questions and Next Steps (10 min)
