@@ -48,4 +48,5 @@ These workshops are organized onsite in an AWS office.
     * Training a model
 * [Lab 5 - SageMaker](Lab%205%20-%20SageMaker/README.md) (25 min)
     * Create a SageMaker Domain
+    * SageMaker Studio
 * Discussion - Questions and Next Steps (10 min)
