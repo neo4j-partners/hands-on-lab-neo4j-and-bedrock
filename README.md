@@ -9,7 +9,10 @@ These workshops are organized onsite in an AWS office.
 ## Duration
 3 hours.
 
+15+20+15+10+10+20+20+15+15+15+20+10
+
 ## Agenda
+* Introductions
 * Lecture - Introduction to Neo4j (15 min)
     * What is Neo4j?
     * Customer use cases
@@ -37,7 +40,7 @@ These workshops are organized onsite in an AWS office.
     * LOAD CSV
     * Data Importer
 * Break (10 min)
-* Lecture - Graph Data Science (20 min)
+* Lecture - Graph Data Science (15 min)
     * Why Graph Data Science
     * Neo4j GDS Library and Catalog
     * Algorithm Families and Examples
@@ -51,9 +54,13 @@ These workshops are organized onsite in an AWS office.
 * [Lab 5 - Graph Data Science](Lab%205%20-%20Graph%20Data%20Science/README.md) (15 min)
     * Creating a graph embedding
     * Exporting to pandas
-    * Importing to SageMaker
-    * Training a model
+    * Writing to AWS S3
+* Lecture - SageMaker (15 min)
+    * What is SageMaker?
+    * Using SageMaker with Neo4j
 * [Lab 6 - SageMaker](Lab%206%20-%20SageMaker/README.md) (20 min)
     * Create a SageMaker Domain
     * SageMaker Studio
-* Discussion - Questions and Next Steps (10 min)
+    * Importing to SageMaker
+    * Training a model
+* [Discussion - Questions and Next Steps](Discussion%20-%20Questions%20and%20Next%20Steps.md) (10 min)
