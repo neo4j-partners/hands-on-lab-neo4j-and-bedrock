@@ -9,8 +9,6 @@ These workshops are organized onsite in an AWS office.
 ## Duration
 3 hours.
 
-15+20+15+10+10+20+20+15+15+15+20+10
-
 ## Agenda
 * Introductions
 * Lecture - Introduction to Neo4j (15 min)
