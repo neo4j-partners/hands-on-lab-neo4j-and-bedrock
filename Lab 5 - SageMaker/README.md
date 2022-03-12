@@ -1,4 +1,4 @@
-# SageMaker
+# Lab 5 - SageMaker
 Now we've reached what we've been working toward -- pulling graph data into SageMaker.  We're going to spin up a SageMaker domain for this.  
 
 ## Create a SageMaker Domain
