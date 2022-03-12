@@ -82,7 +82,7 @@ Of course, there's an even simpler solution.  The data importer will generate th
 
 Let's download the dataset by pointing a web browser [here](https://storage.googleapis.com/neo4j-datasets/form13/form13.csv).  As before, you may want to poke around the file just to see what's in it.  You'll notice the file has a new column in it, "target."  We're going to try to solve a supervised learning problem later, so this is our target.  It's true if a given holding increased in number of shares in the next quarter.  It's false if it shrank.  So, we're predicting if assset managers are going to expand or shrink their positions.
 
-Now let's fire up the data importer by navigating [here](https://data-importer.neo4j.io/).  Once that has loaded, click on "browse" and select the csv file we just downloaded.
+Now let's fire up the data importer by navigating [here](http://data-importer.graphapp.io/).  Once that has loaded, click on "browse" and select the csv file we just downloaded.
 
 ![](images/12-importer.png)
 
@@ -144,7 +144,7 @@ Now our data model is all set.  We need to connect the importer up to our databa
 
 That prompts for three fields.  The username is neo4j.  The password is the same as you entered when you deployed via marketplace, possibly "foo123."  
 
-The host field will be the public DNS name of the EC2 instance we were working with earlier. A particular example is neo4j+s://ec2-44-202-197-32.compute-1.amazonaws.com
+The host field will be the public DNS name of the EC2 instance we were working with earlier with a protocol and port added. A particular example is neo4j://ec2-44-202-197-32.compute-1.amazonaws.com:7687
 
 With all that filled in, click "Run."
 
