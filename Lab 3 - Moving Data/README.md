@@ -82,7 +82,7 @@ Of course, there's an even simpler solution.  The data importer will generate th
 
 Let's download the dataset by pointing a web browser [here](https://storage.googleapis.com/neo4j-datasets/form13/form13.csv).  As before, you may want to poke around the file just to see what's in it.  You'll notice the file has a new column in it, "target."  We're going to try to solve a supervised learning problem later, so this is our target.  It's true if a given holding increased in number of shares in the next quarter.  It's false if it shrank.  So, we're predicting if assset managers are going to expand or shrink their positions.
 
-Now let's fire up the data importer by navigating [here](http://data-importer.graphapp.io/).  Once that has loaded, click on "browse" and select the csv file we just downloaded.
+Now let's fire up the data importer by navigating [here](http://data-importer.graphapp.io/).  You may have to dismiss a few welcome dialogs.  Once you're at the main page, click on "browse" and select the csv file we just downloaded.
 
 ![](images/12-importer.png)
 
@@ -90,7 +90,7 @@ You'll see that the file has loaded from the menu on the left.  Now click on "ad
 
 ![](images/13-importer.png)
 
-We'll call this first node "Manager" and dismiss the help dialog about creating a relationship.  For "file," select "form13.csv"
+We'll call this first node "Manager." You may see a help dialog about creating a relationship that you can dismiss.  For "file," select "form13.csv"
 
 ![](images/14-addnode.png)
 
@@ -98,7 +98,7 @@ Now we're going to add a property as well.  Click on "Add from file."
 
 ![](images/15-addnode.png)
 
-Select "filingManager" and click "confirm."
+Select "filingManager" and click "confirm." Under "ID" in the bottom right, select "filingManager."
 
 ![](images/16-properties.png)
 
@@ -110,46 +110,48 @@ Now we're going to label the new node.  You'll want to set that as "Company," se
 
 ![](images/18-relationship.png)
 
-For the company, select "cusip," "nameOfIssuer" and click "confirm."
+For the company, select "cusip," "nameOfIssuer" and click "confirm."  Under "ID" select "cusip."
 
 ![](images/19-company.png)
 
-Our data model is getting pretty close.  The last thing we want to do is add detail to the relationship.  Click on the line between the two nodes. For "type" enter "Owns" and for the "File" select "form13.csv."
+Our data model is getting pretty close.  The last thing we want to do is add detail to the relationship.  Click on the line between the two nodes. For "type" enter "Owns" and for the "File" select "form13.csv."  For the "ID" on the relationship, select "filingManager" for "from" and "cusip" for "to."
 
 ![](images/20-relationship.png)
 
-That should give you a setup like the one below.  The last thing is to add some more properties to the relationship.  Click on "Add from file."  Then select "reportCalendarOrQuarter," "value," "shares," and "target."
+We need to add a few properties to the relationship.  Click "Add from File" and select "reportCalendarOrQuarter," "value," "shares" and "target."  Click "confirm."
 
 ![](images/21-relationship.png)
 
-The menu should look like this:
-
-![](images/22-relationship.png)
-
 Now we need to change the data type on a few of those properties.  Target should be a boolean.  Value and shares should both be float.  You can click the pencil icon next to each to edit them.
 
-![](images/23-relationship.png)
-
-At this point, you'll probably get a few warnings.  We need to specify that the ID for manager is "filingManager."
-
-![](images/24-id.png)
-
-Similarly, specify the ID for company as cusip.  For the relationship, set the from to filingManager and the to should be set to cusip.  
-
-![](images/25-fixed.png)
+![](images/22-types.png)
 
 Now our data model is all set.  We need to connect the importer up to our database.  To do so, click "Run Import" in the upper left.  
 
-![](images/26-connect.png)
+![](images/23-connect.png)
 
-That prompts for three fields.  The username is neo4j.  The password is the same as you entered when you deployed via marketplace, possibly "foo123."  
+That prompts for three fields.  The username is neo4j.  The password is the same as you entered when you deployed via marketplace, possibly "foo123."
 
 The host field will be the public DNS name of the EC2 instance we were working with earlier with a protocol and port added. A particular example is neo4j://ec2-44-202-197-32.compute-1.amazonaws.com:7687
 
 With all that filled in, click "Run."
 
-![](images/27-connect.png)
+![](images/24-connect.png)
 
-You'll then see a progress bar displayed as it runs.
+You'll then see a progress bar displayed as it runs.  Now may be a good time to grab a coffee.  Runtime is dependent on your internet connection as the file is uploading from your laptop.
 
-![](images/28-running.png)
+![](images/25-running.png)
+
+When complete, a summary of the import will be displayed.
+
+![](images/26-complete.png)
+
+Click "Show key query" and "Show load query."  We can now see the Cypher that the Data Importer generated for us.
+
+![](images/27-query.png)
+
+Our load is all done!  You can click "Review in Neo4j Browser" to get redirected to the Neo4j Browser and poke around.  Of course, we'll be doing that in the next lab!
+
+![](images/28-browser.png)
+
+Congratulations on setting up Neo4j on AWS, connecting to it and loading some data!
