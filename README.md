@@ -28,7 +28,11 @@ These workshops are organized onsite in an AWS office.
     * Interacting via Shell
 * Break (10 min)
 * Lecture - Moving Data (10 min)
-    * Ways to move data
+    * LOAD CSV
+    * Data Importer
+    * Kafka
+    * Spark
+    * Glue
 * [Lab 3 - Moving Data](Lab%203%20-%20Moving%20Data/README.md) (20 min)
     * LOAD CSV
     * Data Importer
