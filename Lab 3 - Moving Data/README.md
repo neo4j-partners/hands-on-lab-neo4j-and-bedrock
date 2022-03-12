@@ -1,4 +1,4 @@
-# Lab 2 - Moving Data
+# Lab 3 - Moving Data
 In this lab, we're going to take data from an AWS s3 bucket and import it into Neo4j.  There are a few different ways to do this.  We'll start with the LOAD CSV function and later try the Data Importer.
 
 The dataset is pulled from the SEC's EDGAR database.  These are public filings of something called form 13.  Asset managers with over $100 AUM are required to submit Form 13 quarterly.  That's then made available to the public over http.  The csvs linked above were pull from EDGAR using some python scripts.  We don't have time to run those in the lab today as they take a few hours.  But, if you're curious, they're all available [here](https://github.com/neo4j-partners/neo4j-sec-edgar-form13).
