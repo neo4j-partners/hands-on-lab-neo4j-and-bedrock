@@ -21,7 +21,7 @@ These workshops are organized onsite in an AWS office.
     * What is Neo4j?
     * Customer use cases
     * How is it deployed and managed on GCP?
-* [Lab 0 - Signup for Amazon](Lab%200%20-%20DSignup%20for%20Amazon) (Optional)
+* [Lab 0 - Signup for Amazon](Lab%200%20-%20Signup%20for%20Amazon) (Optional)
     * Singup for Amazon
     * Signup for Amazon Web Services
 * [Lab 1 - Deploy Neo4j](Lab%201%20-%20Deploy%20Neo4j) (15 min)
