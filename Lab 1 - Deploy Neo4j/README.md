@@ -89,7 +89,7 @@ Alright, we're all read to deploy Neo4j!  To do so, let's go to AWS Marketplace.
 
 On the seller profile page there are two options.  One is for Neo4j AuraDB Enterprise.  Aura is Neo4j's database as a service (DBaaS).  This is a software as a service (SaaS) offering.  The DB means this is the database version of Aura.  On AWS, there's an upcoming AuraDS, which is the data science version of Aura.
 
-Instead of AuraDB Enterprise, we'll be using Neo4j Enterprise Edition.  That is the installable version of Neo4j.  The AWS listing has a Cloud Formation Template (CFT) that deploys Neo4j for you.  This has options to deploy Neo4j Graph Database, Neo4j Graph Data Science and Neo4j Bloom.
+Instead of AuraDB Enterprise, we'll be using Neo4j Enterprise Edition.  That is the installable version of Neo4j that runs on Infrastructure as a Service (IaaS).  The AWS listing has a Cloud Formation Template (CFT) that deploys Neo4j for you.  This has options to deploy Neo4j Graph Database, Neo4j Graph Data Science and Neo4j Bloom.
 
 Graph Database is, as the name implies, Neo4j's core database.  It's designed from the ground up to store graphs.  This comes in both a community and an enterprise version.  We're going to use the enterprise version.
 
@@ -162,15 +162,18 @@ We're now at the stage where we need to make some choices about how we're deploy
 
 ![](images/30-details.png)
 
-For the stack name, type "neo4j-ee" and move to the next field.  For "Graph Database Version," just take the default.  For "Graph Data Science Version," select the newest version available.  The default value is "None," which means that GDS will not be installed by default.  If you don't change this value, GDS won't be installed and you won't have it available for later exercises.
+For the stack name, type "neo4j-ee" and move to the next field.  For "Graph Database Version," just take the default.  For "Install Graph Data Science," check that True is selected.
 
-For "Bloom Version," select the most recent version available.  The default value is "None," which means that Bloom will not be installed by default.  If you don't change this value, Bloom won't be installed and you won't have it available for later exercises.
+For "Install Bloom," check that true is selected.
 
 ![](images/31-details.png)
 
 You need to select a password as well.  This should be six characters or longer.  My go to password is "foo123"
 
-Enter the license key you were provided at the start of the lab.  Graph Database Enterprise does not require a license key.  Graph Data Science Enterprise does need a license key.  If you don't specify it, Graph Data Science will start in Community mode.  That means it will not have some features we're going to use later in the lab.  Bloom requires a license key and will not start unless you specify one.
+Graph Database Enterprise does not require a license key.  Graph Data Science Enterprise does need a license key.  If you don't specify it, Graph Data Science will start in Community mode.  That means it will not have some features we're going to use later in the lab.  Bloom requires a license key and will not start unless you specify one.  You can use these license keys:
+
+* graphDataScienceLicenseKey: eyJhbGciOiJQUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJlbkBuZW80ai5jb20iLCJleHAiOjE2NTIyNTI0MDAsImZlYXR1cmVWZXJzaW9uIjoiKiIsIm9yZyI6Ik5lbzRqIFRyYWluaW5nIiwicHViIjoibmVvNGouY29tIiwicXVhbnRpdHkiOiIxIiwicmVnIjoiQmVuIExhY2tleSIsInNjb3BlIjoiVHJpYWwiLCJzdWIiOiJuZW80ai1nZHMiLCJ2ZXIiOiIqIiwiaXNzIjoibmVvNGouY29tIiwibmJmIjoxNjQ5Njg1MzY4LCJpYXQiOjE2NDk2ODUzNjgsImp0aSI6IjkyOUcxa2psXyJ9.zbS3KAaiVuVwdplCcJbg3NBAx9D_QRT0Cc68hu9PIOTLbvi6H4c0vqWtXfd2GrwkRBvBA58yhJJrGicTu7SfHbHG8-BBmJLspVNvPT3YGaTCXZx4MwL7PgRm2XDnkOaHSbJTtO9qY5xUq7UxGcEUygqYxkPeydpyo0_lfNu6erGyL6lJaiTqnkeLFnanlZesrVF1bpmC2nOOl13PLQfG2Mi4J2l1VS9T2js8y_4lOS1Zb_OLPZxhc5i9-wqzHVYnIdQj_LpN-GeL8f61pmct0QNd-WEBl2EbWX4WQCMXt2HfMUX_fvTYbPvW16JDQ0Zm3IQTuT9v52xfb6lUwD1iNw
+* bloomLicenseKey: eyJhbGciOiJQUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJlbkBuZW80ai5jb20iLCJleHAiOjE2NTIyNTI0MDAsImZlYXR1cmVWZXJzaW9uIjoiKiIsIm9yZyI6Ik5lbzRqIFRyYWluaW5nIiwicHViIjoibmVvNGouY29tIiwicXVhbnRpdHkiOiIxIiwicmVnIjoiQmVuIExhY2tleSIsInNjb3BlIjoiVHJpYWwiLCJzdWIiOiJuZW80ai1ibG9vbS1zZXJ2ZXIiLCJ2ZXIiOiIqIiwiaXNzIjoibmVvNGouY29tIiwibmJmIjoxNjQ5Njg1MzM4LCJpYXQiOjE2NDk2ODUzMzgsImp0aSI6IjBWZjZNOEUzcCJ9.y2BcqXyEb3xF70ZLiMOJA3scQvZKYKWkdlHXZBKRvCJ7XxmN8MZW0Pg_1DH7nu7V6PzIdf2_WYdvpYIvfx_fNkTZnFjTiWEd9ooyuNYU-AdUfotp59ikXkR14nBPh3R8bg3r-BHwRkzoqL3p1LljDCVCx0ulRD7Mty0nMiOthnfHyLaV0eWKEH8Mo74v1kcwQGwfMaHKn1AyZQ40VyJXTv6FAu4t-maVTSUDm-mXMAdIlVWRDAk8yO4wa6XjanIu9D7Ge_fSWloqijqTrjV0oSMQ0nyLNmGggmCHDUnOMzIrh3ESrbxKWwkTtQbgXX7yYticC_nGo29LW-lGaSXR4w
 
 For the "Node Count" select "1." This is the number of Neo4j nodes that will be deployed in the autoscaling group.  Because we're using GDS, we want a single node.  If we were using only GDB, we might deploy in a 3 node cluster for resilience.
 

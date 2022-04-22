@@ -1,20 +1,22 @@
 # Lab 3 - Moving Data
-In this lab, we're going to take data from an AWS s3 bucket and import it into Neo4j.  There are a few different ways to do this.  We'll start with the LOAD CSV function and later try the Data Importer.
+In this lab, we're going to take data from an Amazon S3 bucket and import it into Neo4j.  There are a few different ways to do this.  We'll start with a very naive LOAD CSV statement and then improve it.  
 
-The dataset is pulled from the SEC's EDGAR database.  These are public filings of something called form 13.  Asset managers with over $100m AUM are required to submit Form 13 quarterly.  That's then made available to the public over http.  The csvs linked above were pull from EDGAR using some python scripts.  We don't have time to run those in the lab today as they take a few hours.  But, if you're curious, they're all available [here](https://github.com/neo4j-partners/neo4j-sec-edgar-form13).
+The Neo4j [Data Importer](https://data-importer.neo4j.io/) is another option.
 
-## LOAD CSV 
+The dataset is pulled from the SEC's EDGAR database.  These are public filings of something called Form 13.  Asset managers with over $100m AUM are required to submit Form 13 quarterly.  That's then made available to the public over http.  The csvs linked above were pull from EDGAR using some python scripts.  We don't have time to run those in the lab today as they take a few hours.  But, if you're curious, they're all available [here](https://github.com/neo4j-partners/neo4j-sec-edgar-form13).  We've filtered the data to only include filings over $10m in value.
+
+## A Day of Data
 For this portion of the lab, we're going to work with a subset of the data.  Our full dataset is a year of data.  However, we'll just be playing around with a day's worth.  The data is [here](https://neo4j-dataset.s3.amazonaws.com/form13/2022-02-17.csv).
 
 You may want to download the data and load it into your favorite tool for exploring CSV files.  Pandas, Excel or anything else should be able to make short work of it.  Once you understand what's in the data, the next step would be to load it into Neo4j.
 
-To load it, let's open the tab that has our Neo4j Browser in it.  If you don't have that tab open, you can review the previous lab to grab the address of it again.
+To load it in Neo4j, let's open the tab that has our Neo4j Browser in it.  If you don't have that tab open, you can review the previous lab to grab the address of it again.
 
 ![](images/01-neo4jbrowser.png)
 
 We're going to run a Cypher statement to load the data.  Cypher is Neo4j's query language.  LOAD CSV is part of that and allows us to easily load CSV data.  Try copying this command into the Neo4j Browser.
 
-    LOAD CSV WITH HEADERS FROM 'https://storage.googleapis.com/neo4j-datasets/form13/2022-02-17.csv' AS row
+    LOAD CSV WITH HEADERS FROM 'https://neo4j-dataset.s3.amazonaws.com/form13/2022-02-17.csv' AS row
     MERGE (m:Manager {filingManager:row.filingManager})
     MERGE (c:Company {nameOfIssuer:row.nameOfIssuer, cusip:row.cusip})
     MERGE (m)-[r1:Owns {value:toInteger(row.value), shares:toInteger(row.shares), reportCalendarOrQuarter:row.reportCalendarOrQuarter}]->(c)
@@ -27,9 +29,9 @@ That will load the nodes and relationships from the file.  You should see the nu
 
 ![](images/03-runcypher.png)
 
-Sometimes it takes a minute to populate this menu, but once it's populated you'll see the nodes, relationships and properties we loaded.  We have two kinds of nodes, Manager and Company.  Manager nodes are asset managers.  Company nodes are the companies that those asset manages buy shares of.  Managers are related to companies by the "owns" relationship.  Manager, company and owns all have properties that we can inspect as well.
+Sometimes it takes a minute to populate this menu, but once it's populated you'll see the nodes, relationships and properties we loaded.  We have two kinds of nodes, manager and company.  Manager nodes are asset managers.  Company nodes are the companies that those asset manages buy shares of.  Managers are related to companies by the owns relationship.  Manager, company and owns all have properties that we can inspect as well.
 
-Click on "Manager" under "Node Labels to automatically generate a new cypher query.
+Click on "Manager" under "Node Labels" to automatically generate a new cypher query.
 
 ![](images/04-database.png)
 
@@ -45,9 +47,9 @@ When it expands, we can see what companies this manager owns shares in.  In this
 
 We can also click on the relationship, that is the line between the nodes to see detail on the transaction.
 
-![](images/07-manager.png)
+![](images/07-company.png)
 
-In this case, it appears we have a report from 12-31-2021 that 139781 shares were purchased with a value of $10,063,000.
+In this case, it appears we have a report from 12-31-2021 that 139,781 shares were purchased with a value of $10,063,000.
 
 ![](images/08-relationship.png)
 
@@ -57,101 +59,142 @@ As you play around, you may start to see some of the structure in the graph with
 
 ![](images/09-nodes.png)
 
-Now that we have some understanding of this portion of the dataset, we're going to delete it.  Then we'll load the full data set.  To delete the dataset, you'll want to run this query in the Neo4j Browser:
+There's an interesting issue hiding in our dataset.  Because of the way we loaded it, we have a bunch of duplicate nodes.  Try running this query and we can find them:
 
-    MATCH (n)
-    DETACH DELETE n;
+    MATCH (n:Company{cusip:"78462F103"}) RETURN n LIMIT 25
 
-Paste it into the browser and then click the blue triangle to run it.
+Do you see what happened?  Different asset managers call securities slightly different things.  In this case, the commonly held SPY or S&P 500 ETF has a number of different names.
 
-![](images/10-delete.png)
+Issues like this led to the creation of the [CUSIP](https://www.cusip.com/).  So, in these filings asset managers may enter all sorts of names, but the CUSIP will be unique.  In the next section we're going to key off the CUSIP and resolve this issue.
 
-Note that some property keys still exist.  We only deleted the nodes.  That's ok as we're going to be using the same property keys in the next step.  We just didn't want any duplicate nodes.
+Now that we have some understanding of this portion of the dataset, we're going to delete it.  Then we'll load the full data set.  We don't want to delete the database we're currently using.  So, we're going to switch databases first.  Run this in the Neo4j Browser.
 
-![](images/11-delete.png)
+    :use system
 
-## Data Importer
-There are many ways to load data into Neo4j.  The LOAD CSV statement we used before was pretty naive.  It didn't create any indices.  It also loaded the nodes and relationships simultaneously.  Both of those are inefficient approaches.  It wasn't a big deal as that single day of data was about 57kb.  However, we'd now like to load a full year of data.  That's 49.5mb of data, so we have to be a bit more efficient.
+That should give you this:
+
+![](images/10-usesystem.png)
+
+Then drop the database:
+
+    drop database neo4j
+
+That will give you this:
+
+![](images/11-drop.png)
+
+Now, create a new data:
+
+    create database neo4j
+
+You'll see this:
+
+![](images/12-create.png)
+
+Finally, switch back to the neo4j database:
+
+    :use neo4j
+
+![](images/13-useneo4j.png)
+
+Now, all your data should be deleted and you're back on the neo4j database.
+
+## A Year of Data
+The LOAD CSV statement we used before was pretty naive.  It didn't create any indices.  It also loaded the nodes and relationships simultaneously.  Both of those are inefficient approaches.  It wasn't a big deal as that single day of data was about 57kb.  However, we'd now like to load a full year of data.  That's 49.5mb of data, so we have to be a bit more efficient.  That new dataset is [here](https://neo4j-dataset.s3.amazonaws.com/form13/2021.csv).
 
 If you're curious, you can read a bit about the intracties of optimizing those loads here:
 
 * https://neo4j.com/developer/guide-import-csv/#_optimizing_load_csv_for_performance
 * https://graphacademy.neo4j.com/courses/importing-data/
 
-Of course, there's an even simpler solution.  The data importer will generate these indices for us.  
+We're also going to change our data model a bit.  This is to make it work better in the Graph Data Science (GDS) component of our lab where we create graph embedding.  We're going to move some properties out of the owns relationship we had previously, into a new node type call "Holding."
 
-Let's download the dataset by pointing a web browser [here](https://storage.googleapis.com/neo4j-datasets/form13/form13.csv).  As before, you may want to poke around the file just to see what's in it.  You'll notice the file has a new column in it, "target."  We're going to try to solve a supervised learning problem later, so this is our target.  It's true if a given holding increased in number of shares in the next quarter.  It's false if it shrank.  So, we're predicting if assset managers are going to expand or shrink their positions.
+First, let's create constraints, essentially a primary key, for the company and manager node types.  Company keys should be cusips.  We know a CUSIP is unique because that is the whole point of one.  They are identifiers for securities designed to be unique.  You can read more about them [here](https://www.cusip.com).  This is a much better field to use than nameOfIssuer because it avoids the problem where some companies (like Apple or Apple, Inc.) are referred to by slightly different names.
 
-Now let's fire up the data importer by navigating [here](http://data-importer.graphapp.io/).  You may have to dismiss a few welcome dialogs.  Once you're at the main page, click on "browse" and select the csv file we just downloaded.
+The manager is a little more difficult.  But, we're going to assume that the filingManager field is both unique and correct.
 
-![](images/12-importer.png)
+    CREATE CONSTRAINT IF NOT EXISTS ON (p:Company) ASSERT (p.cusip) IS NODE KEY;
+    CREATE CONSTRAINT IF NOT EXISTS ON (p:Manager) ASSERT (p.filingManager) IS NODE KEY;
 
-You'll see that the file has loaded from the menu on the left.  Now click on "add node."
+That should give this:
 
-![](images/13-importer.png)
+![](images/14-constraint.png)
 
-We'll call this first node "Manager." You may see a help dialog about creating a relationship that you can dismiss.  For "file," select "form13.csv"
+Now, the holding is a bit more interesting.  It needs a compound key.  Because a holding is unique in the context of:
 
-![](images/14-addnode.png)
+(1) Being held by a particular filingManager
+(2) Being a particular cusip
+(3) Being for a particular reportOrCalendarQuarter
 
-Now we're going to add a property as well.  Click on "Add from file."
+So, we're going to need something with a compount key like this:
 
-![](images/15-addnode.png)
+    CREATE CONSTRAINT IF NOT EXISTS ON (p:Holding) ASSERT (p.filingManager, p.cusip, p.reportCalendarOrQuarter) IS NODE KEY;
 
-Select "filingManager" and click "confirm." Under "ID" in the bottom right, select "filingManager."
+That should give this:
 
-![](images/16-properties.png)
+![](images/15-constraint.png)
 
-Now let's add another node and a relationship.  To do so, mouse over the Manager node and drag a new node out of it.
+Now that we have all the constraints, let's load our nodes.  We're going to do that first and grab the relationships in a second pass.  While we could do it in a single cypher statement, as we did above, it's more efficient to run them in series.
 
-![](images/17-properties.png)
+Let's load the companies first.  We're going to have a lot of duplication, since our key is CUSIP and many different rows in our csv, each representing a filing, have the same cusip.  So, we need to enhance our LOAD CSV statement a little bit to deal with those duplicates.
 
-Now we're going to label the new node.  You'll want to set that as "Company," select the form13.csv file and then click "Add from file" on that one too.
+    LOAD CSV WITH HEADERS FROM 'https://neo4j-dataset.s3.amazonaws.com/form13/2021.csv' AS row
+    MERGE (c:Company {cusip:row.cusip})
+    ON CREATE SET
+        c.nameOfIssuer=row.nameOfIssuer
 
-![](images/18-relationship.png)
+That should give this:
 
-For the company, select "cusip," "nameOfIssuer" and click "confirm."  Under "ID" select "cusip."
+![](images/16-company.png)
 
-![](images/19-company.png)
+Now let's load the Managers:
 
-Our data model is getting pretty close.  The last thing we want to do is add detail to the relationship.  Click on the line between the two nodes. For "type" enter "Owns" and for the "File" select "form13.csv."  For the "ID" on the relationship, select "filingManager" for "from" and "cusip" for "to."
+    LOAD CSV WITH HEADERS FROM 'https://neo4j-dataset.s3.amazonaws.com/form13/2021.csv' AS row
+    MERGE (m:Manager {filingManager:row.filingManager})
 
-![](images/20-relationship.png)
+That should give this:
 
-We need to add a few properties to the relationship.  Click "Add from File" and select "reportCalendarOrQuarter," "value," "shares" and "target."  Click "confirm."
+![](images/17-manager.png)
 
-![](images/21-relationship.png)
+And now we can load our Holdings:
 
-Now we need to change the data type on a few of those properties.  Target should be a boolean.  Value and shares should both be float.  You can click the pencil icon next to each to edit them.
+    LOAD CSV WITH HEADERS FROM 'https://neo4j-dataset.s3.amazonaws.com/form13/2021.csv' AS row
+    MERGE (h:Holding {filingManager:row.filingManager, cusip:row.cusip, reportCalendarOrQuarter:row.reportCalendarOrQuarter})
+    ON CREATE SET
+        h.value=row.value, 
+        h.shares=row.shares,
+        h.target=row.target,
+        h.nameOfIssuer=row.nameOfIssuer
 
-![](images/22-types.png)
+That should give this:
 
-Now our data model is all set.  We need to connect the importer up to our database.  To do so, click "Run Import" in the upper left.  
+![](images/18-holding.png)
 
-![](images/23-connect.png)
+Well, this is cool.  We've got all our nodes loaded in.  Now we need to tie them together with relationships.  We're going to want two kinds of relationships:
 
-That prompts for three fields.  The username is neo4j.  The password is the same as you entered when you deployed via marketplace, possibly "foo123."
+(1) A manager "OWNS" holdings
+(2) Holdings are "PARTOF" companies
 
-The host field will be the public DNS name of the EC2 instance we were working with earlier with a protocol and port added. A particular example is neo4j://ec2-44-202-197-32.compute-1.amazonaws.com:7687
+So, let's put together the owns relationship first.
 
-With all that filled in, click "Run."
+    LOAD CSV WITH HEADERS FROM 'https://neo4j-dataset.s3.amazonaws.com/form13/2021.csv' AS row
+    MATCH (m:Manager {filingManager:row.filingManager})
+    MATCH (h:Holding {filingManager:row.filingManager, cusip:row.cusip, reportCalendarOrQuarter:row.reportCalendarOrQuarter})
+    MERGE (m)-[r:OWNS]->(h)
 
-![](images/24-connect.png)
+That should give this:
 
-You'll then see a progress bar displayed as it runs.  Now may be a good time to grab a coffee.  Runtime is dependent on your internet connection as the file is uploading from your laptop.
+![](images/19-owns.png)
 
-![](images/25-running.png)
+And, now we can create the PARTOF relationships:
 
-When complete, a summary of the import will be displayed.
+    LOAD CSV WITH HEADERS FROM 'https://neo4j-dataset.s3.amazonaws.com/form13/2021.csv' AS row
+    MATCH (h:Holding {filingManager:row.filingManager, cusip:row.cusip, reportCalendarOrQuarter:row.reportCalendarOrQuarter})
+    MATCH (c:Company {cusip:row.cusip})
+    MERGE (h)-[r:PARTOF]->(c)
 
-![](images/26-complete.png)
+That should give this:
 
-Click "Show key query" and "Show load query."  We can now see the Cypher that the Data Importer generated for us.
+![](images/20-partof.png)
 
-![](images/27-query.png)
-
-Our load is all done!  You can click "Review in Neo4j Browser" to get redirected to the Neo4j Browser and poke around.  Of course, we'll be doing that in the next lab!
-
-![](images/28-browser.png)
-
-Congratulations on setting up Neo4j on AWS, connecting to it and loading some data!
+You've done it!  We've loaded our data set up.  We'll explore it in the next lab.  But, feel free to poke around in the Neo4j Browser a bit as well.
