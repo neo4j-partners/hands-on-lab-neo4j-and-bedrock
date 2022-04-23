@@ -17,7 +17,7 @@ These workshops are organized onsite in an AWS office.
 
 ## Agenda
 * Introductions
-* Lecture - Introduction to Neo4j (10 min)
+* Lecture - [Introduction to Neo4j](https://docs.google.com/presentation/d/1Cue3uBcDnQ6e7w7wocOGqoKd7U8TQFZD7JohbgTrV90/edit?usp=sharing) (10 min)
     * What is Neo4j?
     * Customer use cases
     * How is it deployed and managed on AWS?
@@ -33,7 +33,7 @@ These workshops are organized onsite in an AWS office.
     * Neo4j Bloom
     * Interacting via Shell
 * Break (10 min)
-* Lecture - Moving Data (10 min)
+* [Lecture - Moving Data](https://docs.google.com/presentation/d/1iAMN6o-aMNtg2WAZzHORbckV--JXa2wiY5YLBNDRN3w/edit?usp=sharing) (10 min)
     * LOAD CSV
     * Amazon Elastic Map Reduce (EMR)
     * Amazon Managed Streaming for Kafka
@@ -41,7 +41,7 @@ These workshops are organized onsite in an AWS office.
     * A Day of Data
     * A Year of Data
 * Break (10 min)
-* Lecture - Graph Data Science (10 min)
+* [Lecture - Graph Data Science](https://docs.google.com/presentation/d/1dx5ve401iHlUseznhdbHE-h-Uk97ENheS_d6tEVIcOc/edit?usp=sharing) (10 min)
     * Why Graph Data Science
     * Neo4j GDS Library and Catalog
     * Algorithm Families and Examples
