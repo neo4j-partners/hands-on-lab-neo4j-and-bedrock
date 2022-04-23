@@ -56,7 +56,7 @@ These workshops are organized onsite in an AWS office.
 * [Lab 5 - Graph Data Science](Lab%205%20-%20Graph%20Data%20Science/README.md) (15 min)
     * Creating a Graph Embedding
     * Exporting to pandas
-    * Writing to Google Cloud Storage
+    * Writing to AWS S3
 * Lecture - SageMaker (15 min)
     * What is SageMaker?
     * Using SageMaker with Neo4j
