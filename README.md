@@ -20,7 +20,7 @@ These workshops are organized onsite in an AWS office.
 * Lecture - Introduction to Neo4j (10 min)
     * What is Neo4j?
     * Customer use cases
-    * How is it deployed and managed on GCP?
+    * How is it deployed and managed on AWS?
 * [Lab 0 - Signup for Amazon](Lab%200%20-%20Signup%20for%20Amazon) (Optional)
     * Singup for Amazon
     * Signup for Amazon Web Services
