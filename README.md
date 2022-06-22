@@ -28,7 +28,7 @@ If you have an AWS account with permissions that allow you to deploy SageMaker, 
     * What is Neo4j?
     * Customer use cases
     * How is it deployed and managed on AWS?
-* [Lab 0 - Signup for Amazon](Lab%200%20-%20Signup%20for%20Amazon) (Optional)
+* [Lab 0 - Signup for Amazon](Lab%200%20-%20Signup%20for%20Amazon) (15 min)
     * Singup for Amazon
     * Signup for Amazon Web Services
 * [Lab 1 - Deploy Neo4j](Lab%201%20-%20Deploy%20Neo4j) (15 min)
@@ -49,6 +49,10 @@ If you have an AWS account with permissions that allow you to deploy SageMaker, 
 * [Lab 3 - Moving Data](Lab%203%20-%20Moving%20Data/README.md) (15 min)
     * A Day of Data
     * A Year of Data
+* [Lab 4 - Exploring Data](Lab%204%20-%20Exploring%20Data/README.md) 15 min)
+    * Pandas
+    * Cypher Queries
+    * Vizualization with Neo4j Bloom
 * Break (10 min)
 
 ### Part 3
@@ -63,10 +67,6 @@ If you have an AWS account with permissions that allow you to deploy SageMaker, 
 * Lecture - SageMaker (15 min)
     * What is SageMaker?
     * Using SageMaker with Neo4j
-* [Lab 4 - Exploring Data](Lab%204%20-%20Exploring%20Data/README.md) 15 min)
-    * Pandas
-    * Cypher Queries
-    * Vizualization with Neo4j Bloom
 * [Lab 5 - Graph Data Science](Lab%205%20-%20Graph%20Data%20Science/README.md) (15 min)
     * Creating a Graph Embedding
     * Exporting to pandas
