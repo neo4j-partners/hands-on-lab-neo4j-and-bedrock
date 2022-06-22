@@ -16,7 +16,7 @@ These workshops are organized onsite in an AWS office.
 3 hours.
 
 ## Prerequisites
-You'll need a laptop with a web browser. Your browser will need to be able to access the AWS Console and port 7474 on a Neo4j deployment running in AWS.
+You'll need a laptop with a web browser. Your browser will need to be able to access the AWS Console and port 7474 on a Neo4j deployment running in AWS.  If your laptop has a firewall you can't control on it, you may want to bring your personal laptop.
 
 If you have an AWS account with permissions that allow you to deploy SageMaker, deploy from Marketplace and create an S3 bucket, then you can use that.  If not, we'll walk you through creating an AWS account.
 
