@@ -15,7 +15,12 @@ These workshops are organized onsite in an AWS office.
 ## Duration
 3 hours.
 
+## Prerequisites
+You'll need a laptop with a web browser. Your browser will need to be able to access the AWS Console and port 7474 on a Neo4j deployment running in AWS.
+
 ## Agenda
+
+### Part 1
 * Introductions
 * Lecture - [Introduction to Neo4j](https://docs.google.com/presentation/d/1Cue3uBcDnQ6e7w7wocOGqoKd7U8TQFZD7JohbgTrV90/edit?usp=sharing) (10 min)
     * What is Neo4j?
@@ -33,6 +38,8 @@ These workshops are organized onsite in an AWS office.
     * Neo4j Bloom
     * Interacting via Shell
 * Break (10 min)
+
+### Part 2
 * [Lecture - Moving Data](https://docs.google.com/presentation/d/1iAMN6o-aMNtg2WAZzHORbckV--JXa2wiY5YLBNDRN3w/edit?usp=sharing) (10 min)
     * LOAD CSV
     * Amazon Elastic Map Reduce (EMR)
@@ -41,6 +48,8 @@ These workshops are organized onsite in an AWS office.
     * A Day of Data
     * A Year of Data
 * Break (10 min)
+
+### Part 3
 * [Lecture - Graph Data Science](https://docs.google.com/presentation/d/1dx5ve401iHlUseznhdbHE-h-Uk97ENheS_d6tEVIcOc/edit?usp=sharing) (10 min)
     * Why Graph Data Science
     * Neo4j GDS Library and Catalog
@@ -49,6 +58,9 @@ These workshops are organized onsite in an AWS office.
     * Centrality
     * Community Detection
     * Graph Machine Learning
+* Lecture - SageMaker (15 min)
+    * What is SageMaker?
+    * Using SageMaker with Neo4j
 * [Lab 4 - Exploring Data](Lab%204%20-%20Exploring%20Data/README.md) 15 min)
     * Pandas
     * Cypher Queries
@@ -57,11 +69,8 @@ These workshops are organized onsite in an AWS office.
     * Creating a Graph Embedding
     * Exporting to pandas
     * Writing to AWS S3
-* Lecture - SageMaker (15 min)
-    * What is SageMaker?
-    * Using SageMaker with Neo4j
 * [Lab 6 - SageMaker](Lab%206%20-%20SageMaker) (20 min)
     * Raw Data
     * Data with Embedding
-* [Lab 7 - Cleanup](Lab%207%20-%20Cleanup) (Optional)
+* [Lab 7 - Cleanup](Lab%207%20-%20Cleanup) (15 min)
 * [Discussion - Questions and Next Steps](Discussion%20-%20Questions%20and%20Next%20Steps.md) (10 min)
