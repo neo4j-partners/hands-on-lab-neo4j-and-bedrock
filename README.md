@@ -28,7 +28,7 @@ If you have an AWS account with permissions that allow you to deploy a SageMaker
     * What is Neo4j?
     * Customer use cases
     * How is it deployed and managed on AWS?
-* [Lab 0 - Signup for Amazon](Lab%200%20-%20Signup%20for%20Amazon) (15 min)
+* [Lab 0 - Signup for AWS](Lab%200%20-%20Signup%20for%20AWS) (15 min)
     * Improving the Labs
     * Signup for Amazon Web Services
     * Apply AWS Credits
