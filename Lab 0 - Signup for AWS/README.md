@@ -9,7 +9,7 @@ As you work through these labs, we'd really appreciate your feedback.  One way t
 ## Signup for AWS
 If you don't have an account yet, you go [here](https://aws.amazon.com/) to sign up for one.
 
-You'll need to provide your phone number and credit card information.  Total costs for the lab should be significantly under $10.  Those will be more than offset by a credit that AWS is providing for lab attendees.  At the end of the lab we'll show you how to delete any resources you've deployed as well.
+You'll need to provide your phone number and credit card information.  Total costs for the lab should be under $10.  Those will be more than offset by a credit that AWS is providing for lab attendees.  At the end of the lab we'll show you how to delete any resources you've deployed as well.
 
 Click on "Create an AWS Account" in the upper right.
 
