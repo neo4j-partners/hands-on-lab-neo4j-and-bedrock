@@ -1,7 +1,10 @@
 # Lab 0 - Signup for AWS
 First off, you're going to need an AWS account.  
 
-If you have an AWS account already, you may be able to use that.  Your account would need permissions that allow you to deploy a SageMaker domain and deploy from Marketplace.  It would also need a default VPC with public access.  If your account meets those requirements, you can skip down to the "Apply AWS Credits" section of this lab.
+If you have an AWS account already, you may be able to use that.  You would need permissions that allow you to deploy a SageMaker domain and deploy from Marketplace.  It would also need a default VPC with public access.  If your access meets those requirements, you can skip the "Signup for AWS" section of this lab.
+
+## Improving the Labs
+As you work through these labs, we'd really appreciate your feedback.  One way to help us improve is to open an issue by going [here](https://github.com/neo4j-partners/hands-on-lab-neo4j-and-sagemaker/issues).  Outright bugs, usability suggestions, and general comments are all appreciated.  Pull requests are great too!
 
 ## Signup for AWS
 If you don't have an account yet, you go [here](https://aws.amazon.com/) to sign up for one.
@@ -90,10 +93,11 @@ You're now all logged in to your environment and ready to use it.
 ## Apply AWS Credits
 As part of the labs, AWS is providing credits.  The credits should far exceed the cost of resources consumed during this lab.  You can apply the credits to your account by navigating [here](https://console.aws.amazon.com/billing/home?#/credits)
 
+Once there, click on "Redeem credit."
+
 ![](images/20-credit.png)
 
-Once there, click on "redeem credit."
+You'll then need to enter the code for the credit and answer the captcha.  With that complete, click "Redeem credit."
 
 ![](images/21-redeem.png)
 
-You'll then need to enter the code for the credit and answer the captcha.  With that complete, click "Redeem credit."
