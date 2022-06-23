@@ -1,17 +1,6 @@
 # Lab 1 - Deploy Neo4j
 In this lab, we're going to deploy Neo4j Enterprise Edition from the AWS Marketplace.  That listing has a Cloud Formation template under it that we'll inspect.  We'll also look at more customizable deployment options.
 
-## Apply AWS Credits
-As part of the labs, AWS is providing credits.  The credits should far exceed the cost of resources consumed during this lab.  You can apply the credits to your account by navigating [here](https://console.aws.amazon.com/billing/home?#/credits)
-
-![](images/01-credit.png)
-
-Once there, click on "redeem credit."
-
-![](images/02-redeem.png)
-
-You'll then need to enter the code for the credit and answer the captcha.  With that complete, click "Redeem credit."
-
 ## Pick a Region
 For this lab, you'll want to pick one AWS region to put all your resources in.  It doesn't particularly matter which region you use.  That said, if you use the default region for your account, things will probably be simpler.  You can tell which region is selected by looking in the upper right of the AWS console [here](https://console.aws.amazon.com/).  In the image below, the region is N. Virginia, also known as us-east-1.
 
