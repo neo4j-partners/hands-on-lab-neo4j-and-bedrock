@@ -3,7 +3,7 @@ Neo4j is the [leading graph database](https://neo4j.com/whitepapers/forrester-wa
 
 In this hands on lab, you’ll get to learn about Neo4j and AWS SageMaker.  The lab is intended for data scientists and data engineers.  We’ll walk through deploying Neo4j and SageMaker on AWS in your own AWS account.  Then we’ll get hands on with a real world dataset, building a machine learning pipeline that takes advantage of features generated using Neo4j Graph Data Science to improve prediction in AWS SageMaker.  You’ll come out of this lab with enough knowledge to apply graph feature engineering to your own datasets.
 
-We’re going to analyze the quarterly filings of asset managers with $100m+ assets under management (AUM).  These are regulatory filing made to the Securities and Exchange Commission’s (SEC) EDGAR system.  We’re going to show how to load that data from an AWS S3 bucket into Neo4j.  We’ll then explore the relationships of different asset managers and their holdings using the Neo4j Browser and Neo4j’s Cypher query language.
+We’re going to analyze the quarterly filings of asset managers with $100m+ assets under management (AUM).  These are regulatory filings made to the Securities and Exchange Commission’s (SEC) EDGAR system.  We’re going to show how to load that data from an AWS S3 bucket into Neo4j.  We’ll then explore the relationships of different asset managers and their holdings using the Neo4j Browser and Neo4j’s Cypher query language.
 
 Finally, we’ll use Neo4j Graph Data Science to create a graph embedding from our data, export that out, and run supervised learning algorithms in AWS SageMaker.  We’ll try to predict what holdings asset managers will maintain or enlarge in the next quarter.  
 
@@ -18,7 +18,7 @@ These workshops are organized onsite in an AWS office.
 ## Prerequisites
 You'll need a laptop with a web browser. Your browser will need to be able to access the AWS Console and port 7474 on a Neo4j deployment running in AWS.  If your laptop has a firewall you can't control on it, you may want to bring your personal laptop.
 
-If you have an AWS account with permissions that allow you to deploy SageMaker, deploy from Marketplace and create an S3 bucket, then you can use that.  If not, we'll walk you through creating an AWS account.
+If you have an AWS account with permissions that allow you to deploy a SageMaker domain and deploy from Marketplace, then you can use that.  If not, we'll walk you through creating an AWS account.
 
 ## Agenda
 
@@ -29,11 +29,10 @@ If you have an AWS account with permissions that allow you to deploy SageMaker, 
     * Customer use cases
     * How is it deployed and managed on AWS?
 * [Lab 0 - Signup for Amazon](Lab%200%20-%20Signup%20for%20Amazon) (15 min)
-    * Singup for Amazon
-    * Signup for Amazon Web Services
-* [Lab 1 - Deploy Neo4j](Lab%201%20-%20Deploy%20Neo4j) (15 min)
     * Improving the Labs
+    * Signup for Amazon Web Services
     * Apply AWS Credits
+* [Lab 1 - Deploy Neo4j](Lab%201%20-%20Deploy%20Neo4j) (15 min)
     * Deploying Neo4j Enterprise Edition through the Marketplace
 * [Lab 2 - Connect to Neo4j](Lab%202%20-%20Connect%20to%20Neo4j/README.md) (15 min)
     * Neo4j Browser
