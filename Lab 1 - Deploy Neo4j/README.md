@@ -11,9 +11,7 @@ Whatever region you select, make sure that you're logged into it as you proceed 
 ## Create a Key Pair
 The machine we're going to create for the lab will be an EC2 instance.  We'll need to create a key pair to connect to the instance.
 
-If you don't have a key pair already, follow through these steps.  First, navigate to the console [here](https://console.aws.amazon.com/).
-
-Now, type "key pairs" in the search bar at the top of the console.  
+If you don't have a key pair already, follow through these steps.  First, navigate to the console [here](https://console.aws.amazon.com/).  Now, type "key pairs" in the search bar at the top of the console.  
 
 ![](images/02-console.png)
 
@@ -47,21 +45,23 @@ That's it!
 ## Configure VPC
 AWS accounts are created with a default VPC.  We're going to be using that for this deployment.  Sometimes people delete the default VPCs in their accounts.  Let's check and make sure the default VPC exists and is properly configured.  To do that, open an AWS console [here](https://console.aws.amazon.com/).
 
-![](images/08-console.png)
-
 Type "VPC" in the search bar.
 
-![](images/09-search.png)
+![](images/08-console.png)
 
 Select "VPC" under services.
 
-[](images/10-vpc.png)
+![](images/09-search.png)
 
 In the VPC menu, select "VPCs."  That will give us a view of our VPCs.  With any luck, you'll already have at least one.
 
+[](images/10-vpc.png)
+
+Now scroll to the right of the VPC. 
+
 ![](images/11-vpc.png)
 
-Now scroll to the right of the VPC view and check if you have have VPC with the value "Yes" under "Default VPC."  
+Check if you have have VPC with the value "Yes" under "Default VPC."  
 
 ![](images/12-default.png)
 
