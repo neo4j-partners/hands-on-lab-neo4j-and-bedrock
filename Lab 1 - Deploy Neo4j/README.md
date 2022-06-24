@@ -126,11 +126,11 @@ Assuming you're still logged into AWS from our earlier setup, you'll get directe
 
 Make certain that you're in the same region that your key pair and VPC from earlier are in.  If not, change the region using the menu in the upper right.
 
-Because we clicked through from Marketplace, the CloudFormation conssole is already populated with the location of a template in an s3 bucket.  Click "View in Designer."
+Because we clicked through from Marketplace, the CloudFormation console is already populated with the location of a template in an s3 bucket.  Click "View in Designer."
 
 ![](images/24-cft.png)
 
-This directs us into the CloudFormation designer.  
+Now, we're redirected to the CloudFormation designer.  
 
 You can see that the template deploys two security groups.  One is external and one is internal.  The internal security group opens connectivity between nodes in the cluster to do things like replication.  The external one allows us to connect to the database from outside the VPC.  This makes it possible for us to navigate to the Neo4j Browser from our laptops.
 
@@ -147,11 +147,9 @@ Now we're back at the CloudFormation console.  Since we have a good understandin
 
 ![](images/26-stack.png)
 
-We're now at the stage where we need to make some choices about how we're deploying Neo4j.
+It's time to make some choices about how we're deploying Neo4j.
 
-For the stack name, type "neo4j-ee" and move to the next field.  For "Graph Database Version," enter 4.4.8.  For "Install Graph Data Science," check that True is selected.
-
-For "Install Bloom," check that true is selected.
+For the stack name, type "neo4j-ee" and move to the next field.  For "Graph Database Version," enter "4.4.8."  For "Install Graph Data Science," check that True is selected.  For "Install Bloom," check that true is selected.
 
 Graph Database Enterprise does not require a license key.  Graph Data Science Enterprise does need a license key.  If you don't specify it, Graph Data Science will start in Community mode.  That means it will not have some features we're going to use later in the lab.  Bloom requires a license key and will not start unless you specify one.  You can use these license keys:
 
