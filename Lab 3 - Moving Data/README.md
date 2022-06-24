@@ -61,7 +61,7 @@ As you play around, you may start to see some of the structure in the graph with
 
 There's an interesting issue hiding in our dataset.  Because of the way we loaded it, we have a bunch of duplicate nodes.  Try running this query and we can find them:
 
-    MATCH (n:Company{cusip:"78462F103"}) RETURN n LIMIT 25
+    MATCH (n:Company{cusip:"78462F103"}) RETURN n;
 
 ![](images/10-query.png)
 
@@ -175,4 +175,11 @@ That should give this:
 
 ![](images/18-partof.png)
 
-You've done it!  We've loaded our data set up.  We'll explore it in the next lab.  But, feel free to poke around in the Neo4j Browser a bit as well.
+You've done it!  We've loaded our data set up.  Let's check if our constrains did what we hoped by running the Cypher query from before again.
+
+    MATCH (n:Company{cusip:"78462F103"}) RETURN n;
+
+![](images/19-query.png)
+
+Hey look!  One node!  Looks like the constraints resolved this.
+We'll explore it in the next lab.  But, feel free to poke around in the Neo4j Browser a bit as well.
