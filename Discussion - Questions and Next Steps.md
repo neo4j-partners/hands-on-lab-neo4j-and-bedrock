@@ -1,6 +1,9 @@
 # Discussion - Questions and Next Steps
 This section has some thoughts on future work, improvements and next steps.  Please feel free to [PR](https://github.com/neo4j-partners/hands-on-lab-neo4j-and-sagemaker/pulls) your ideas and suggestions.
 
+## Lab 0 - Signup for AWS
+To do
+
 ## Lab 1 - Deploy Neo4j
 To do
 
