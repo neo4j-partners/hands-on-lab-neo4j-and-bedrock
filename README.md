@@ -24,7 +24,7 @@ If you have an AWS account already, you may be able to use that.  You would need
 
 ### Part 1
 * Introductions
-* Lecture - [Introduction to Neo4j](https://docs.google.com/presentation/d/1-wrPfSdyx-5qvFKX29BvpN-K-uWAOYEqYzz6J4LA30U/edit?usp=sharing) (10 min)
+* Lecture - [Introduction to Neo4j](https://docs.google.com/presentation/d/1-wrPfSdyx-5qvFKX29BvpN-K-uWAOYEqYzz6J4LA30U/edit?usp=sharing) (15 min)
     * What is Neo4j?
     * Customer use cases
     * How is it deployed and managed on AWS?
@@ -42,7 +42,7 @@ If you have an AWS account already, you may be able to use that.  You would need
     * Neo4j Browser
     * Neo4j Bloom
     * Interacting via Shell
-* Break (10 min)
+* Break (5 min)
 
 ### Part 2
 * [Lecture - Moving Data](https://docs.google.com/presentation/d/1iAMN6o-aMNtg2WAZzHORbckV--JXa2wiY5YLBNDRN3w/edit?usp=sharing) (10 min)
@@ -52,20 +52,20 @@ If you have an AWS account already, you may be able to use that.  You would need
 * [Lab 3 - Moving Data](Lab%203%20-%20Moving%20Data/README.md) (15 min)
     * A Day of Data
     * A Year of Data
-* [Lab 4 - Exploring Data](Lab%204%20-%20Exploring%20Data/README.md) 5 min)
+* [Lab 4 - Exploring Data](Lab%204%20-%20Exploring%20Data/README.md) 10 min)
     * Vizualization with Neo4j Bloom
-* Break (10 min)
+* Break (5 min)
 
 ### Part 3
-* [Lecture - SageMaker](https://docs.google.com/presentation/d/1pbbYsA6U1RlTt5CJV6zjpDLya9xVThRODAO3-CyKIBc/edit?usp=sharing) (15 min)
+* [Lecture - SageMaker](https://docs.google.com/presentation/d/1pbbYsA6U1RlTt5CJV6zjpDLya9xVThRODAO3-CyKIBc/edit?usp=sharing) (10 min)
     * What is SageMaker?
     * Using SageMaker with Neo4j
-* [Lab 5 - SageMaker](Lab%206%20-%20SageMaker) (20 min)
+* [Lab 5 - SageMaker](Lab%206%20-%20SageMaker) (15 min)
     * Create a SageMaker Domain
     * Import from GitHub to SageMaker Studio
     * Pandas
     * Cypher
-* Break (10 min)
+* Break (5 min)
 
 ### Part 4
 * [Lecture - Graph Data Science](https://docs.google.com/presentation/d/1dx5ve401iHlUseznhdbHE-h-Uk97ENheS_d6tEVIcOc/edit?usp=sharing) (10 min)
