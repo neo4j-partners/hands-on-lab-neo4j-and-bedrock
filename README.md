@@ -24,7 +24,7 @@ If you have an AWS account already, you may be able to use that.  You would need
 
 ### Part 1
 * Introductions
-* Lecture - [Introduction to Neo4j](https://docs.google.com/presentation/d/1Cue3uBcDnQ6e7w7wocOGqoKd7U8TQFZD7JohbgTrV90/edit?usp=sharing) (10 min)
+* Lecture - [Introduction to Neo4j](https://docs.google.com/presentation/d/1-wrPfSdyx-5qvFKX29BvpN-K-uWAOYEqYzz6J4LA30U/edit?usp=sharing) (10 min)
     * What is Neo4j?
     * Customer use cases
     * How is it deployed and managed on AWS?
