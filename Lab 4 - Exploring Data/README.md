@@ -6,30 +6,40 @@ You can open Bloom as we did in Lab 2.  When open Bloom, you should see the logi
 
 ![](images/01-login.png)
 
-That should take you to the home screen.  Click in the search bar and then click on "Manager."
-
-If the search bar doesn't populate, you may have to click in the upper left and add the three entities: "Manager", "Holding", and "Company".
+That should take you to the home screen.  A perspective is a specific visualization on your data.  To get started, click "Create Perspective."
 
 ![](images/02-home.png)
 
+Now click "Generate Perspective."
+
+![](images/03-generate.png)
+
+Mouse over the perspective you just generated and click on "Use Perspective" to open it.
+
+![](images/04-newperspective.png)
+
+Click in the search bar and then click on "Manager."
+
+![](images/05-perspective.png)
+
 Then click on the link for manager-holding.
 
-![](images/03-manager.png)
+![](images/06-manager.png)
 
 Then click on the link to add manager-holding-company.
 
-![](images/04-holding.png)
+![](images/07-holding.png)
 
 And now hit enter to run the query.
 
-![](images/05-company.png)
+![](images/08-company.png)
 
-That will give you a view with many nodes.
+That will give you a view with many nodes.  The result here shows all paths from a manager to a holding to a company.  If we'd searched paths for say company to company we wouldn't have gotten any results since there are no such paths in our graph.
 
-![](images/06-result.png)
+![](images/09-result.png)
 
 Now, spend a bit of time exploring the graph.  You can zoom in by holding on the "+" icon.  You can also drag the canvas around to choose what you zoom in on.
 
-![](images/07-explore.png)
+![](images/10-explore.png)
 
-This is only a tiny bit of what Bloom can do.  Feel free to explore!
+This is only a tiny bit of what Bloom can do.  You can learn more about Bloom in the documentation [here](https://neo4j.com/docs/bloom-user-guide/current/bloom-tutorial/).  Feel free to explore!
