@@ -52,30 +52,30 @@ If you have an AWS account already, you may be able to use that.  You would need
 * [Lab 3 - Moving Data](Lab%203%20-%20Moving%20Data/README.md) (15 min)
     * A Day of Data
     * A Year of Data
-* [Lab 4 - Exploring Data](Lab%204%20-%20Exploring%20Data/README.md) 15 min)
-    * Pandas
-    * Cypher Queries
+* [Lab 4 - Exploring Data](Lab%204%20-%20Exploring%20Data/README.md) 5 min)
     * Vizualization with Neo4j Bloom
 * Break (10 min)
 
 ### Part 3
+* Lecture - SageMaker (15 min)
+    * What is SageMaker?
+    * Using SageMaker with Neo4j
+* [Lab 5 - SageMaker](Lab%206%20-%20SageMaker) (20 min)
+    * Create a SageMaker Domain
+    * Cypher Queries
+    * Vizualization with Neo4j Bloom
+* Break (10 min)
+
+### Part 4
 * [Lecture - Graph Data Science](https://docs.google.com/presentation/d/1dx5ve401iHlUseznhdbHE-h-Uk97ENheS_d6tEVIcOc/edit?usp=sharing) (10 min)
     * Why Graph Data Science
-    * Neo4j GDS Library and Catalog
-    * Algorithm Families and Examples
     * Similarity
     * Centrality
     * Community Detection
     * Graph Machine Learning
-* Lecture - SageMaker (15 min)
-    * What is SageMaker?
     * Using SageMaker with Neo4j
-* [Lab 5 - Graph Data Science](Lab%205%20-%20Graph%20Data%20Science/README.md) (15 min)
+* [Lab 6 - Graph Data Science](Lab%205%20-%20Graph%20Data%20Science/README.md) (15 min)
     * Creating a Graph Embedding
     * Exporting to pandas
-    * Writing to AWS S3
-* [Lab 6 - SageMaker](Lab%206%20-%20SageMaker) (20 min)
-    * Raw Data
-    * Data with Embedding
 * [Lab 7 - Cleanup](Lab%207%20-%20Cleanup) (15 min)
 * [Discussion - Questions and Next Steps](Discussion%20-%20Questions%20and%20Next%20Steps.md) (10 min)
