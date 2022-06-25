@@ -57,14 +57,14 @@ If you have an AWS account already, you may be able to use that.  You would need
 * Break (10 min)
 
 ### Part 3
-* Lecture - SageMaker (15 min)
+* [Lecture - SageMaker](https://docs.google.com/presentation/d/1pbbYsA6U1RlTt5CJV6zjpDLya9xVThRODAO3-CyKIBc/edit?usp=sharing) (15 min)
     * What is SageMaker?
     * Using SageMaker with Neo4j
 * [Lab 5 - SageMaker](Lab%206%20-%20SageMaker) (20 min)
     * Create a SageMaker Domain
     * Import from GitHub to SageMaker Studio
-    * Cypher Queries
-    * Vizualization with Neo4j Bloom
+    * Pandas
+    * Cypher
 * Break (10 min)
 
 ### Part 4
@@ -76,7 +76,8 @@ If you have an AWS account already, you may be able to use that.  You would need
     * Graph Machine Learning
     * Using SageMaker with Neo4j
 * [Lab 6 - Graph Data Science](Lab%205%20-%20Graph%20Data%20Science/README.md) (15 min)
-    * Creating a Graph Embedding
-    * Exporting to pandas
+    * Create a Graph Embedding
+    * Autopilot on Embeddings
+    * Autopilot on Raw Data
 * [Lab 7 - Cleanup](Lab%207%20-%20Cleanup) (15 min)
 * [Discussion - Questions and Next Steps](Discussion%20-%20Questions%20and%20Next%20Steps.md) (10 min)
