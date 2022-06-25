@@ -2,10 +2,10 @@
 This section has some thoughts on future work, improvements and next steps.  Please feel free to [PR](https://github.com/neo4j-partners/hands-on-lab-neo4j-and-sagemaker/pulls) your ideas and suggestions.
 
 ## Lab 0 - Signup for AWS
-To do
+IT departments have a way of significantly restricting AWS access.  To work around this, most of our lab attendees create their own accounts where they're the root user and have broad access.  AWS has been providing credits to offset the cost of resources deployed in the lab.  Clearly this experience has a lot of friction.  Other approaches, such as AWS Event Engine provide a way to access AWS.  However, the result is different from what a user experiences in a real environment.  The goal of this lab was to give you hands on end to end experience.  Given that, this seems to be the best way available.
 
 ## Lab 1 - Deploy Neo4j
-To do
+We deployed an IaaS listing for Neo4j.  That uses a CFT which has a variety of prerequisites.  Neo4j is currently working on a click to deploy version of our managed service for AWS, Aura.  Once that is available, we'll probably transition this lab content to that service, simplifying setup.
 
 ## Lab 2 - Connect to Neo4j
 We connected over HTTP.  We are working on improving the self signed cert experience for deployment on IaaS.  We'd also like to use Let's Encrypt or something similar to get a proper cert.  Using Aura avoids this issue entirely.
@@ -15,10 +15,10 @@ We used LOAD CSV to pull data in.  That is one of many ways.  Neo4j [Data Loader
 
 We're also working with AWS on Glue integration.  
 
-The Neo4j [Spark Connector](https://neo4j.com/docs/spark/current/) is another way to get data in.  We've been working on a demo fo that with EMR.
+The Neo4j [Spark Connector](https://neo4j.com/docs/spark/current/) is another way to get data in.  We've been working on a demo of that with EMR.
 
 ## Lab 4 - Exploring Data
-This section of the lab could be expanded.  A data enrichment exercise might be really interesting.
+This section of the lab could be greatly expanded.
 
 ## Lab 5 - Graph Data Science
 With a novel data set combined with a novel approach to machine learning, there's enough material here for numerous business applications or academic papers.  Some areas that might be interesting to explore in the future follow...
