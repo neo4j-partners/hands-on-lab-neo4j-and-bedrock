@@ -82,11 +82,11 @@ It takes a little while to clone the repo (there are an awful lot of pictures in
 Now we have all our notebooks.  In the next two labs we're going to use SageMaker Studio to run them.
 
 ## Pandas
-First off, let's fiddle with the data in pandas.  We have a little notebook to help with that.  In the menu on the left, drill down into "/hands-on-lab-neo4j-and-sagemaker/Lab 5 - SageMaker/exploring_pandas.ipynb."
+First off, let's fiddle with the data in pandas.  We have a little notebook to help with that.  In the menu on the left, drill down into "/hands-on-lab-neo4j-and-sagemaker/Lab 5 - SageMaker/1_pandas.ipynb."
 
 Select the default for the notebook environment and wait for the kernel to start.
 
 Once that's complete, work through the notebook.
 
-## Cypher Queries
-Now we'll run a few queries using the python API.  Earlier we used the graphical interface in the Neo4j Browser.  We're going to do the same thing but in a programmatic way.  Let's start by firing up a notebook.  As you did before, find the "/hands-on-lab-neo4j-and-sagemaker/Lab 5 - SageMaker/exploring_cypher.ipynb" in the Studio menu, fire up a kernel and then run through the notebook.
+## Cypher
+Now we'll run a few queries using the python API.  Earlier we used the graphical interface in the Neo4j Browser.  We're going to do the same thing but in a programmatic way.  Let's start by firing up a notebook.  As you did before, find the "/hands-on-lab-neo4j-and-sagemaker/Lab 5 - SageMaker/2_cypher.ipynb" in the Studio menu, fire up a kernel and then run through the notebook.
