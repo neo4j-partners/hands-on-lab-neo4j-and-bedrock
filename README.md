@@ -62,6 +62,7 @@ If you have an AWS account already, you may be able to use that.  You would need
     * Using SageMaker with Neo4j
 * [Lab 5 - SageMaker](Lab%206%20-%20SageMaker) (20 min)
     * Create a SageMaker Domain
+    * Import from GitHub to SageMaker Studio
     * Cypher Queries
     * Vizualization with Neo4j Bloom
 * Break (10 min)

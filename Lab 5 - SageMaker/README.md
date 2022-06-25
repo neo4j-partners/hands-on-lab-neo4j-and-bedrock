@@ -1,38 +1,40 @@
 # Lab 6 - SageMaker
-Now we've reached what we've been working toward -- pulling graph data into SageMaker.  We're going to spin up a SageMaker domain for this.  
+In this lab we're going to spin up a SageMaker domain.  We'll then use it to run two notebooks.  In later a later lab, we'll use SageMaker for supervised machine learning with Autopilot.  Autopilot attempts to featurize and tune models automatically, simplifying the task of creating a machine learning model.
 
 ## Create a SageMaker Domain
 The first step is to deploy a SageMaker domain.  To do that, open the AWS console [here](https://console.aws.amazon.com/)
 
+In the search bar, type "sagemaker."
+
 ![](images/01-console.png)
 
-In the search bar, type "sagemaker" and then click on "SageMaker" under Services.
+Click on "SageMaker" under Services.  That'll take you to the SageMaker console.
 
 ![](images/02-search.png)
 
-That'll take you to the SageMaker console.  Click on the orange "SageMaker Studio" button.
+Click the "x" in the upper right to dismiss the survey.
 
 ![](images/03-sagemaker.png)
 
-That takes us to a setup screen.  In that screen, under "Default execution role," select "Create a new role."
+We're going to use SageMaker Studio for our work.  It's a hosted environment that includes notebooks, runtimes and all sorts of stuff to do machine learning.  Click on "Studio" under "Control panel."
 
-![](images/04-setup.png)
+![](images/04-survey.png)
 
-In the role menu, select "Any s3 bucket" and select "Create role."
+Now click "Launch SageMaker Studio."
 
-![](images/05-role.png)
+![](images/05-studio.png)
 
-That'll create the role and bring you back to the setup menu.  You can now select "Submit."
+That takes us to a wizard to setup our SageMaker domain.  In that screen, under "Default execution role," select "Create a new role."
 
 ![](images/06-setup.png)
 
-If you have multiple VPCs, you'll get a message about which VPC you want to use.  Select your default VPC.  
+In the role menu, be sure to select "Any s3 bucket" and select "Create role."
 
-![](images/07-vpc.png)
+![](images/07-role.png)
 
-Then select the subnets under it and click "Save and continue."
+That'll create the role and bring you back to the setup menu.  You can now select "Submit."
 
-![](images/08-subnets.png)
+![](images/08-setup.png)
 
 You'll now get a message that it's deploying the SageMaker domain.  That will take a few minutes.
 
@@ -42,8 +44,7 @@ When it's all deployed, you'll see this message:
 
 ![](images/10-complete.png)
 
-## SageMaker Studio
-Now that the domain is setup, let's launch SageMaker studio.  In the AWS console, click on "Launch app" and then "Studio."
+Now that the domain is setup, let's launch SageMaker studio.  In the AWS console, click on "Launch app." Then click on "Studio."
 
 ![](images/11-launch.png)
 
@@ -51,15 +52,41 @@ That'll then carry you through two redirect screens...
 
 ![](images/12-redirect.png)
 
-![](images/13-redirect.png)
-
 After that we land on the SageMaker Studio console.
+
+![](images/13-studio.png)
+
+## Import from GitHub to SageMaker Studio
+For the rest of the labs, we're going to be working with iPython notebooks in SageMaker Studio.  To load them into Studio, we're going to pull them from GitHub using Studio's git integration.
+
+Click on the git icon in the upper left of Studio.  It's below the folder icon on the extreme left of the menu.
 
 ![](images/14-studio.png)
 
+Now click "Clone a Repository."
+
+![](images/15-git.png)
+
+In the dialog, enter the address of the git file in the repo we've been working with.  That is:
+
+    https://github.com/neo4j-partners/hands-on-lab-neo4j-and-sagemaker.git
+
+Then click "CLONE."
+
+![](images/16-git.png)
+
+It takes a little while to clone the repo (there are an awful lot of pictures in here...).  When complete you should see this.
+
+![](images/17-cloned.png)
+
+Now we have all our notebooks.  In the next two labs we're going to use SageMaker Studio to run them.
+
 ## Pandas
-First off, let's fiddle with the data in pandas.  Click [here](exploring_pandas.ipynb) to get started.
+First off, let's fiddle with the data in pandas.  We have a little notebook to help with that.  In the menu on the left, drill down into "/hands-on-lab-neo4j-and-sagemaker/Lab 5 - SageMaker/exploring_pandas.ipynb."
+
+Select the default for the notebook environment and wait for the kernel to start.
+
+Once that's complete, work through the notebook.
 
 ## Cypher Queries
-Now we'll run a few queries using the python API.  Earlier we used the graphical interface in the Neo4j Browser.  We're going to do the same thing but in a programmatic way.  Let's start by firing up a notebook.  Click [here](exploring_cypher.ipynb) and then follow the "Run in Colab" link to open it in Google Colab.
-
+Now we'll run a few queries using the python API.  Earlier we used the graphical interface in the Neo4j Browser.  We're going to do the same thing but in a programmatic way.  Let's start by firing up a notebook.  As you did before, find the "/hands-on-lab-neo4j-and-sagemaker/Lab 5 - SageMaker/exploring_cypher.ipynb" in the Studio menu, fire up a kernel and then run through the notebook.
