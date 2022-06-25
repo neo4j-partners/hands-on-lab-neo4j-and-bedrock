@@ -80,4 +80,4 @@ If you have an AWS account already, you may be able to use that.  You would need
     * Autopilot on Embeddings
     * Autopilot on Raw Data
 * [Lab 7 - Cleanup](Lab%207%20-%20Cleanup) (15 min)
-* [Discussion - Questions and Next Steps](Discussion%20-%20Questions%20and%20Next%20Steps.md) (10 min)
+* [Discussion - Questions and Next Steps](Discussion%20-%20Questions%20and%20Next%20Steps.md) (5 min)
