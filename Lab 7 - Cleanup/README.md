@@ -2,7 +2,7 @@
 We deployed a lot of resources in these labs.  Clearly, you want to make sure they don't run up a bill from unused AWS resources.  In this section we'll work through deleting themm, starting with most expensive first.
 
 ## The Nuclear Option
-If you really want to stop AWS billing, close your AWS account.  In the rest of the lab, we'll walk through less drastic options that allow you to continue to experiment and play with AWS.  But, if you'd like to just be done, follow the instructions [here](https://aws.amazon.com/premiumsupport/knowledge-center/close-aws-account/).
+If you really want to stop AWS billing, close your AWS account.  In the rest of the lab, we'll walk through less drastic options that allow you to continue to experiment and play with AWS.  But, if you prefer the nuclear approach, follow the instructions [here](https://aws.amazon.com/premiumsupport/knowledge-center/close-aws-account/).
 
 ## Delete the Neo4j Deployment
 By far the most expensive thing we deployed was our Neo4j Marketplace listings.  That includes a t3.xlarge which dominates our costs.  That costs $0.1670/hour or $120/month.  The deployment also has an EBS gp3 volume and a few other things for which the cost is more negligable.
@@ -39,6 +39,10 @@ Great!  You've now deleted your deployment!
 
 ## Delete SageMaker
 Our SageMaker deployment likely fits in the free tier, so you are unlikely to incur any cost from it.  Nonetheless, we can step through the steps to delete the domain and underlying resources.
+
+To delete it, log into the AWS console [here](https://console.aws.amazon.com/).  Click on "SageMaker" in the "Recently visited" menu.
+
+![](images/07-console.png)
 
 ## Delete S3 Bucket
 The last set of resources that have any potential charges associated with them is the s3 bucket underlying our SageMaker deployment.  The [S3 free tier is up to 5GB](https://aws.amazon.com/pm/serv-s3), so it's unlikely you've run over that.

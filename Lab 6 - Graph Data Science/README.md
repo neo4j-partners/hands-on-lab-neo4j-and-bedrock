@@ -6,6 +6,3 @@ So, let's get started!  As before, navigate to the notebook at "/hands-on-lab-ne
 
 ## Autopilot on Embeddings
 Now we're going to train a binary classifier on the full dataset, with the graph embeddings.  We'll use SageMaker Autopilot.  Navigate to the notebook at "/hands-on-lab-neo4j-and-sagemaker/Lab 6 - Graph Data Science/2_autopilot_embedding.ipynb."  Then run that.
-
-## Autopilot on Raw Data
-To compare, we'll train a binary classifier on the original dataset, without the graph embeddings.  We'll use SageMaker Autopilot.  Navigate to the notebook at "/hands-on-lab-neo4j-and-sagemaker/Lab 6 - Graph Data Science/3_autopilot_raw.ipynb."  Then run that.
