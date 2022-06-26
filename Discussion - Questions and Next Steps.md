@@ -38,7 +38,7 @@ Regarding the embedding, that is one approach to creating features.  We also cou
 Some work on tuning the embedding would improve accuracy.  It is interesting that, even without tuning, the embedding provides more valuable features than either reportCalendarOrQuarter or cusip.
 
 ## Lab 6 - SageMaker
-To do
+The run time for our Autopilot jobs is about an hour.  I've seen it as low as 20 minutes and as high as 80.  Ideally, AWS would provide the ability to output a very poor model simply to verify model sturcutre.  There's an issue [here](https://github.com/neo4j-partners/hands-on-lab-neo4j-and-sagemaker/issues/2) travking where we are with that.
 
 ## Next Steps
 We hope you enjoyed these labs.  If you have any questions, feel free to reach out directly to any of us.  We'd love the opportunity to explore and support your use cases.
