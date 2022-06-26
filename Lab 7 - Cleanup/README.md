@@ -36,3 +36,11 @@ When complete you'll see this.
 ![](images/06-complete.png)
 
 Great!  You've now deleted your deployment!
+
+## Delete SageMaker
+Our SageMaker deployment likely fits in the free tier, so you are unlikely to incur any cost from it.  Nonetheless, we can step through the steps to delete the domain and underlying resources.
+
+## Delete S3 Bucket
+The last set of resources that have any potential charges associated with them is the s3 bucket underlying our SageMaker deployment.  The [S3 free tier is up to 5GB](https://aws.amazon.com/pm/serv-s3), so it's unlikely you've run over that.
+
+Nonetheless, we can login to the console and delete any data in S3 from there.  To do so, open the s3 service [here](https://s3.console.aws.amazon.com/s3/buckets).  From there, select and delete any S3 buckets you have.  Note, if they have contents, you'll be forced to first delete those contents before you can delete the bucket.
