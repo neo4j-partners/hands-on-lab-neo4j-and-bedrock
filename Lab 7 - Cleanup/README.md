@@ -44,6 +44,86 @@ To delete it, log into the AWS console [here](https://console.aws.amazon.com/). 
 
 ![](images/07-console.png)
 
+Click on "Studio."
+
+![](images/08-sagemaker.png)
+
+Click "Launch SageMaker Studio."
+
+![](images/09-studio.png)
+
+Everything we did in SageMaker is contained within our domain.  However, we can't delete it without first deleting the users within it.  To do that, we need to delete the applications within it.
+
+Click your user under "Users."  In my case, it's called "default-1656123361795."
+
+![](images/10-studio.png)
+
+Click "Delete App" to delete your kernel gateway.
+
+![](images/11-users.png)
+
+Click "Yes, delete app," type "delete" and click "Delete."
+
+![](images/12-confirm.png)
+
+Under the default app, expand the action.
+
+![](images/13-delete.png)
+
+Click "Delete."
+
+![](images/14-expand.png)
+
+Click "Yes, delete app" then type delete.  Finally, click "Delete."
+
+![](images/15-delete.png)
+
+That begins deleting the application.
+
+![](images/16-deleting.png)
+
+The screen will not refresh automatically.  If you refresh it manually, you'll see your application deleted.
+
+When that's complete, click "Edit" in the bottom right.
+
+![](images/17-deleted.png)
+
+Now click "Delete user."
+
+![](images/18-edit.png)
+
+Click "Yes, delete user."  Type "delete."  Then click "Delete."
+
+![](images/19-delete.png)
+
+Now the user is deleting.  Refresh the screen.
+
+![](images/20-deleteuser.png)
+
+Now the user is deleted.  Click on "Control panel" to navigate to the domain.
+
+![](images/21-deleted.png)
+
+Click the gear by "Domain."
+
+![](images/22-cp.png)
+
+Now click "Delete domain."
+
+![](images/23-domain.png)
+
+Click "Yes, delete my Domain."  Then type "delete."  Then click "Delete."
+
+![](images/24-delete.png)
+
+The domain is now deleting.
+
+![](images/25-deleting.png)
+
+When all deleted you will see this menu.
+
+![](images/25-deleted.png)
+
 ## Delete S3 Bucket
 The last set of resources that have any potential charges associated with them is the s3 bucket underlying our SageMaker deployment.  The [S3 free tier is up to 5GB](https://aws.amazon.com/pm/serv-s3), so it's unlikely you've run over that.
 
