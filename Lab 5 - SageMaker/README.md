@@ -1,4 +1,4 @@
-# Lab 6 - SageMaker
+# Lab 5 - SageMaker
 In this lab we're going to spin up a SageMaker domain.  We'll then use it to run two notebooks.  In later a later lab, we'll use SageMaker for supervised machine learning with Autopilot.  Autopilot attempts to featurize and tune models automatically, simplifying the task of creating a machine learning model.
 
 ## Create a SageMaker Domain
