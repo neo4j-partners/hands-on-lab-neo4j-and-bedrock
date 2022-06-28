@@ -60,7 +60,7 @@ If you have an AWS account already, you may be able to use that.  You would need
 * [Lecture - SageMaker](https://docs.google.com/presentation/d/1pbbYsA6U1RlTt5CJV6zjpDLya9xVThRODAO3-CyKIBc/edit?usp=sharing) (10 min)
     * What is SageMaker?
     * Using SageMaker with Neo4j
-* [Lab 5 - SageMaker](Lab%206%20-%20SageMaker) (15 min)
+* [Lab 5 - SageMaker](Lab%205%20-%20SageMaker) (15 min)
     * Create a SageMaker Domain
     * Import from GitHub to SageMaker Studio
     * Pandas
@@ -75,7 +75,7 @@ If you have an AWS account already, you may be able to use that.  You would need
     * Community Detection
     * Graph Machine Learning
     * Using SageMaker with Neo4j
-* [Lab 6 - Graph Data Science](Lab%205%20-%20Graph%20Data%20Science/README.md) (15 min)
+* [Lab 6 - Graph Data Science](Lab%206%20-%20Graph%20Data%20Science/README.md) (15 min)
     * Create a Graph Embedding
     * Autopilot on Embeddings
     * Autopilot on Raw Data
