@@ -149,7 +149,7 @@ Now we're back at the CloudFormation console.  Since we have a good understandin
 
 It's time to make some choices about how we're deploying Neo4j.
 
-For the stack name, type "neo4j-ee" and move to the next field.  For "Graph Database Version," enter "4.4.8."  For "Install Graph Data Science," check that True is selected.  For "Install Bloom," check that true is selected.
+For the stack name, type "neo4j-ee" and move to the next field.  For "Graph Database Version," enter "4.4.9."  For "Install Graph Data Science," check that True is selected.  For "Install Bloom," check that true is selected.
 
 Graph Database Enterprise does not require a license key.  Graph Data Science Enterprise does need a license key.  If you don't specify it, Graph Data Science will start in Community mode.  That means it will not have some features we're going to use later in the lab.  Bloom requires a license key and will not allow you to login without one.  You can use these license keys:
 
@@ -165,7 +165,7 @@ You need to select a password as well.  This should be six characters or longer.
 
 For the "Node Count" select "1." This is the number of Neo4j nodes that will be deployed in the autoscaling group.  Because we're using GDS, we want a single node.  If we were using only GDB, we might deploy in a 3 node cluster for resilience.
 
-Set "Instance type" to "t3.xlarge" and ensure disk size is "100."
+Set "Instance type" to "r6.4xlarge" and ensure disk size is "100."
 
 For "Key Name," you'll want to select the key pair you created earlier, called "neo4j-sagemaker."
 
