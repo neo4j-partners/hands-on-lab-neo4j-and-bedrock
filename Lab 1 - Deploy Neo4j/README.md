@@ -14,35 +14,35 @@ Instead of AuraDB Enterprise, we'll be using Neo4j Enterprise Edition.  That is 
 
 So, let's get started deploying...  Click on "Neo4j Enterprise Edition."
 
-![](images/16-sellerprofile.png)
+![](images/01-sellerprofile.png)
 
 Feel free to poke around the listing.  Once you've read a bit, click "continue to subscribe."
 
-![](images/17-listing.png)
+![](images/02-listing.png)
 
 On that page, click "Accept terms."  What you're agreeing to here is a 30 day trial of Neo4j Enterprise Edition.  You can click on the EULA link to read through the terms.
 
-![](images/18-subscribe.png)
+![](images/03-subscribe.png)
 
 After you accept the terms, you see a spinning dialog with a message that it's "pending."  That'll take a few minutes to process.  Underneath the AWS platform is white listing you to deploy the listing.
 
-![](images/19-subscribing.png)
+![](images/04-subscribing.png)
 
 When the subscription is complete, there will be a button to "Continue to Configuration."  Click that.
 
-![](images/20-continue.png)
+![](images/05-continue.png)
 
 That takes you to a configuration page.  We can accept the defaults for that.  Check that the region is the same region your VPC and key pair were in.  If it is, click "Continue to Launch."
 
-![](images/21-configure.png)
+![](images/06-configure.png)
 
 We now see the launch page. Go to the drop down for "Choose Action" and select "Launch CloudFormation."
 
-![](images/22-launch.png)
+![](images/07-launch.png)
 
 With that all set, the "Launch" button should turn yellow.  Click it.
 
-![](images/23-launch.png)
+![](images/08-launch.png)
 
 Assuming you're still logged into AWS from our earlier setup, you'll get directed into the AWS console.  This is the CloudFormation service.  CloudFormation is AWS's Infrastructure as Code (IaC) language.  It's analogous to technology like Terraform.  CloudFormation enables you to automate the deployment of AWS resources.
 
@@ -50,7 +50,7 @@ Make certain that you're in the same region that your key pair and VPC from earl
 
 Because we clicked through from Marketplace, the CloudFormation console is already populated with the location of a template in an s3 bucket.  Click "View in Designer."
 
-![](images/24-cft.png)
+![](images/09-cft.png)
 
 Now, we're redirected to the CloudFormation designer.  
 
@@ -63,11 +63,11 @@ The CFT creates a role that the CFT uses to setup Neo4j nodes.  It then creates 
 
 You can click on resources to learn more about them.  You can also view the raw Cloud Formation template.  When done, click the back button on your web browser.
 
-![](images/25-designer.png)
+![](images/10-designer.png)
 
 Now we're back at the CloudFormation console.  Since we have a good understanding what the template is going to deploy, let's scroll down and click "Next."
 
-![](images/26-stack.png)
+![](images/11-stack.png)
 
 It's time to make some choices about how we're deploying Neo4j.
 
@@ -95,29 +95,29 @@ Finally, for the "SSH CIDR," you need to type "0.0.0.0/0" which is an oddball AW
 
 With all that config specified, it's time to click the "Next" button.
 
-![](images/27-details.png)
+![](images/12-details.png)
 
 We can accept all the defaults here.  Click "Next."
 
-![](images/28-details.png)
+![](images/13-details.png)
 
 Now there's one final review page.  Assuming that all looks correct, scroll to the bottom.
 
 Check "I acknowledge that AWS CloudFormation might create IAM resources" as that is, after all, the entire point of a CloudFormation template.  Then click "Create stack."
 
-![](images/29-review.png)
+![](images/14-review.png)
 
 You'll now be redirected to a page where you can see the status of your stacks.  Deployment of this stack seem to take about three minutes.  
 
-![](images/30-deploying.png)
+![](images/15-deploying.png)
 
 You can hit the refresh button or even click over to "Resources" to see how it's progressing.
 
-![](images/31-deploying.png)
+![](images/16-deploying.png)
 
 When all done, you'll see "CREATE_COMPLETE" in the stacks menu on the left.
 
-![](images/32-complete.png)
+![](images/17-complete.png)
 
 Once the CloudFormation is complete, a cloud init job on our VMs will kick off once they come up.  That runs asynchronously, so even after CloudFormation reports complete, it may take a few minutes for Neo4j to become available.
 
