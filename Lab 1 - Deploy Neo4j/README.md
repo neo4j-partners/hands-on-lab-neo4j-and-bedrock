@@ -2,7 +2,7 @@
 In this lab, we're going to deploy Neo4j Enterprise Edition from the AWS Marketplace.  That listing has a CloudFormation template under it that we'll inspect.  We'll also look at more customizable deployment options.
 
 ## Deploy Neo4j Enterprise Edition through the Marketplace
-We're all ready to deploy Neo4j!  To do so, let's go to AWS Marketplace.  We could go to the Marketplace and search.  But, instead, let's go directly to the AWS Marketplace Seller Profile for Neo4j.  That's [here](https://aws.amazon.com/marketplace/seller-profile?id=23ec694a-d2af-4641-b4d3-b7201ab2f5f9).
+Let's go to AWS Marketplace.  We could go to the Marketplace and search.  But, instead, let's go directly to the AWS Marketplace Seller Profile for Neo4j.  That's [here](https://aws.amazon.com/marketplace/seller-profile?id=23ec694a-d2af-4641-b4d3-b7201ab2f5f9).
 
 On the seller profile page there are two options.  One is for Neo4j AuraDB Enterprise.  Aura is Neo4j's database as a service (DBaaS).  This is a software as a service (SaaS) offering.  The DB means this is the database version of Aura.  On AWS, there's an upcoming AuraDS, which is the data science version of Aura.
 
@@ -46,13 +46,13 @@ With that all set, the "Launch" button should turn yellow.  Click it.
 
 Assuming you're still logged into AWS from our earlier setup, you'll get directed into the AWS console.  This is the CloudFormation service.  CloudFormation is AWS's Infrastructure as Code (IaC) language.  It's analogous to technology like Terraform.  CloudFormation enables you to automate the deployment of AWS resources.
 
-Make certain that you're in the same region that your key pair and VPC from earlier are in.  If not, change the region using the menu in the upper right.
-
-Because we clicked through from Marketplace, the CloudFormation console is already populated with the location of a template in an s3 bucket.  Click "View in Designer."
+Because we clicked through from Marketplace, the CloudFormation console is already populated with the location of a template in an S3 bucket.  Click "View in Designer."
 
 ![](images/09-cft.png)
 
-Now, we're redirected to the CloudFormation designer.  
+Now, we're redirected to the CloudFormation designer.  You may need to click the circle icon above the plus zoom to center the view.  From there you can zoom in and explore.
+
+![](images/10-designer.png)
 
 You can see that the template deploys two security groups.  One is external and one is internal.  The internal security group opens connectivity between nodes in the cluster to do things like replication.  The external one allows us to connect to the database from outside the VPC.  This makes it possible for us to navigate to the Neo4j Browser from our laptops.
 
@@ -61,13 +61,19 @@ The CFT creates a role that the CFT uses to setup Neo4j nodes.  It then creates 
 * Instance Template
 * Auto Scaling Group
 
-You can click on resources to learn more about them.  You can also view the raw Cloud Formation template.  When done, click the back button on your web browser.
+You can click on resources to learn more about them.  You can also view the raw Cloud Formation template.  
 
-![](images/10-designer.png)
+![](images/11-designer.png)
+
+It can also be useful to rearrange the resources to better understand how they fit together.
+
+![](images/12-designer.png)
+
+When done, click the back button on your web browser.
 
 Now we're back at the CloudFormation console.  Since we have a good understanding what the template is going to deploy, let's scroll down and click "Next."
 
-![](images/11-stack.png)
+![](images/13-stack.png)
 
 It's time to make some choices about how we're deploying Neo4j.
 
@@ -87,39 +93,41 @@ You need to select a password as well.  This should be six characters or longer.
 
 For the "Node Count" select "1." This is the number of Neo4j nodes that will be deployed in the autoscaling group.  Because we're using GDS, we want a single node.  If we were using only GDB, we might deploy in a 3 node cluster for resilience.
 
-Set "Instance type" to "r6.4xlarge" and ensure disk size is "100."
-
-For "Key Name," you'll want to select the key pair you created earlier, called "neo4j-sagemaker."
+Set "Instance type" to "r6i.4xlarge" and ensure disk size is "100."
 
 Finally, for the "SSH CIDR," you need to type "0.0.0.0/0" which is an oddball AWS Marketplace requirement.  If you specify any other value, you're not going to be able to SSH to your Neo4j deployment.
 
 With all that config specified, it's time to click the "Next" button.
 
-![](images/12-details.png)
+![](images/14-details.png)
 
 We can accept all the defaults here.  Click "Next."
 
-![](images/13-details.png)
+![](images/15-details.png)
 
 Now there's one final review page.  Assuming that all looks correct, scroll to the bottom.
 
 Check "I acknowledge that AWS CloudFormation might create IAM resources" as that is, after all, the entire point of a CloudFormation template.  Then click "Create stack."
 
-![](images/14-review.png)
+![](images/16-review.png)
 
 You'll now be redirected to a page where you can see the status of your stacks.  Deployment of this stack seem to take about three minutes.  
 
-![](images/15-deploying.png)
+![](images/17-deploying.png)
 
 You can hit the refresh button or even click over to "Resources" to see how it's progressing.
 
-![](images/16-deploying.png)
+![](images/18-deploying.png)
 
 When all done, you'll see "CREATE_COMPLETE" in the stacks menu on the left.
 
-![](images/17-complete.png)
+![](images/19-complete.png)
 
-Once the CloudFormation is complete, a cloud init job on our VMs will kick off once they come up.  That runs asynchronously, so even after CloudFormation reports complete, it may take a few minutes for Neo4j to become available.
+Click on "Outputs."  Copy the URI for the Neo4j Browser.  You're going to need that in the next lab.
+
+Note that once the CloudFormation is complete, a cloud init job on our VMs will kick off once they come up.  That runs asynchronously, so even after CloudFormation reports complete, it may take a few minutes for Neo4j to become available.
+
+![](images/20-output.png)
 
 You're now all ready for the next lab where we're going to start using the Neo4j deployment we just created.
 

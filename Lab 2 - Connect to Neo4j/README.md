@@ -2,59 +2,23 @@
 In this lab, we're going to connect to the Neo4j deployment we created in the previous step.
 
 ## Neo4j Browser
-A quick thing we can do to check that our deployment is running successfully is to open the Neo4j Browser.  To do so, we're going to need to get the public DNS of a node.  To do that, let's go to the AWS Console [here](https://console.aws.amazon.com/).
+A quick thing we can do to check that our deployment is running successfully is to open the Neo4j Browser.  To do so, we're going to need the URI we copied down at the end of our last lab.  Paste that into a web browser and open it.  
 
-![](images/01-console.png)
-
-In the search bar, type "cloudformation."
-
-![](images/02-search.png)
-
-Click on "CloudFormation" under Services.
-
-In the results, you should see the deployment we created in the last lab, called "neo4j-ee."  Make sure it says "CREATE_COMPLETE."  Click on that.
-
-![](images/03-stacks.png)
-
-Now we can see the stack we created and detail on it.  Click on the "Resources" tab.  That will allow us to drill down into the resources that the CFT created.
-
-![](images/04-stacks.png)
-
-We can now see all the resources that were created.  We're going to want to drill into the auto scaling group.  Click on that.
-
-![](images/05-resources.png)
-
-Getting closer... Now click on "Instance management" to view individual instances that are part of the ASG.
-
-![](images/06-asg.png)
-
-Under the "Instances" there's "Instance ID."  Hiding under that is the ID of your instance.  In my case, it's "i-012987fa3ec0fe2c1."  Click on that.
-
-![](images/07-instancemanagement.png)
-
-Ok, we're here!  This is the information on our particular instance.  In this case, the Neo4j deployment consists of one instance.  It's possible to deploy clusters as well, in which case we would see multiple instances in this view.
-
-We want the value of "Public IPv4 DNS."  So, click the copy button (two squares on top of each other) next to it.  That will get it into your clipboard.  Now, open a new web browser tab, paste that in and add ":7474" at the end.  7474 is the port that Neo4j Browser uses for HTTP communication.  There's also an HTTPS listener running on 7473.
-
-![](images/08-instance.png)
-
-My URL was "ec2-3-136-106-172.us-east-2.compute.amazonaws.com:7474" and after I copied it into Chrome, I hit enter to open it.
-
-![](images/09-url.png)
+In my case, the URI was: http://neo4j-ee-nlb-b36b6b627f78bab6.elb.us-east-1.amazonaws.com:7474/
 
 That should open the Neo4j Browser.
 
 The default database is called "Neo4j."  We can leave that blank.  For a username, enter "neo4j."  For the password, use what we previously chose in the marketplace deployment.  We'd suggested "foo123" as a password.  Click on "Connect" after entering that information.
 
-![](images/10-neo4jbrowser.png)
+![](images/01-neo4jbrowser.png)
 
 You'll be presented with the Neo4j welcome screen at this point.  If you click on the little database icon in the upper left, you can see the contents of our database.
 
-![](images/11-welcome.png)
+![](images/02-welcome.png)
 
 There's nothing in our database yet.  We can see the nodes, relationships and properties areas are all blank.
 
-![](images/12-contents.png)
+![](images/03-contents.png)
 
 Before we move on, let's make sure Neo4j Graph Data Science (GDS) is all set up.  We can do that by entering the following command into the Neo4j Browser:
 
@@ -62,41 +26,59 @@ Before we move on, let's make sure Neo4j Graph Data Science (GDS) is all set up.
 
 Then hit the little blue triangle play button to run it.  You should see the following.
 
-![](images/13-gds.png)
+![](images/04-gds.png)
 
 Assuming that all looks good, let's move on...
 
 ## Neo4j Bloom
-Neo4j Bloom is a business intelligence (BI) tool.  It's running on that same 7474 port that the Neo4j Browser was.  So, to open it up, we can just edit that url slightly by add "bloom" to the end of it and hitting enter.  In my case, the URL was "http://ec2-3-136-106-172.us-east-2.compute.amazonaws.com:7474/bloom."
+Neo4j Bloom is a business intelligence (BI) tool.  It's running on that same 7474 port that the Neo4j Browser was.  So, to open it up, we can just edit that url slightly by add "bloom" to the end of it and hitting enter.  In my case, the URL was "http://neo4j-ee-nlb-b36b6b627f78bab6.elb.us-east-1.amazonaws.com:7474/bloom"
 
-![](images/14-bloomurl.png)
-
-That'll then navigate us to the bloom console.
-
-![](images/15-bloom.png)
+![](images/05-bloom.png)
 
 You can login with the same username and password from before.
 
-![](images/16-bloom.png)
+![](images/06-bloom.png)
 
 That's it.  If you got here, Bloom is installed and running.
 
 ## Interacting via Shell
-These steps are really useful if something goes wrong with your Neo4j deployment.  We're going to connect to an instance and check out some logs.  To get the connection information, let's go back to the tab with your "instance summary."  If you closed it, you can follow the steps from above to find it again.
+These next steps are really useful if something goes wrong with your Neo4j deployment.  We're going to connect to an instance and check out some logs.  To get the connection information, let's go back to the stack you deployed earlier.  If you closed it, you can simply follow [this link](https://us-east-1.console.aws.amazon.com/cloudformation/home).
 
-Once that's open, click on the "Connect" button.
+Once that's open, click on the "neo4j-ee" stack name.
 
-![](images/17-instancesummary.png)
+![](images/07-stacks.png)
+
+Click on "Resources."
+
+![](images/08-stack.png)
+
+Click on the ID of the ASG.  In my case it was "neo4j-ee-Neo4jAutoScalingGroup-ZICK7UZQY61U."
+
+![](images/09-resources.png)
+
+Click on "Instance Management."
+
+![](images/10-asg.png)
+
+If we had deployed a cluster, we would see multiple instances here.  However we only deployed a single node, so we see just one.
+
+Click on the instance ID.  In my case, it was "i-0acc6447f3a48607a."
+
+![](images/11-instancemanagement.png)
+
+Now click "Connect."
+
+![](images/12-instance.png)
 
 In the connect dialog, we have a few options.  We're going to use simplest, the "EC2 Instance Connect."  Simply click on the "Connect" button.  That'll open up a terminal connection in a new window.
 
 Note, that as an alternative to this process, you could SSH to the box using the key you saved earlier.
 
-![](images/18-connect.png)
+![](images/13-connect.png)
 
 You should see a terminal like this.
 
-![](images/19-terminal.png)
+![](images/14-terminal.png)
 
 Now that we have a terminal, let's run a few commands to poke around.  This instance is running vanilla Amazon Linux 2, so looks very much like any other EC2 instance.  After deployment, AWS ran a startup script using cloud-init.  Let's check the log for that to make sure it looks good.  We'll have to sudo as it has restricted permissions.
 
@@ -106,7 +88,7 @@ Now that we have a terminal, let's run a few commands to poke around.  This inst
 
 Here's what it looks like.
 
-![](images/20-cloudinit.png)
+![](images/15-cloudinit.png)
 
 Now let's check out the Neo4j logs using these commands:
 
@@ -115,7 +97,7 @@ Now let's check out the Neo4j logs using these commands:
 
 That should give us this:
 
-![](images/21-debug.png)
+![](images/16-debug.png)
 
 Finally, let's check to make sure the neo4j process is running with this command:
 
@@ -124,6 +106,6 @@ Finally, let's check to make sure the neo4j process is running with this command
 
 That should give us this:
 
-![](images/22-process.png)
+![](images/17-process.png)
 
 Assuming that all looks good, let's move on...
