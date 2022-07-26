@@ -2,7 +2,7 @@
 We deployed a lot of resources in these labs.  Clearly, you want to make sure they don't run up a bill from unused AWS resources.  In this section we'll work through deleting themm, starting with most expensive first.
 
 ## Delete the Neo4j Deployment
-By far the most expensive thing we deployed was our Neo4j Marketplace listings.  That includes a t3.xlarge which dominates our costs.  That costs $0.1670/hour or $120/month.  The deployment also has an EBS gp3 volume and a few other things for which the cost is more negligable.
+By far the most expensive thing we deployed was our Neo4j Marketplace listings.  That includes a r6i.4xlarge which dominates our costs.  That costs $1.01/hour or $727.20/month.  The deployment also has an EBS gp3 volume and a few other things for which the cost is more negligable.
 
 WARNING -- if you go to AWS EC2 and delete your VM this will not delete the deployment.  The ASG that is part of the stack will automatically spin up a new VM.  This is great for resilience but important to understand when taking apart your IaaS deployment.
 
