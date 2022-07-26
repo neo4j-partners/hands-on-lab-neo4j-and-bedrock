@@ -1,90 +1,12 @@
 # Lab 1 - Deploy Neo4j
-In this lab, we're going to deploy Neo4j Enterprise Edition from the AWS Marketplace.  That listing has a Cloud Formation template under it that we'll inspect.  We'll also look at more customizable deployment options.
-
-## Pick a Region
-For this lab, you'll want to pick one AWS region to put all your resources in.  It doesn't particularly matter which region you use.  You can tell which region is selected by looking in the upper right of the AWS console [here](https://console.aws.amazon.com/).  In the image below, the region is Ohio, also known as us-east-2.
-
-![](images/01-region.png)
-
-Whatever region you select, make sure that you're logged into it as you proceed through the following steps.
-
-## Create a Key Pair
-The machine we're going to create for the lab will be an EC2 instance.  We'll need to create a key pair to connect to the instance.
-
-If you don't have a key pair already, follow through these steps.  First, navigate to the console [here](https://console.aws.amazon.com/).  Now, type "key pairs" in the search bar at the top of the console.  
-
-![](images/02-console.png)
-
-Click on the "Key pairs" result that shows up under "Features."
-
-![](images/03-search.png)
-
-In this window, you'll see a list of any existing key pairs.  Unless you have an old key pair that you want to use, you should click "Create key pair" in the upper right.
-
-![](images/04-keypairs.png)
-
-This menu is for creating the key pair.  For a name, type neo4j-sagemaker.  All the other defaults will work.  So, accept those and click "Create key pair."
-
-![](images/05-create.png)
-
-That leads us back to our list of key pairs.  You can see the newly created key paid.  In my case, I'm using Chrome on a mac.  The private key was automatically downloaded to my ~/Downloads folder.  You can see it in the lower left of the browser.
-
-In order to connect to the instance later, we'll need the private key in the path for our SSH client.
-
-![](images/06-created.png)
-
-On a mac you can open a terminal and run these commands to move the key and then set the permissions:
-
-    mv -f ~/Downloads/neo4j-sagemaker.pem ~/.ssh/
-    chmod 400 ~/.ssh/neo4j-sagemaker.pem
-
-![](images/07-terminal.png)
-
-That's it!
-
-## Configure VPC
-AWS accounts are created with a default VPC.  We're going to be using that for this deployment.  Sometimes people delete the default VPCs in their accounts.  Let's check and make sure the default VPC exists and is properly configured.  To do that, open an AWS console [here](https://console.aws.amazon.com/).
-
-Type "VPC" in the search bar.
-
-![](images/08-console.png)
-
-Select "VPC" under services.
-
-![](images/09-search.png)
-
-In the VPC menu, select "VPCs."  That will give us a view of our VPCs.  With any luck, you'll already have at least one.
-
-[](images/10-vpc.png)
-
-Now scroll to the right of the VPC. 
-
-![](images/11-vpc.png)
-
-Check if you have have VPC with the value "Yes" under "Default VPC."  
-
-![](images/12-default.png)
-
-If you don't have a default VPC, you're going to need to create one.  Click "Create VPC" in the upper right.  If you do have a default VPC, then we should check a few more things.  Click on the default VPC.
-
-In that view, check "DNS hostnames" is enabled and that "DNS resolution" is enabled.
-
-![](images/13-vpc.png)
-
-Finally, click "Subnets" in the menu on the left of the console.
-
-![](images/14-subnets.png)
-
-Scroll to the right and locate the subnets in your default VPC.  Those are the ones that say "Yes" under "Default subnet."  Make sure that "Auto-assign public IPv4 address" is "Yes."
-
-![](images/15-defaultsubnet.png)
+In this lab, we're going to deploy Neo4j Enterprise Edition from the AWS Marketplace.  That listing has a CloudFormation template under it that we'll inspect.  We'll also look at more customizable deployment options.
 
 ## Deploy Neo4j Enterprise Edition through the Marketplace
-Alright, we've checked a bunch of prerequisities are ok.  Now, we're all read to deploy Neo4j!  To do so, let's go to AWS Marketplace.  We could go to the Marketplace and search.  But, instead, let's go directly to the AWS Marketplace Seller Profile for Neo4j.  That's [here](https://aws.amazon.com/marketplace/seller-profile?id=23ec694a-d2af-4641-b4d3-b7201ab2f5f9).
+We're all ready to deploy Neo4j!  To do so, let's go to AWS Marketplace.  We could go to the Marketplace and search.  But, instead, let's go directly to the AWS Marketplace Seller Profile for Neo4j.  That's [here](https://aws.amazon.com/marketplace/seller-profile?id=23ec694a-d2af-4641-b4d3-b7201ab2f5f9).
 
 On the seller profile page there are two options.  One is for Neo4j AuraDB Enterprise.  Aura is Neo4j's database as a service (DBaaS).  This is a software as a service (SaaS) offering.  The DB means this is the database version of Aura.  On AWS, there's an upcoming AuraDS, which is the data science version of Aura.
 
-Instead of AuraDB Enterprise, we'll be using Neo4j Enterprise Edition.  That is the installable version of Neo4j that runs on Infrastructure as a Service (IaaS).  The AWS listing has a Cloud Formation Template (CFT) that deploys Neo4j for you.  This has options to deploy Neo4j Graph Database, Neo4j Graph Data Science and Neo4j Bloom.
+Instead of AuraDB Enterprise, we'll be using Neo4j Enterprise Edition.  That is the installable version of Neo4j that runs on Infrastructure as a Service (IaaS).  The AWS listing has a CloudFormation Template (CFT) that deploys Neo4j for you.  This has options to deploy Neo4j Graph Database, Neo4j Graph Data Science and Neo4j Bloom.
 
 * Graph Database is, as the name implies, Neo4j's core database.  It's designed from the ground up to store graphs.  This comes in both a community and an enterprise version.  We're going to use the enterprise version.
 * Graph Data Science (GDS) is the graph library that installs on top of the database.  It has implentations of 60 different graph algorithms.  We're going to use GDS to do things like create graph embeddings later in the labs.
@@ -181,7 +103,7 @@ We can accept all the defaults here.  Click "Next."
 
 Now there's one final review page.  Assuming that all looks correct, scroll to the bottom.
 
-Check "I acknowledge that AWS CloudFormation might create IAM resources" as that is, after all, the entire point of a Cloud Formation template.  Then click "Create stack."
+Check "I acknowledge that AWS CloudFormation might create IAM resources" as that is, after all, the entire point of a CloudFormation template.  Then click "Create stack."
 
 ![](images/29-review.png)
 
@@ -197,12 +119,12 @@ When all done, you'll see "CREATE_COMPLETE" in the stacks menu on the left.
 
 ![](images/32-complete.png)
 
-Once the Cloud Formation is complete, a cloud init job on our VMs will kick off once they come up.  That runs asynchronously, so even after Cloud Formation reports complete, it may take a few minutes for Neo4j to become available.
+Once the CloudFormation is complete, a cloud init job on our VMs will kick off once they come up.  That runs asynchronously, so even after CloudFormation reports complete, it may take a few minutes for Neo4j to become available.
 
 You're now all ready for the next lab where we're going to start using the Neo4j deployment we just created.
 
-## Cloud Formation Template
-In this lab we worked through deploying via the Marketplace.  The Marketplace is essentially a nice GUI around Cloud Formation.  If you're a more technical user and like deploying from the command line there are a variety of options.  These options are also useful if you'd like to modify the Cloud Formation template.
+## CloudFormation Template
+In this lab we worked through deploying via the Marketplace.  The Marketplace is essentially a nice GUI around CloudFormation.  If you're a more technical user and like deploying from the command line there are a variety of options.  These options are also useful if you'd like to modify the CloudFormation template.
 
 The first of these is the Neo4j Partners GitHub organization.  That has a repo with the template from Marketplace as well as additional templates in it.  You can view that [here](https://github.com/neo4j-partners/amazon-cloud-formation-neo4j).
 

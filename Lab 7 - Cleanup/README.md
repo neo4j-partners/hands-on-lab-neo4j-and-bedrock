@@ -127,7 +127,7 @@ When all deleted you will see this menu.
 ## Delete S3 Bucket
 The last set of resources that have any potential charges associated with them is the s3 bucket underlying our SageMaker deployment.  The [S3 free tier is up to 5GB](https://aws.amazon.com/pm/serv-s3), so it's unlikely you've run over that.
 
-Nonetheless, we can login to the console and delete any data in S3 from there.  To do so, open the s3 service [here](https://s3.console.aws.amazon.com/s3/buckets).  From there, select and delete any S3 buckets you have.  Note, if they have contents, you'll be forced to first delete those contents before you can delete the bucket.
+Nonetheless, we can login to the console and delete any data in S3 from there.  To do so, open the S3 service [here](https://s3.console.aws.amazon.com/s3/buckets).  From there, select and delete any S3 buckets you have.  Note, if they have contents, you'll be forced to first delete those contents before you can delete the bucket.
 
 ## Miscellaneous
-We also created an IAM role and a keypair.  Those are both free but you can delete them in the console to avoid clutter.
+We also created an IAM role.  That's free but you can delete it in the console to avoid clutter.
