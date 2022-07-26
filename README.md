@@ -33,11 +33,8 @@ If you have an AWS account already, you may be able to use that.  You would need
     * Signup for AWS
     * Apply AWS Credits
 * [Lab 1 - Deploy Neo4j](Lab%201%20-%20Deploy%20Neo4j) (15 min)
-    * Pick a Region
-    * Create a Key Pair
-    * Configure VPC
     * Deploy Neo4j Enterprise Edition through the Marketplace
-    * Cloud Formation Template
+    * CloudFormation Template
 * [Lab 2 - Connect to Neo4j](Lab%202%20-%20Connect%20to%20Neo4j/README.md) (15 min)
     * Neo4j Browser
     * Neo4j Bloom
