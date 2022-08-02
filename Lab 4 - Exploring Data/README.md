@@ -2,7 +2,9 @@
 In this lab, we're going to use Bloom to explore our data set a bit.  Bloom is Neo4j's business intelligence (BI) tool.
 
 ## Vizualization with Neo4j Bloom
-You can open Bloom as we did in Lab 2.  When open Bloom, you should see the login screen.  Use the same credentials we used before.
+You can open Bloom as we did in Lab 2.  In my case, the URL was http://neo4j-ee-nlb-42d743e314598b85.elb.us-east-1.amazonaws.com:7474/bloom/.  
+
+When open Bloom, you should see the login screen.  Use the same credentials we used before.
 
 ![](images/01-login.png)
 
@@ -42,4 +44,10 @@ Now, spend a bit of time exploring the graph.  You can zoom in by holding on the
 
 ![](images/10-explore.png)
 
-This is only a tiny bit of what Bloom can do.  You can learn more about Bloom in the documentation [here](https://neo4j.com/docs/bloom-user-guide/current/bloom-tutorial/).  Feel free to explore!
+This is only a tiny bit of what Bloom can do.  
+
+Two additional things you can try are:
+(1) Invoking Graph Data Science (GDS) algorithms for centrality
+(2) Filtering the displayed nodes
+
+You can learn more about Bloom in the documentation [here](https://neo4j.com/docs/bloom-user-guide/current/bloom-tutorial/).  Feel free to explore!
