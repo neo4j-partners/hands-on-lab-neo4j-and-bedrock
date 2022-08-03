@@ -136,13 +136,13 @@ That should give this:
 
 And now we can load our Holdings:
 
-LOAD CSV WITH HEADERS FROM 'https://neo4j-dataset.s3.amazonaws.com/form13/2021.csv' AS row
-MERGE (h:Holding {filingManager:row.filingManager, cusip:row.cusip, reportCalendarOrQuarter:row.reportCalendarOrQuarter})
-ON CREATE SET
-    h.value=toInteger(row.value), 
-    h.shares=toInteger(row.shares),
-    h.target=toBoolean(row.target),
-    h.nameOfIssuer=row.nameOfIssuer
+    LOAD CSV WITH HEADERS FROM 'https://neo4j-dataset.s3.amazonaws.com/form13/2021.csv' AS row
+    MERGE (h:Holding {filingManager:row.filingManager, cusip:row.cusip, reportCalendarOrQuarter:row.reportCalendarOrQuarter})
+    ON CREATE SET
+        h.value=toInteger(row.value), 
+        h.shares=toInteger(row.shares),
+        h.target=toBoolean(row.target),
+        h.nameOfIssuer=row.nameOfIssuer
 
 That should give this:
 
