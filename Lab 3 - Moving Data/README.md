@@ -91,8 +91,8 @@ First, let's create constraints, essentially a primary key, for the company and 
 
 The manager is a little more difficult.  But, we're going to assume that the filingManager field is both unique and correct.
 
-    CREATE CONSTRAINT IF NOT EXISTS ON (p:Company) ASSERT (p.cusip) IS NODE KEY;
-    CREATE CONSTRAINT IF NOT EXISTS ON (p:Manager) ASSERT (p.filingManager) IS NODE KEY;
+    CREATE CONSTRAINT IF NOT EXISTS FOR (p:Company) REQUIRE (p.cusip) IS NODE KEY;
+    CREATE CONSTRAINT IF NOT EXISTS FOR (p:Manager) REQUIRE (p.filingManager) IS NODE KEY;
 
 That should give this:
 
@@ -106,7 +106,7 @@ Now, the holding is a bit more interesting.  It needs a compound key.  Because a
 
 So, we're going to need something with a compound key like this:
 
-    CREATE CONSTRAINT IF NOT EXISTS ON (p:Holding) ASSERT (p.filingManager, p.cusip, p.reportCalendarOrQuarter) IS NODE KEY;
+    CREATE CONSTRAINT IF NOT EXISTS FOR (p:Holding) REQUIRE (p.filingManager, p.cusip, p.reportCalendarOrQuarter) IS NODE KEY;
 
 That should give this:
 
