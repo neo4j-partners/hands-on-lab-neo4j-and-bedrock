@@ -128,7 +128,7 @@ Click on "Outputs."  Copy the URI for the Neo4j Browser.  You're going to need t
 
 Note that once the CloudFormation is complete, a cloud init job on our VMs will kick off once they come up.  That runs asynchronously, so even after CloudFormation reports complete, it may take a few minutes for Neo4j to become available.
 
-![](images/20-output.png)
+![](images/20-outputs.png)
 
 You're now all ready for the next lab where we're going to start using the Neo4j deployment we just created.
 
