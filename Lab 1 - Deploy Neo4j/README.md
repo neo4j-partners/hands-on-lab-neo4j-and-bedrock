@@ -14,7 +14,7 @@ Instead of AuraDB Enterprise, we'll be using Neo4j Enterprise Edition.  That is 
 
 So, let's get started deploying...  Click on "Neo4j Enterprise Edition."
 
-![](images/01-sellerprofile.png)
+![](images/01-sellerprofile-v2.png)
 
 Feel free to poke around the listing.  Once you've read a bit, click "continue to subscribe."
 
