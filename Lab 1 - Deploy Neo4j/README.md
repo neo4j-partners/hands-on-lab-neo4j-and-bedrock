@@ -36,13 +36,9 @@ That takes you to a configuration page.  We can accept the defaults for that.  C
 
 ![](images/06-configure-v2.png)
 
-We now see the launch page. Go to the drop down for "Choose Action" and select "Launch CloudFormation."
+We now see the launch page. Go to the drop down for "Choose Action" and select "Launch CloudFormation" and the "Launch" button should turn yellow.  Click it.
 
-![](images/07-launch.png)
-
-With that all set, the "Launch" button should turn yellow.  Click it.
-
-![](images/08-launch.png)
+![](images/08-launch-v2.png)
 
 Assuming you're still logged into AWS from our earlier setup, you'll get directed into the AWS console.  This is the CloudFormation service.  CloudFormation is AWS's Infrastructure as Code (IaC) language.  It's analogous to technology like Terraform.  CloudFormation enables you to automate the deployment of AWS resources.
 
