@@ -98,6 +98,8 @@ With all that config specified, it's time to click the "Next" button.
 
 ![](images/14-details.png)
 
+![](images/14-details-2.png)
+
 We can accept all the defaults here.  Click "Next."
 
 ![](images/15-details.png)
