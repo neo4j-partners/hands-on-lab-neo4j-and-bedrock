@@ -104,7 +104,7 @@ We can accept all the defaults here.  Click "Next."
 
 Now there's one final review page.  Assuming that all looks correct, scroll to the bottom.
 
-Check "I acknowledge that AWS CloudFormation might create IAM resources" as that is, after all, the entire point of a CloudFormation template.  Then click "Create stack."
+Check "I acknowledge that AWS CloudFormation might create IAM resources" as that is, after all, the entire point of a CloudFormation template.  Then click "Submit"
 
 ![](images/16-review.png)
 
