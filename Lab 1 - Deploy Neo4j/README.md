@@ -88,7 +88,7 @@ Bloom License Key:
 
 You need to select a password as well.  This should be six characters or longer.  My go to throw away password is "foo123"
 
-For the "Node Count" select "1." This is the number of Neo4j nodes that will be deployed in the autoscaling group.  Because we're using GDS, we want a single node.  If we were using only GDB, we might deploy in a 3 node cluster for resilience.
+For the "Node Count" select 1. This is the number of Neo4j nodes that will be deployed in the autoscaling group.  Because we're using GDS, we want a single node.  If we were using only GDB, we might deploy in a 3 node cluster for resilience.
 
 Set "Instance type" to "r6i.4xlarge" and ensure disk size is "100."
 
@@ -96,9 +96,7 @@ Finally, for the "SSH CIDR," you need to type "0.0.0.0/0" which is an oddball AW
 
 With all that config specified, it's time to click the "Next" button.
 
-![](images/14-details.png)
-
-![](images/14-details-2.png)
+![](images/14-details-v2.png)
 
 We can accept all the defaults here.  Click "Next."
 
