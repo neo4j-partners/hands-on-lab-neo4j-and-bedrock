@@ -12,10 +12,6 @@ Click on "SageMaker" under Services.  That'll take you to the SageMaker console.
 
 ![](images/02-search.png)
 
-Click the "x" in the upper right to dismiss the survey.
-
-![](images/03-sagemaker.png)
-
 We're going to use SageMaker Studio for our work.  It's a hosted environment that includes notebooks, runtimes and all sorts of stuff to do machine learning.  Click on "Studio" under "Control panel."
 
 ![](images/04-survey.png)
