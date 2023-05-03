@@ -10,7 +10,7 @@ In the search bar, type "sagemaker." From the search results, click on "SageMake
 
 That takes us to a wizard to setup our SageMaker domain.  In that screen, under "Default execution role," select "Create a new role."
 
-![](images/06-setup.png)
+![](images/06-setup-v2.png)
 
 In the role menu, be sure to select "Any s3 bucket" and select "Create role."
 
