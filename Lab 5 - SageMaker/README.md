@@ -55,7 +55,7 @@ In the dialog, enter the address of the git file in the repo we've been working 
 
 Then click "CLONE."
 
-![](images/16-git.png)
+![](images/16-git-v2.png)
 
 It takes a little while to clone the repo (there are an awful lot of pictures in here...).  When complete you should see this.
 
