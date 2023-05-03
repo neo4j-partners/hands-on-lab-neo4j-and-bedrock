@@ -24,11 +24,11 @@ You'll now get a message that it's deploying the SageMaker domain.  That will ta
 
 ![](images/09-deployed.png)
 
-When it's all deployed, you'll see this message:
+When it's all deployed, you'll see "InStatus" status.
 
 ![](images/10-complete.png)
 
-Now that the domain is setup, let's launch SageMaker studio.  In the AWS console, click on "Launch app." Then click on "Studio."
+Now that the domain is setup, let's launch SageMaker studio.  Click on the domain link and the "Domains details" page, click on "Launch" Then click on "Studio."
 
 ![](images/11-launch.png)
 
