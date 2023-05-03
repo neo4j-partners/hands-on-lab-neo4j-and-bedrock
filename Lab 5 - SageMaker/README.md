@@ -14,7 +14,7 @@ That takes us to a wizard to setup our SageMaker domain.  In that screen, under 
 
 In the role menu, be sure to select "Any s3 bucket" and select "Create role."
 
-![](images/07-role.png)
+![](images/07_role_v2.png)
 
 That'll create the role and bring you back to the setup menu.  You can now select "Submit."
 
