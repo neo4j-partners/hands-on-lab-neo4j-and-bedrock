@@ -6,7 +6,7 @@ The first step is to deploy a SageMaker domain.  To do that, open the AWS consol
 
 In the search bar, type "sagemaker." From the search results, click on "SageMaker Studio" under "Top Features".
 
-![](images/04-survey-v2.png)
+![](images/04-sagemaker.png)
 
 That takes us to a wizard to setup our SageMaker domain.  In that screen, under "Default execution role," select "Create a new role."
 
