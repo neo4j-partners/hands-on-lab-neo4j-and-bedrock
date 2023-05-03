@@ -24,13 +24,11 @@ You'll now get a message that it's deploying the SageMaker domain.  That will ta
 
 ![](images/09-deployed.png)
 
-When it's all deployed, you'll see "InStatus" status.
-
-![](images/10-complete.png)
+When it's all deployed, you'll see "InService" status.
 
 Now that the domain is setup, let's launch SageMaker studio.  Click on the domain link and the "Domains details" page, click on "Launch" Then click on "Studio."
 
-![](images/11-launch.png)
+![](images/11-launch-v2.png)
 
 That'll then carry you through two redirect screens...
 
