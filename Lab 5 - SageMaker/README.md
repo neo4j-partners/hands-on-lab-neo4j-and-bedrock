@@ -4,21 +4,9 @@ In this lab we're going to spin up a SageMaker domain.  We'll then use it to run
 ## Create a SageMaker Domain
 The first step is to deploy a SageMaker domain.  To do that, open the AWS console [here](https://console.aws.amazon.com/)
 
-In the search bar, type "sagemaker."
+In the search bar, type "sagemaker." From the search results, click on "SageMaker Studio" under "Top Features".
 
-![](images/01-console.png)
-
-Click on "SageMaker" under Services.  That'll take you to the SageMaker console.
-
-![](images/02-search.png)
-
-We're going to use SageMaker Studio for our work.  It's a hosted environment that includes notebooks, runtimes and all sorts of stuff to do machine learning.  Click on "Studio" under "Control panel."
-
-![](images/04-survey.png)
-
-Now click "Launch SageMaker Studio."
-
-![](images/05-studio.png)
+![](images/04-survey-v2.png)
 
 That takes us to a wizard to setup our SageMaker domain.  In that screen, under "Default execution role," select "Create a new role."
 
