@@ -22,7 +22,7 @@ That'll create the role and bring you back to the setup menu.  You can now selec
 
 You'll now get a message that it's deploying the SageMaker domain.  That will take a few minutes.
 
-![](images/09-deploy.png)
+![](images/09-deployed.png)
 
 When it's all deployed, you'll see this message:
 
