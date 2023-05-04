@@ -54,7 +54,7 @@ Click "Launch SageMaker Studio."
 
 Everything we did in SageMaker is contained within our domain.  However, we can't delete it without first deleting the users within it.  To do that, we need to delete the applications within it.
 
-Click your user under "Users."  In my case, it's called "default-1656123361795."
+Click your user under "Users."
 
 ![](images/10-studio-v2.png)
 
