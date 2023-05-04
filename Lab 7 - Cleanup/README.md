@@ -60,19 +60,11 @@ Click your user under "Users."  In my case, it's called "default-1656123361795."
 
 Click "Delete App" to delete your kernel gateway.
 
-![](images/11-users.png)
-
 Click "Yes, delete app," type "delete" and click "Delete."
 
 ![](images/12-confirm.png)
 
-Under the default app, expand the action.
-
-![](images/13-delete.png)
-
-Click "Delete."
-
-![](images/14-expand.png)
+Under the default app, expand the action and Click "Delete."
 
 Click "Yes, delete app" then type delete.  Finally, click "Delete."
 
