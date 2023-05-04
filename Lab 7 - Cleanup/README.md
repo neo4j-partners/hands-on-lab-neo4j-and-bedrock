@@ -88,13 +88,12 @@ Now the user is deleting.  Refresh the screen.
 
 ![](images/20-deleteuser.png)
 
-Now the user is deleted.  Click on "Control panel" to navigate to the domain.
+Now the user is deleted.  Click on "Domain" to navigate to the domain.
 
-![](images/21-deleted.png)
 
-Click the gear by "Domain."
+Click the "Edit" button after selecting your domain.
 
-![](images/22-cp.png)
+![](images/21-domain-edit.png)
 
 Now click "Delete domain."
 
