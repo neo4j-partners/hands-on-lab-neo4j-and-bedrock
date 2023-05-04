@@ -66,15 +66,7 @@ Click "Yes, delete app," type "delete" and click "Delete."
 
 Under the default app, expand the action and Click "Delete."
 
-That begins deleting the application.
-
-![](images/16-deleting.png)
-
-The screen will not refresh automatically.  If you refresh it manually, you'll see your application deleted.
-
-When that's complete, click "Edit" in the bottom right.
-
-![](images/17-deleted.png)
+That begins deleting the application. The screen will not refresh automatically.  If you refresh it manually, you'll see your application deleted.
 
 Now click "Delete user."
 
