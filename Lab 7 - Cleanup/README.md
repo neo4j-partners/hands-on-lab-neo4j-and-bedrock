@@ -86,10 +86,7 @@ Click "Yes, delete user."  Type "delete."  Then click "Delete."
 
 Now the user is deleting.  Refresh the screen.
 
-![](images/20-deleteuser.png)
-
-Now the user is deleted.  Click on "Domain" to navigate to the domain.
-
+Once the user is deleted.  Click on "Domain" to navigate to the domain.
 
 Click the "Edit" button after selecting your domain.
 
