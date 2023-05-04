@@ -40,7 +40,7 @@ That will give you a view with many nodes.  The result here shows all paths from
 
 ![](images/09-result.png)
 
-Now, spend a bit of time exploring the graph.  You can zoom in by holding on the "+" icon.  You can also drag the canvas around to choose what you zoom in on.
+Now, spend a bit of time exploring the graph.  You can zoom in by holding on the "+" icon.  You can also drag the canvas around to choose what you zoom in on. To clear the canvas, right click on an empty space to open popup window and click on "Clear Scene."
 
 ![](images/10-explore.png)
 
