@@ -86,6 +86,8 @@ Bloom License Key:
 
     eyJhbGciOiJQUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imd1aGFuLnNpdmFqaUBuZW80ai5jb20iLCJleHAiOjE2ODUxNjAwMDAsImZlYXR1cmVWZXJzaW9uIjoiKiIsIm9yZyI6Ik5lbzRqIChQYXJ0bmVyKSIsInB1YiI6Im5lbzRqLmNvbSIsInF1YW50aXR5IjoiMSIsInJlZyI6Ikd1aGFuIFNpdmFqaSIsInNjb3BlIjoiVHJpYWwiLCJzdWIiOiJuZW80ai1ibG9vbS1zZXJ2ZXIiLCJ2ZXIiOiIqIiwiaXNzIjoibmVvNGouY29tIiwibmJmIjoxNjgyNjExOTgyLCJpYXQiOjE2ODI2MTE5ODIsImp0aSI6IlJ3SXJ2dmZQQyJ9.USKF4iFSwiPiduOfpMEMB4SOsDX1vWeBl9R1qfTfUkBUpEeNzaVtmoBI8ES071s7eY1LtlpzhFWRNG9nquB7yuSUUi2gsVK6XQY7Xc77_kg8Y4aRuKa5eUy1TvFy3cHgdvmBVXyn3cIM8nZu9W71QK-z5YLTh2PiIhPtpjBQIfO31dilN1EgwVbHVwzm1I1Rf-yC3GnR1Owx4iceKMgEiL4O2aLUIJQhinxlYaXF1xtWl8DClznpoamqpfwiyKORcYiDry_Wyd4I1ujmqnu-9SrqqmJO49HJFl5Kyxt5z8smV2I3tYDfblCiZSDtQC7JP7dhRd1Fi7QGeW0M5l5Y9A
 
+![](images/14-details-v2.png)
+
 You need to select a password as well.  This should be six characters or longer.  My go to throw away password is "foo123"
 
 For the "Node Count" select 1. This is the number of Neo4j nodes that will be deployed in the autoscaling group.  Because we're using GDS, we want a single node.  If we were using only GDB, we might deploy in a 3 node cluster for resilience.
@@ -95,8 +97,6 @@ Set "Instance type" to "r6i.4xlarge" and ensure disk size is "100."
 Finally, for the "SSH CIDR," you need to type "0.0.0.0/0" which is an oddball AWS Marketplace requirement.  If you specify any other value, you're not going to be able to SSH to your Neo4j deployment.
 
 With all that config specified, it's time to click the "Next" button.
-
-![](images/14-details-v2.png)
 
 We can accept all the defaults here.  Click "Next."
 
