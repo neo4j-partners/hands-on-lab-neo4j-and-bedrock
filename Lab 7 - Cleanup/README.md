@@ -105,11 +105,11 @@ Click "Yes, delete my Domain."  Then type "delete."  Then click "Delete."
 
 The domain is now deleting.
 
-![](images/25-deleting.png)
+![](images/25-deleting-vs.png)
 
 When all deleted you will see this menu.
 
-![](images/25-deleted.png)
+![](images/25-deleted-v2.png)
 
 ## Delete S3 Bucket
 The last set of resources that have any potential charges associated with them is the s3 bucket underlying our SageMaker deployment.  The [S3 free tier is up to 5GB](https://aws.amazon.com/pm/serv-s3), so it's unlikely you've run over that.
