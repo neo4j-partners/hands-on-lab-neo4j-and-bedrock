@@ -20,6 +20,14 @@ That'll create the role and bring you back to the setup menu.  You can now selec
 
 ![](images/08-setup.png)
 
+Select the VPC that shows your stack name
+
+![](images/08-setup-vpc.png)
+
+Select the Subnet
+
+![](images/08-setup-subnet.png)
+
 You'll now get a message that it's deploying the SageMaker domain.  That will take a few minutes.
 
 ![](images/09-deployed.png)
