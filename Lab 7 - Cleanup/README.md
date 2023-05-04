@@ -66,10 +66,6 @@ Click "Yes, delete app," type "delete" and click "Delete."
 
 Under the default app, expand the action and Click "Delete."
 
-Click "Yes, delete app" then type delete.  Finally, click "Delete."
-
-![](images/15-delete.png)
-
 That begins deleting the application.
 
 ![](images/16-deleting.png)
