@@ -31,11 +31,11 @@ Then hit the little blue triangle play button to run it.  You should see the fol
 Assuming that all looks good, let's move on...
 
 ## Neo4j Bloom
-Neo4j Bloom is a business intelligence (BI) tool.  It's running on that same 7474 port that the Neo4j Browser was.  So, to open it up, we can just edit that url slightly by add "bloom" to the end of it and hitting enter.  In my case, the URL was "http://neo4j-ee-nlb-b36b6b627f78bab6.elb.us-east-1.amazonaws.com:7474/bloom"
+Neo4j Bloom is a business intelligence (BI) tool.  It's running on that same 7474 port that the Neo4j Browser was.  So, to open it up, we can just edit that url slightly by replacing "browser" with "bloom" and hitting enter.  In my case, the URL was "http://neo4j-ee-nlb-b36b6b627f78bab6.elb.us-east-1.amazonaws.com:7474/bloom"
 
 ![](images/05-bloom.png)
 
-You can login with the same username and password from before.
+You can login with the same username and password from before. You need to type the username 'neo4j' (replacing the greyed-out default username)
 
 ![](images/06-bloom.png)
 
