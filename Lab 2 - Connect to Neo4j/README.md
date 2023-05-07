@@ -8,7 +8,7 @@ In my case, the URI was: http://neo4j-ee-nlb-b36b6b627f78bab6.elb.us-east-1.amaz
 
 That should open the Neo4j Browser.
 
-The default database is called "Neo4j."  We can leave that blank.  For a username, enter "neo4j."  For the password, use what we previously chose in the marketplace deployment.  We'd suggested "foo123" as a password.  Click on "Connect" after entering that information.
+The default database is called "Neo4j."  We can leave that blank.  For a username, enter "neo4j."  For the password, use what we previously chose in the marketplace deployment.  We'd suggested "password" as a password.  Click on "Connect" after entering that information.
 
 ![](images/01-neo4jbrowser.png)
 
