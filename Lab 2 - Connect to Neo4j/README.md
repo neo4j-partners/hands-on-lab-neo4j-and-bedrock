@@ -42,8 +42,7 @@ You can login with the same username and password from before.
 
 ![](images/06-bloom.png)
 
-> **Note**
-> That's it.  If you got here, Bloom is installed and running. 
+That's it.  If you got here, Bloom is installed and running. 
 
 > **Warning**
 > You can skip the optional 'Interacting via Shell scetion below.' and go to Lab 3.
