@@ -37,6 +37,7 @@ That takes you to a configuration page.  We can accept the defaults for that.  C
 > **Note**
 > Please make a note of the Region. If this deployment fails, you may have to retry this using a different region.
 
+
 ![](images/06-configure-v2.png)
 
 We now see the launch page. Go to the drop down for "Choose Action" and select "Launch CloudFormation" and the "Launch" button should turn yellow.  Click it.
@@ -81,7 +82,7 @@ For the stack name, type "neo4j-ee" and move to the next field. For "Install Gra
 Graph Database Enterprise does not require a license key.  Graph Data Science Enterprise does need a license key.  If you don't specify it, Graph Data Science will start in Community mode.  That means it will not have some features we're going to use later in the lab.  Bloom requires a license key and will not allow you to login without one. 
 
 > **Warning**
-> Replace 'None' with the below keys.
+> Please make sure to replace 'None' with the below keys. Please select 'None' and paste the copied keys.
 
 You can use these trial license keys:
 
