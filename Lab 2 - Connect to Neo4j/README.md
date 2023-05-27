@@ -40,7 +40,8 @@ You can login with the same username and password from before. You need to type 
 ![](images/06-bloom.png)
 
 > **Note**
-> That's it.  If you got here, Bloom is installed and running.
+> That's it.  If you got here, Bloom is installed and running. You can skip the optional 'Interacting via Shell scetion below.'
+
 
 ## Interacting via Shell - (Optional)
 These next steps are really useful if something goes wrong with your Neo4j deployment.  We're going to connect to an instance and check out some logs.  To get the connection information, let's go back to the stack you deployed earlier.  If you closed it, you can simply follow [this link](https://us-east-1.console.aws.amazon.com/cloudformation/home).
