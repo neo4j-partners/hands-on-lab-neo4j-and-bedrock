@@ -39,6 +39,7 @@ You can login with the same username and password from before. You need to type 
 
 ![](images/06-bloom.png)
 
+**Warning**
 That's it.  If you got here, Bloom is installed and running.
 
 ## Interacting via Shell - (Optional)
