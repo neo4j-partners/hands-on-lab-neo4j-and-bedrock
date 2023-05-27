@@ -38,7 +38,7 @@ Neo4j Bloom is a business intelligence (BI) tool.  It's running on that same 747
 You can login with the same username and password from before. 
 
  **Warning**
- You need to type the username 'neo4j' (replacing the greyed-out default username)
+ You need to type the username 'neo4j' (replacing the greyed-out default username) and go to Lab 3.
 
 ![](images/06-bloom.png)
 
