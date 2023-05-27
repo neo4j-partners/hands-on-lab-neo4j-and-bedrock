@@ -75,7 +75,12 @@ It's time to make some choices about how we're deploying Neo4j.
 
 For the stack name, type "neo4j-ee" and move to the next field. For "Install Graph Data Science," check that True is selected.  For "Install Bloom," check that true is selected.
 
-Graph Database Enterprise does not require a license key.  Graph Data Science Enterprise does need a license key.  If you don't specify it, Graph Data Science will start in Community mode.  That means it will not have some features we're going to use later in the lab.  Bloom requires a license key and will not allow you to login without one.  You can use these license keys:
+Graph Database Enterprise does not require a license key.  Graph Data Science Enterprise does need a license key.  If you don't specify it, Graph Data Science will start in Community mode.  That means it will not have some features we're going to use later in the lab.  Bloom requires a license key and will not allow you to login without one. 
+
+> **Warning**
+> Replace 'None' with the below keys.
+
+You can use these trial license keys:
 
 Graph Data Science License Key: 
 
