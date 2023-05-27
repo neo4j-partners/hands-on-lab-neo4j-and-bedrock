@@ -44,7 +44,7 @@ You can login with the same username and password from before.
 
 That's it.  If you got here, Bloom is installed and running. 
 
-> **Warning**
+> **Note**
 > You can skip the optional 'Interacting via Shell scetion below.' and go to Lab 3.
 
 
