@@ -103,7 +103,7 @@ For the "Node Count" select 1. This is the number of Neo4j nodes that will be de
 
 Set "Instance type" to "r6i.4xlarge" and ensure disk size is "100."
 
-Finally, for the "SSH CIDR," you need to type "0.0.0.0/0" which is an oddball AWS Marketplace requirement.  If you specify any other value, you're not going to be able to SSH to your Neo4j deployment.
+Finally, for the "SSH CIDR," you can enter "0.0.0.0/0" to enable all IPv4 addresses to access your instance using SSH. Alternatively, you can use the search phrase "what is my IP address" in an internet browser. For example, if your public IPv4 address is 203.0.113.25, enter 203.0.113.25/32 to allow ssh access from this single IPv4 address. 
 
 With all that config specified, it's time to click the "Next" button.
 
