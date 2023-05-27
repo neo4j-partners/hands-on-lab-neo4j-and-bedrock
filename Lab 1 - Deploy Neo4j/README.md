@@ -34,6 +34,9 @@ When the subscription is complete, there will be a button to "Continue to Config
 
 That takes you to a configuration page.  We can accept the defaults for that.  Check that the region is the same region your VPC and key pair were in.  If it is, click "Continue to Launch."
 
+> **Note**
+> Please make a note of the Region. If this deployment fails, you may have to retry this using a different region.
+
 ![](images/06-configure-v2.png)
 
 We now see the launch page. Go to the drop down for "Choose Action" and select "Launch CloudFormation" and the "Launch" button should turn yellow.  Click it.
