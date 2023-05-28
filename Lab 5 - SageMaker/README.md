@@ -24,7 +24,7 @@ Select the VPC that shows your stack name
 
 ![](images/08-setup-vpc-2.png)
 
-Select the Default VPC and select the subnet.
+Select the Default VPC and select the subnet and click on Submit.
 
 
 You'll now get a message that it's deploying the SageMaker domain.  That will take a few minutes.
