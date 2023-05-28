@@ -65,6 +65,8 @@ Then click "CLONE."
 > **Warning**
 > Please make sure you select the "Clone https://github...", as shown in the screenshot below. 
 
+
+
 ![](images/16-git-v2.png)
 
 It takes a little while to clone the repo (there are an awful lot of pictures in here...).  When complete you should see this.
