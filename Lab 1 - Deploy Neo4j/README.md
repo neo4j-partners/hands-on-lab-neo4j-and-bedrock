@@ -123,7 +123,8 @@ You'll now be redirected to a page where you can see the status of your stacks. 
 
 You can hit the refresh button or even click over to "Resources" to see how it's progressing.
 
-If you see an error on the cloud deployment, please delete this stack and restart this Lab 1 and select a different region, (as shown in the 'Configure this software' section above.)
+> **Note**
+> If you see an error on the cloud deployment, please delete this stack and restart this Lab 1 and select a different region, (as shown in the 'Configure this software' section above.)
 
 ![](images/18-deploying.png)
 
