@@ -8,6 +8,8 @@ By far the most expensive thing we deployed was our Neo4j Marketplace listings. 
 >If you go to AWS EC2 and delete your VM this will not delete the deployment.  The ASG that is part of the stack will automatically spin up a new VM.  This is great for resilience but important to understand when taking apart your IaaS deployment.
 
 We can go ahead and delete it, even if your SageMaker job is still running.  You've already exported the data from Neo4j to S3, so deleting it won't impact that job.
+>**Warning**
+>Please close your SageMaker Studio before you start your cleanup process.
 
 At any rate, to delete it, log into the AWS console [here](https://console.aws.amazon.com/).  Click on "CloudFormation" in the "Recently visited" menu.
 
