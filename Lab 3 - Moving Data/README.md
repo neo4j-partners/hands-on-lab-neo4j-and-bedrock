@@ -8,6 +8,8 @@ The dataset is pulled from the SEC's EDGAR database.  These are public filings o
 Here is the graphical representation of the data model of the database:
 
 ![](images/00-Graph_data_model.png)
+Here is how the data model is mapped to the CSV file:
+![](images/CSV_Preview.png)
 
 ## A Day of Data
 For this portion of the lab, we're going to work with a subset of the data.  Our full dataset is a year of data.  However, we'll just be playing around with a day's worth.  The data is [here](https://neo4j-dataset.s3.amazonaws.com/form13/2022-02-17.csv).
