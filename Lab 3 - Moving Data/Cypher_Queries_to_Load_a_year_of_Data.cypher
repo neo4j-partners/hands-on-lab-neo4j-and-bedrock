@@ -28,4 +28,4 @@ LOAD CSV WITH HEADERS FROM 'https://neo4j-dataset.s3.amazonaws.com/form13/2021.c
 MATCH (h:Holding {filingManager:row.filingManager, cusip:row.cusip, reportCalendarOrQuarter:row.reportCalendarOrQuarter})
 MATCH (c:Company {cusip:row.cusip})
 MERGE (h)-[r:PARTOF]->(c);
-//Done with loading 1 years of data. Please allow atleast 3-5 minutes t0 load this 1/2 million records
+//Done with loading 1 years of data. Please allow atleast 3-5 minutes to load this 1/2 million records. If it fails, please retry.
