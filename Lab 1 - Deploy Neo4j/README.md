@@ -1,5 +1,15 @@
 # Lab 1 - Deploy Neo4j
-In this lab, we're going to deploy Neo4j Enterprise Edition from the AWS Marketplace.  That listing has a CloudFormation template under it that we'll inspect.  We'll also look at more customizable deployment options.
+Neo4j has three major products:
+* Graph Database - a native graph database built from the ground up to leverage not only data but also the relationships in that data
+* Graph Data Science - implementations of 70+ algorithms that can be run on graphs stored in the database
+* Bloom - a Business Intelligence (BI) tool designed specifically to explore graphs
+
+There are many ways to run these products on AWS.  The Marketplace in particular offers two ways to deploy Neo4j:
+
+* Software as a Service (SaaS) - Neo4j Aura is the lowest effort way to deploy Neo4j.  Infrastructure is managed entirely for you.  Aura is available in AuraDB (Database) and AuraDS (Data Science) versions.  DB is the core database.  DS includes Bloom for Business Intelligence and Neo4j Graph Data Science.
+* Infrastructure as a Service (IaaS) - Neo4j Enterprise Edition is available on IaaS with an AWS CloudFormation Template (CFT).  That allow you to choose whether you would like a single node or cluster.  It allows deployment of Graph Database, Bloom and Graph Data Science.
+
+You can inspect these options [here](https://aws.amazon.com/marketplace/seller-profile?id=23ec694a-d2af-4641-b4d3-b7201ab2f5f9).
 
 ## Deploy Neo4j Enterprise Edition through the Marketplace
 Let's go to AWS Marketplace.  We could go to the Marketplace and search.  But, instead, let's go directly to the AWS Marketplace Seller Profile for Neo4j.  That's [here](https://aws.amazon.com/marketplace/seller-profile?id=23ec694a-d2af-4641-b4d3-b7201ab2f5f9).

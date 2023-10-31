@@ -1,55 +1,79 @@
-# Lab 4 - Exploring Data
-In this lab, we're going to use Bloom to explore our data set a bit.  Bloom is Neo4j's business intelligence (BI) tool.
+# Lab 4 - Exploration
+In this lab, we'll use Bloom, Neo4j's business intelligence (BI) tool, to explore our data.
 
-## Vizualization with Neo4j Bloom
-You can open Bloom as we did in Lab 2.  In my case, the URL was http://neo4j-ee-nlb-42d743e314598b85.elb.us-east-1.amazonaws.com:7474/bloom/.  
+## Exploration with Neo4j Bloom
+To open Bloom, go to the Neo4j Aura Console and click "Open" as in Lab 2.  From there, make sure the "Explore" tab at the top is selected.
 
-When open Bloom, you should see the login screen.  Use the same credentials we used before.
+Perspectives in Bloom define a specific business view or domain from the target Neo4j graph. A single Neo4j graph can be viewed through different perspectives, each tailored for a different business purpose.
 
-![](images/01-login.png)
+Click the slider icon in the upper left to open the perspective menu.
 
-That should take you to the home screen.  A perspective is a specific visualization on your data.  To get started, click "Create Perspective."
+![](images/01.png)
 
-![](images/02-home.png)
+Now click the refresh icon to refresh the perspective.  This pulls the latest data model from our database.  Click "Refresh" to agree to refresh the perspective.
 
-Now click "Generate Perspective."
+![](images/02.png)
 
-![](images/03-generate.png)
+When that is complete, select "Add category" in the perspective menu. 
 
-Mouse over the perspective you just generated and click on "Use Perspective" to open it.
+![](images/03.png)
 
-![](images/04-newperspective.png)
+You should see a pop-up with the node labels in the database. Select "Company."  Then repeat the process to select "Manager."
 
-Click in the search bar and then click on "Manager."
+![](images/04.png)
 
-![](images/05-perspective.png)
+When that is complete, you should see labels for Manager and Company. Click the perspective button again to close this menu.
 
-Then click on the link for manager-holding.
+![](images/05.png)
 
-![](images/06-manager.png)
+Now that our perspective is refreshed with updated labels, we're ready to start exploring.
 
-Then click on the link to add manager-holding-company.
+The easiest way we can explore data in Bloom is to have it generate a view for us.  To do so, click in the search bar and click on "Show me a graph."  Hit enter.
 
-![](images/07-holding.png)
+![](images/06.png)
 
-And now hit enter to run the query.
+In this case, we got a view with a company node at the center and 80 managers that own the company through their holdings.
 
-![](images/08-company.png)
+We can click on the company to see its name.
 
-That will give you a view with many nodes.  The result here shows all paths from a manager to a holding to a company.  If we'd searched paths for say company to company we wouldn't have gotten any results since there are no such paths in our graph.
+![](images/07.png)
 
-![](images/09-result.png)
+Now let's try finding a new graph.  Click in the search bar again.  Clear the contents of it.  Then select "Manager."
 
-Now, spend a bit of time exploring the graph.  You can zoom in by holding on the "+" icon.  You can also drag the canvas around to choose what you zoom in on. 
-> **Note**
-> To clear the canvas, right click on an empty space to open popup window and click on "Clear Scene."
+![](images/08.png)
 
-![](images/10-explore.png)
+Now select "Company."
 
-This is only a tiny bit of what Bloom can do.  
+![](images/09.png)
 
-Two additional things you can try are:
-(1) Invoking Graph Data Science (GDS) algorithms for centrality
-(2) Filtering the displayed nodes
+Now hit enter.
 
-You can learn more about Bloom in the documentation [here](https://neo4j.com/docs/bloom-user-guide/current/bloom-tutorial/).  Feel free to explore!
+![](images/10.png)
+
+That gives us search results for paths that go from Manager to Company.  We hit a limit of 1000, so it's not visualizing everyone.
+
+Next, we will apply some point-and-click data science to our graph.  Click on the atom icon to open the data science menu.
+
+![](images/11.png)
+
+Click "Add algorithm."
+
+![](images/12.png)
+
+Select "Degree Centrality" from the drop-down.
+
+![](images/13.png)
+
+Click "Apply algorithm."
+
+![](images/14.png)
+
+Now that we've run the algorithm, we can choose how we want to visualize the results in the graph.  Choose "Size scaling". The more central nodes in our graph are now shown as larger. 
+
+![](images/15.png)
+
+That gives us this.
+
+![](images/16.png)
+
+These are just a few examples of what you can do with Bloom.  Feel free to explore!
