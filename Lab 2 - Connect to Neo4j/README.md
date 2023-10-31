@@ -1,118 +1,65 @@
 # Lab 2 - Connect to Neo4j
-In this lab, we're going to connect to the Neo4j deployment we created in the previous step.
+In this lab, we're going to connect to the Neo4j deployment we created in the previous step.  To get started, open the Neo4j endpoint in the Google Cloud console by navigating [here](https://console.cloud.google.com/marketplace/product/endpoints/prod.n4gcp.neo4j.io).
 
-## Neo4j Browser
-A quick thing we can do to check that our deployment is running successfully is to open the Neo4j Browser.  To do so, we're going to need the URI we copied down at the end of our last lab.  Paste that into a web browser and open it.  
+Click "MANAGE ON PROVIDER" to get to the Neo4j console.
 
-In my case, the URI was: http://neo4j-ee-nlb-b36b6b627f78bab6.elb.us-east-1.amazonaws.com:7474/
+![](images/01.png)
 
-That should open the Neo4j Browser.
+Once again, you'll need to agreee to the redirect.
 
-The default database is called "Neo4j."  We can leave that blank.  For a username, enter "neo4j."  For the password, use what we previously chose in the marketplace deployment.  We'd suggested "password" as a password.  Click on "Connect" after entering that information.
+![](images/02.png)
 
-![](images/01-neo4jbrowser.png)
+You should now see the Neo4j Aura console.
 
-You'll be presented with the Neo4j welcome screen at this point.  If you click on the little database icon in the upper left, you can see the contents of our database.
+Click "Open."
 
-![](images/02-welcome.png)
+![](images/03.png)
 
-There's nothing in our database yet.  We can see the nodes, relationships and properties areas are all blank.
+Click "Accept" to agree to the terms.
 
-![](images/03-contents.png)
+![](images/04.png)
 
-Before we move on, let's make sure Neo4j Graph Data Science (GDS) is all set up.  We can do that by entering the following command into the Neo4j Browser:
+You'll now need to provide your password.  You can find that in the file we downloaded earlier.  In my case, the file was named Neo4j-6688b25b-Created-2023-09-20.txt.  It contained this content:
+
+    # Wait 60 seconds before connecting using these details, or login to https://console.neo4j.io to validate the Aura Instance is available
+    NEO4J_URI=neo4j+s://6688b25b.databases.neo4j.io
+    NEO4J_USERNAME=neo4j
+    NEO4J_PASSWORD=_kogrNk53u8oTk5be55kmit1kHGdhZj98yJlG-VYSR
+    AURA_INSTANCEID=6688b25b
+    AURA_INSTANCENAME=sec-edgar
+
+The password was then _kogrNk53u8oTk5be55kmit1kHGdhZj98yJlG-VYSR
+
+Enter your password and click "Connect."
+
+![](images/05.png)
+
+Click "X" to dismiss the beginner guides.
+
+![](images/06.png)
+
+We're now in Neo4j Workspace, a unified experience for working with graph data.  There are a number of tabs:
+
+1. Explore - This will open Neo4j Bloom, the business intelligence tool.
+2. Query - This will open Neo4j Browser, a tool where we can run database queries and inspect the results.
+3. Import - This opens the Neo4j Data Importer, a graphical tool for importing data into Neo4j.
+
+Let's start with Query or Neo4j Browser.  It should already be open.
+
+There's nothing in our database yet.  We can see the nodes, relationships and property key areas are all blank.
+
+We can check what version of Neo4j Graph Data Science (GDS) is set up.  We can do that by entering the following command into the Neo4j the query field:
 
     RETURN gds.version() as version
 
-Then hit the little blue triangle play button to run it.  You should see the following.
+Now click the run button, a triangle surrounded by a circle to run that command.
 
-![](images/04-gds.png)
+![](images/07.png)
 
-Assuming that all looks good, let's move on...
+You should see a GDS version number.
 
-## Neo4j Bloom
-Neo4j Bloom is a business intelligence (BI) tool.  It's running on that same 7474 port that the Neo4j Browser was.  So, to open it up, we can just edit that url slightly by replacing "browser" with "bloom" and hitting enter.  In my case, the URL was "http://neo4j-ee-nlb-b36b6b627f78bab6.elb.us-east-1.amazonaws.com:7474/bloom"
+![](images/08.png)
 
-![](images/05-bloom.png)
-
-You can login with the same username and password from before. 
-
-> **Warning**
-> You need to type the username 'neo4j' (replacing the greyed-out default username).
-
-![](images/06-bloom.png)
-
-That's it.  If you got here, Bloom is installed and running. 
-
-> **Note**
-> You can skip the optional 'Interacting via Shell scetion below.' and go to Lab 3.
-
-
-## Interacting via Shell - (Optional)
-These next steps are really useful if something goes wrong with your Neo4j deployment.  We're going to connect to an instance and check out some logs.  To get the connection information, let's go back to the stack you deployed earlier.  If you closed it, you can simply follow [this link](https://us-east-1.console.aws.amazon.com/cloudformation/home).
-
-Once that's open, click on the "neo4j-ee" stack name.
-
-![](images/07-stacks.png)
-
-Click on "Resources."
-
-![](images/08-stack.png)
-
-Click on the ID of the ASG.  In my case it was "neo4j-ee-Neo4jAutoScalingGroup-ZICK7UZQY61U."
-
-![](images/09-resources.png)
-
-Click on "Instance Management."
-
-![](images/10-asg.png)
-
-If we had deployed a cluster, we would see multiple instances here.  However we only deployed a single node, so we see just one.
-
-Click on the instance ID.  In my case, it was "i-0acc6447f3a48607a."
-
-![](images/11-instancemanagement.png)
-
-Now click "Connect."
-
-![](images/12-instance.png)
-
-In the connect dialog, we have a few options.  We're going to use simplest, the "EC2 Instance Connect."  Simply click on the "Connect" button.  That'll open up a terminal connection in a new window.
-
-Note, that as an alternative to this process, you could SSH to the box using the key you saved earlier.
-
-![](images/13-connect.png)
-
-You should see a terminal like this.
-
-![](images/14-terminal.png)
-
-Now that we have a terminal, let's run a few commands to poke around.  This instance is running vanilla Amazon Linux 2, so looks very much like any other EC2 instance.  After deployment, AWS ran a startup script using cloud-init.  Let's check the log for that to make sure it looks good.  We'll have to sudo as it has restricted permissions.
-
-    sudo su
-    cd /var/log/
-    cat cloud-init-output.log
-
-Here's what it looks like.
-
-![](images/15-cloudinit.png)
-
-Now let's check out the Neo4j logs using these commands:
-
-    cd /var/log/neo4j
-    cat debug.log
-
-That should give us this:
-
-![](images/16-debug.png)
-
-Finally, let's check to make sure the neo4j process is running with this command:
-
-    clear
-    ps -aux | grep neo4j
-
-That should give us this:
-
-![](images/17-process.png)
+Since we got a Graph Data Science version back, we know that we're on AuraDS, not AuraDB.  This means that we have the libraries we'll need to connect with the Python client and use graph algorithms later in these labs.
 
 Assuming that all looks good, let's move on...
