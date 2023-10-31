@@ -1,103 +1,47 @@
-# Lab 0 - Signup for AWS
-First off, you're going to need an AWS account.  
-
-If you have an AWS account already, you may be able to use that.  You would need permissions that allow you to deploy a SageMaker domain and deploy from Marketplace.  It would also need a default VPC with public access.  If your access meets those requirements, you can skip the "Signup for AWS" section of this lab.
+# Lab 0 - Sign In
+At the start of this lab you should have been handed credentials for AWS.  In this first section, we're going to use those to sign in.
 
 ## Improving the Labs
 As you work through these labs, we'd really appreciate your feedback.  One way to help us improve is to open an issue by going [here](https://github.com/neo4j-partners/hands-on-lab-neo4j-and-sagemaker/issues).  Outright bugs, usability suggestions, and general comments are all appreciated.  Pull requests are great too!
 
-## Signup for AWS
-If you don't have an account yet, you go [here](https://aws.amazon.com/) to sign up for one.
+## Sign into AWS
+We're going to sign into a new AWS account.  You may already have other AWS accounts.  If you use Chrome, you might consider creating a new profile or using incognito mode for these exercises.  That's not mandatory though and other browsers work fine too.
+Our next step is to open the AWS console [here](https://console.aws.amazon.com/). 
 
-You'll need to provide your phone number and credit card information.  Total costs for the lab should be under $10.  Those will be more than offset by a credit that AWS is providing for lab attendees.  At the end of the lab we'll show you how to delete any resources you've deployed as well.
+Enter the email you were given for this lab in and click "NEXT."  In my case, the email was vibrant-tiger-7@oneblink.ai.
 
-Click on "Create an AWS Account" in the upper right.
+![](images/01.png)
 
-![](images/01-signup.png)
+Now enter the password you were given for this lab.
 
-Enter an email address and a name for the account.
+![](images/02.png)
 
-![](images/02-signup.png)
+You'll see a prompt about the new account.  This account is being managed by [OneBlink.AI](https://oneblink.ai/), a company Neo4j works with for training.  We ask that you use this account solely to complete the lab exercises.  Assuming that is acceptable to you, click "I understand."
 
-Check your email and enter the code to verify the account.
+![](images/03.png)
 
-![](images/03-verify.png)
+Check the box to agree to the terms and click "AGREE AND CONTINUE."
 
-Now set a password.
+![](images/04.png)
 
-![](images/04-password.png)
+We're now in a new AWS account.  OneBlink.AI already created a project for us.  Click "Select a project" at the top.
 
-Select "Personal" for the account type and fill out the form.  Review and accept the terms.  Then click "Continue."
+![](images/05.png)
 
-![](images/05-signup.png)
+Click on "NO ORGANIZATION" at the top.
 
-Enter a credit card.  Note that this card will only be charged if you exceed the credits provided for this lab.  Nothing we're doing in this lab would exceed those credits.  We're going to deploy the Neo4j Marketplace listings.  The IaaS charges for that will total a few dollars for the duration of the lab.  All the other resources we're using will be below the free tier threshold.
+![](images/06.png)
 
-If you follow the instructions to turn off the resources we deploy, you'll be left with a credit in your account.
+Select the "oneblink.ai" organization.
 
-![](images/06-card.png)
+![](images/07.png)
 
-Now enter your phone number to receive a verification code.
+Click to select the project available to you.  In my case it was "vibrant-tiger-7."
 
-![](images/07-phone.png)
+![](images/08.png)
 
-Enter the verification code that was texted to you.  Click "Continue."
+Now you're all set, logged into an AWS account with a project selected.
 
-![](images/08-verify.png)
+![](images/09.png)
 
-Select "Basic Support - Free" and click "Complete sign up."
-
-![](images/09-support.png)
-
-Congratulations!  You've just signed up for an AWS account.  Click "Go to the AWS Management Console." 
-
-![](images/10-complete.png)
-
-## Login
-Enter the email address you provided during signup to login to your new AWS account.
-
-![](images/11-login.png)
-
-Enter the password you provided during signup and click "Sign in."
-
-![](images/12-login.png)
-
-Complete the captcha and click "Submit."
-
-![](images/13-login.png)
-
-Click "Switch to new Console Home" to use the latest console.
-
-![](images/14-console.png)
-
-You're now in the console!  Click next to move through the tutorial.
-
-![](images/15-console.png)
-
-Click "Done" to dismiss the tutorial.
-
-![](images/16-console.png)
-
-Click the "X" in the upper right to dismiss the help menu.
-
-![](images/17-console.png)
-
-Click "X" again to dismiss another help menu.
-
-![](images/18-console.png)
-
-You're now all logged in to your environment and ready to use it.
-
-![](images/19-console.png)
-
-## Apply AWS Credits
-As part of the labs, AWS is providing credits.  The credits should far exceed the cost of resources consumed during this lab.  You can apply the credits to your account by navigating [here](https://console.aws.amazon.com/billing/home?#/credits)
-
-Once there, click on "Redeem credit."
-
-![](images/20-credit.png)
-
-You'll then need to enter the code for the credit and answer the captcha.  With that complete, click "Redeem credit."
-
-![](images/21-redeem.png)
-
+In the next lab we'll deploy Neo4j.
