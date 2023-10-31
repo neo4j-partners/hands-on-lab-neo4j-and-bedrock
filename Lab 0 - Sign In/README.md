@@ -12,7 +12,7 @@ Select "IAM User."
 
 ![](images/01.png)
 
-Now enter the Account ID you were given and click "NEXT."
+Now enter the Account ID you were given and click "Next."
 
 ![](images/02.png)
 
