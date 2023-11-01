@@ -6,7 +6,7 @@ The Neo4j Data Importer is another option.  It's a great graphical way to import
 The dataset is from the SEC's EDGAR database.  These are public filings of something called Form 13.  Asset managers with over \$100m AUM are required to submit Form 13 quarterly.  That's then made available to the public over http.  We don't have time to download those in the lab today as they take a few hours.  But, if you're curious, they're all available [here](https://github.com/neo4j-partners/neo4j-sec-edgar-form13).  We've filtered the data to only include filings over $10m in value.
 
 ## Simple Load Statement
-For this portion of the lab, we're going to work with a subset of the data.  Our full dataset is a year of data.  However, we'll just be playing around with a a subset of a day's worth.  The data is [here](https://storage.googleapis.com/neo4j-datasets/hands-on-lab/form13-2023-05-11.csv).
+For this portion of the lab, we're going to work with a subset of the data.  Our full dataset is a year of data.  However, we'll just be playing around with a a subset of a day's worth.  The data is [here](https://neo4j-dataset.s3.amazonaws.com/hands-on-lab/form13-2023-05-11.csv).
 
 You may want to download the data and load it into your favorite tool for exploring CSV files.  Pandas, Excel or anything else should be able to make short work of it.  Once you understand what's in the data, the next step would be to load it into Neo4j.
 
@@ -18,7 +18,7 @@ Make sure that "Query" is selected at the top.
 
 We're going to run a Cypher statement to load the data.  Cypher is Neo4j's query language.  `LOAD CSV` is part of that and allows us to easily load CSV data.  Try copying this command into Neo4j Workspace.
 
-    LOAD CSV WITH HEADERS FROM "https://storage.googleapis.com/neo4j-datasets/hands-on-lab/form13-2023-05-11.csv" AS row
+    LOAD CSV WITH HEADERS FROM "https://neo4j-dataset.s3.amazonaws.com/hands-on-lab/form13-2023-05-11.csv" AS row
     MERGE (m:Manager {managerName:row.managerName})
     MERGE (c:Company {companyName:row.companyName, cusip:row.cusip})
     MERGE (m)-[r:OWNS {value:toFloat(row.value), shares:toInteger(row.shares), reportCalendarOrQuarter:date(row.reportCalendarOrQuarter)}]->(c);
@@ -96,7 +96,7 @@ Now that we have all the constraints, let's load our nodes.  We're going to do t
 
 Let's load the companies first.  We're going to have a lot of duplication, since our key is CUSIP and many different rows in our csv, each representing a filing, have the same cusip.  So, we need to enhance our LOAD CSV statement a little bit to deal with those duplicates.
 
-    LOAD CSV WITH HEADERS FROM 'https://storage.googleapis.com/neo4j-datasets/hands-on-lab/form13-2023.csv' AS row
+    LOAD CSV WITH HEADERS FROM 'https://neo4j-dataset.s3.amazonaws.com/hands-on-lab/form13-2023.csv' AS row
     MERGE (c:Company {cusip:row.cusip})
     ON CREATE SET c.companyName=row.companyName;
 
@@ -106,7 +106,7 @@ That should give this:
 
 Now let's load the Managers:
 
-    LOAD CSV WITH HEADERS FROM 'https://storage.googleapis.com/neo4j-datasets/hands-on-lab/form13-2023.csv' AS row
+    LOAD CSV WITH HEADERS FROM 'https://neo4j-dataset.s3.amazonaws.com/hands-on-lab/form13-2023.csv' AS row
     MERGE (m:Manager {managerName:row.managerName});
 
 That should give this:
@@ -117,7 +117,7 @@ Well, this is cool.  We've got all our nodes loaded in.  Now we need to tie them
 
 So, let's add the relationships.
 
-    LOAD CSV WITH HEADERS FROM 'https://storage.googleapis.com/neo4j-datasets/hands-on-lab/form13-2023.csv' AS row
+    LOAD CSV WITH HEADERS FROM 'https://neo4j-dataset.s3.amazonaws.com/hands-on-lab/form13-2023.csv' AS row
     MATCH (m:Manager {managerName:row.managerName})
     MATCH (c:Company {cusip:row.cusip})
     MERGE (m)-[r:OWNS {reportCalendarOrQuarter:date(row.reportCalendarOrQuarter)}]->(c)
