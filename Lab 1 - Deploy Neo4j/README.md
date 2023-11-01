@@ -18,67 +18,75 @@ Scroll down and select "Neo4j Aura Professional."
 
 ![](images/01.png)
 
-XXXX - To do
+Note that this account has already been subscribed to Neo4j Aura Professional.  Click on "Click here to set up your account."
 
 ![](images/02.png)
 
-Still in the left menu, scroll all the way to the bottom.  You'll see listings for a number of partner products.  These are products from leading ISVs that Google has chosen to integrate tightly into the Cloud Consonle.  Amoung those, you'll see a listing for Neo4j.  Click on that.
+This takes us to the Neo4j Aura console.  Billing information has been passed over from the AWS account we just came from.  Under "Don't have an account" click "Sign up."
 
 ![](images/03.png)
 
-That takes you to a description of Neo4j Aura Professional in the Google Cloud Marketplace.  The parent account, owned by OneBlink.AI has already subscribed to this listing.  However, we still need to enable the API.
-
-Click on "Enable."
+You'll need to enter an email address.  Alternatively you can authenticate with Google.  In my case, I'm entering my personal address.
 
 ![](images/04.png)
 
-When complete you'll see this page.  Click on "Manage Via Neo4j, Inc." at the top of the page.
+Now enter a password.  Be sure to remember it.  Click "Continue."
 
 ![](images/05.png)
 
-Confirm that you're ok with getting redirected to the management console.
+You'll now be asked to verify your email address.  Open your email client and view the verification email.
 
 ![](images/06.png)
 
-You'll be asked which Google credentials you want to use.  Be sure to select the same credentials you've been using so far.
+Click "Verify me e-mail address."
 
 ![](images/07.png)
 
-You'll need to agree to some terms and cookies.  Click "Got it" and "I agree."
+You should see a message that your address was verified.  Go back to the window with the Neo4j Aura console.
 
 ![](images/08.png)
 
-And, now you're at the Aura console.  At this point, we've authorized the API and logged into the console for Aura Professional.  
-
-Click "Got it!" to dismiss the cookie dialog.
+Click your name in the upper right.  In that dialog click "Log out."
 
 ![](images/09.png)
 
-We can now create our first database.  We want to create an AuraDS instance.  That way we'll have access to Graph Data Science and Bloom, the Neo4j business intelligence tool.
-
-Click on "Instances" under AuraDS.
-
-Important -- Be sure to select AuraDS.
+Now, back a the login screen, click "Log in."
 
 ![](images/10.png)
 
-Now click on "New Instance" to create a new AuraDS instance.
+Enter your password and click "Log in."
 
 ![](images/11.png)
 
-We're presented with various options for that database.  For number of nodes, enter "500,000" and for number of relationships, enter "1,000,000".
+Click "I agree" to agree to terms.
 
 ![](images/12.png)
 
-Then scroll down.  In later labs, We're going to be making a node embedding, so select that.  The node embedding will allow us to represent our graph as features that Google Vertex AI can consume in a tablular format.
-
-Scroll to the bottom and click "Calculate estimate."
+In the menu on the left click on "Instances" under "Aura DS."  Important -- be absolutely certain to select AuraDS.  It has components like Graph Data Science that AuraDB does not.  We're going to need those later.
 
 ![](images/13.png)
 
-Review the estimate, enter "sec-edgar" for instance name, and click "Create"
+Click "New instance."
 
 ![](images/14.png)
+
+Select the AWS logo.  For "Number of nodes" enter 500,000.  For number of relationships, enter "1,000,000."  This will ensure our AuraDS deployment is of sufficient size for our workload.  
+
+For algorithms select "Node Embedding."  This item doesn't change the config, rather is a survey of what algorithms users are making use of.
+
+With all that done, click "Calculate Estimate."
+
+![](images/15.png)
+
+For instance name, let's put "sec-edgar."  Click "Next."
+
+![](images/16.png)
+
+Hmmmm.  Payment method didn't get passed through for some reason.
+
+![](images/17.png)
+
+To do.....
 
 You'll be presented with the credentials for your database.  Click "Download and continue."  That will download the credentials to a text file on your local machine.  Be sure to save that file as you won't be able to get those credentials later.
 
