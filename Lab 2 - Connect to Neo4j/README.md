@@ -1,23 +1,27 @@
 # Lab 2 - Connect to Neo4j
-In this lab, we're going to connect to the Neo4j deployment we created in the previous step.  To get started, open the Neo4j endpoint in the Google Cloud console by navigating [here](https://console.cloud.google.com/marketplace/product/endpoints/prod.n4gcp.neo4j.io).
+In this lab, we're going to connect to the Neo4j deployment we created in the previous step.  To get started, open the Neo4j Aura console by navigating [here](https://console.neo4j.io/).
 
-Click "MANAGE ON PROVIDER" to get to the Neo4j console.
+Enter the email address you signed up with in the previous step and click "Log in."
 
 ![](images/01.png)
 
-Once again, you'll need to agreee to the redirect.
+Enter your password and click "Log in."
 
 ![](images/02.png)
 
 You should now see the Neo4j Aura console.
 
-Click "Open."
+Click on "Instances" under AuraDS.
 
 ![](images/03.png)
 
-Click "Accept" to agree to the terms.
+Click "Open" on the "sec-edgar" instance we previously deployed.
 
 ![](images/04.png)
+
+Click "Accept" to accept the terms.
+
+![](images/05.png)
 
 You'll now need to provide your password.  You can find that in the file we downloaded earlier.  In my case, the file was named Neo4j-6688b25b-Created-2023-09-20.txt.  It contained this content:
 
@@ -32,11 +36,11 @@ The password was then _kogrNk53u8oTk5be55kmit1kHGdhZj98yJlG-VYSR
 
 Enter your password and click "Connect."
 
-![](images/05.png)
+![](images/06.png)
 
 Click "X" to dismiss the beginner guides.
 
-![](images/06.png)
+![](images/07.png)
 
 We're now in Neo4j Workspace, a unified experience for working with graph data.  There are a number of tabs:
 
@@ -54,11 +58,11 @@ We can check what version of Neo4j Graph Data Science (GDS) is set up.  We can d
 
 Now click the run button, a triangle surrounded by a circle to run that command.
 
-![](images/07.png)
+![](images/08.png)
 
 You should see a GDS version number.
 
-![](images/08.png)
+![](images/09.png)
 
 Since we got a Graph Data Science version back, we know that we're on AuraDS, not AuraDB.  This means that we have the libraries we'll need to connect with the Python client and use graph algorithms later in these labs.
 
