@@ -35,7 +35,7 @@ Click on "Manager" under "Nodes" to automatically generate a new cypher query an
 
 ![](images/03.png)
 
-You'll now see a subset of the managers we have in the database.  The query returns 25 of them.  It's limited because returning to many nodes in this visualization mode can make it hard to navigate.
+You'll now see a subset of the managers we have in the database.  The query returns 25 of them.  It's limited because returning too many nodes in this visualization mode can make it hard to navigate.
 
 Now, let's click on one of the managers.  Don't worry, it doesn't particularly matter which one.  Once we've clicked on it, right click and select "Expand."
 
@@ -74,7 +74,7 @@ Now, all your data should be deleted.  Note that Workspace is still caching some
 In the next section, we'll load more data.
 
 ## More Performant Load
-The LOAD CSV statement we used before was pretty naive.  It didn't create any indices.  It also loaded the nodes and relationships simultaneously.  Both of those are inefficient approaches.  It wasn't a big deal as that single day was a small amount of data.  However, we'd now like to load a full year of data.  That has a million rows, so we have to be a bit more efficient.  That new dataset is [here](https://storage.googleapis.com/neo4j-datasets/hands-on-lab/form13-2023.csv).
+The LOAD CSV statement we used before was pretty naive.  It didn't create any indices.  It also loaded the nodes and relationships simultaneously.  Both of those are inefficient approaches.  It wasn't a big deal as that single day was a small amount of data.  However, we'd now like to load a full year of data.  That has a million rows, so we have to be a bit more efficient.  That new dataset is [here](https://neo4j-dataset.s3.amazonaws.com/hands-on-lab/form13-2023.csv).
 
 If you're curious, you can read a bit about the intracties of optimizing those loads here:
 
