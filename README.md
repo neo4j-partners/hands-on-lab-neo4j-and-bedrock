@@ -48,7 +48,7 @@ You'll need a laptop with a web browser.  Your browser will need to be able to a
     * Studio
     * What is Bedrock?
     * Generative AI
-* [Lecture - Neo4j and Generative AI](https://docs.google.com/presentation/d/1dx5ve401iHlUseznhdbHE-h-Uk97ENheS_d6tEVIcOc/edit?usp=sharing) (15 min)
+* [Lecture - Neo4j and Generative AI](https://docs.google.com/presentation/d/1DE2X8N3ufbEQPiyb2I5muOw0riC7wE9kW5iVe2QzR28/edit?usp=sharing) (15 min)
     * Generating Knowledge Graphs
     * Retrieval Augmented Generation
     * Semantic Search
