@@ -43,7 +43,7 @@ You'll need a laptop with a web browser.  Your browser will need to be able to a
 * Break (5 min)
 
 ### Part 3
-* [Lecture - Bedrock and SageMaker](https://docs.google.com/presentation/d/1og6Y9MfabnFu3YfoMJ6nxla25mpie3FwF2S69y2bAEE/edit?usp=sharing) (15 min)
+* [Lecture - Amazon Bedrock](https://docs.google.com/presentation/d/1s1iGIH9lBvVw2S32iZW-9gogFWT63Je-qw7Wz5YSKXw/edit?usp=sharing) (15 min)
     * What is SageMaker?
     * Studio
     * What is Bedrock?
