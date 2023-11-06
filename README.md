@@ -31,7 +31,7 @@ You'll need a laptop with a web browser.  Your browser will need to be able to a
 * Break (5 min)
 
 ### Part 2
-* [Lecture - Moving Data](https://docs.google.com/presentation/d/1iAMN6o-aMNtg2WAZzHORbckV--JXa2wiY5YLBNDRN3w/edit?usp=sharing) (10 min)
+* [Lecture - Moving Data](https://docs.google.com/presentation/d/1vVCqNHYs-hLcIhBiN3UbmUU8M76anrqG_NzphZKQuW8/edit?usp=sharing) (10 min)
     * LOAD CSV
     * Amazon Elastic Map Reduce (EMR)
     * Amazon Managed Streaming for Kafka
