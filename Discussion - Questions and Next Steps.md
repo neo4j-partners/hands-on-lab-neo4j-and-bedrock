@@ -7,17 +7,15 @@ In previous versions of the lab we had users sign up for a new AWS account they 
 Other approaches, such as AWS Event Engine provide a way to access AWS.  However, the result is different from what a user experiences in a real environment.  The goal of this lab was to give you hands on end to end experience.  Given that, this seems to be the best way available.
 
 ## Lab 1 - Deploy Neo4j
-We deployed an IaaS listing for Neo4j.  That uses a CFT which has a variety of prerequisites.  Neo4j is currently working on a click to deploy version of our managed service for AWS, Aura.  Once that is available, we'll probably transition this lab content to that service, simplifying setup.
+The lab deploys [Neo4j AuraDS Professional](https://aws.amazon.com/marketplace/pp/prodview-2t3o7mnw5ypee) through AWS Marketplace. There are many other ways to deploy Neo4j. If AuraDS Professional doesn't meet your needs, we probably have a different approach that does. The [Marketplace](https://aws.amazon.com/marketplace/seller-profile?id=23ec694a-d2af-4641-b4d3-b7201ab2f5f9) is a good place to look for more options.
 
 ## Lab 2 - Connect to Neo4j
-We connected over HTTP.  We are working on improving the self signed cert experience for deployment on IaaS.  We'd also like to use Let's Encrypt or something similar to get a proper cert.  Using Aura avoids this issue entirely.
+There is some complexity in accessing the Aura console from AWS Marketplace.  We use one login for AWS and another for the Aura Console and another to connect to the database.  We're working to improve that experience.
 
 ## Lab 3 - Moving Data
 We used LOAD CSV to pull data in.  That is one of many ways.  Neo4j Data Importer is another.  You may have noticed the tab for that in Aura.  We're exploring incorporating it into this lab.
 
-We're also working with AWS on Glue integration.  
-
-The Neo4j [Spark Connector](https://neo4j.com/docs/spark/current/) is another way to get data in.  We've been working on a demo of that with EMR.
+The Neo4j [Spark Connector](https://neo4j.com/docs/spark/current/) is another way to get data in.  We've used it with both EMR and Glue.  We're working to create demos and walkthroughs of that.
 
 ## Lab 4 - Exploring Data
 This section of the lab could be greatly expanded.
