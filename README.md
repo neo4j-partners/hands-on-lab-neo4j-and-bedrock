@@ -44,8 +44,6 @@ You'll need a laptop with a web browser.  Your browser will need to be able to a
 
 ### Part 3
 * [Lecture - Amazon Bedrock](https://docs.google.com/presentation/d/1s1iGIH9lBvVw2S32iZW-9gogFWT63Je-qw7Wz5YSKXw/edit?usp=sharing) (15 min)
-    * What is SageMaker?
-    * Studio
     * What is Bedrock?
     * Generative AI
 * [Lecture - Neo4j and Generative AI](https://docs.google.com/presentation/d/1DE2X8N3ufbEQPiyb2I5muOw0riC7wE9kW5iVe2QzR28/edit?usp=sharing) (15 min)
