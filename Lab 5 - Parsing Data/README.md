@@ -14,15 +14,17 @@ Click "Set up for single user."
 
 ![](images/03.png)
 
-You'll see a message that the domain is being set up.  Wait for that to complete.
+You'll see a message that the domain is being set up.  Wait for that to complete.  It takes a while.  Mine took six minutes to complete.
 
 ![](images/04.png)
 
-Once it finishes, you'll see a message saying "The SageMaker Domain is ready."  Click "Launch" and select "Studio" under that.  You'll be put through a few redirects.
+Once it finishes, you'll see a message saying "The SageMaker Domain is ready."  Next to the default user, click "Launch" and select "Studio" under that.  You'll be put through a few redirects.
+
+If the default user isn't shown, you may need to refresh the screen.
 
 ![](images/05.png)
 
-Then the environment will spend some more time provisioning.
+Then the environment will spend some more time provisioning.  It took me four minutes.  If prompted to "Keep waiting" or "Clear the workspace," choose to wait.
 
 ![](images/06.png)
 
@@ -45,6 +47,8 @@ In the dialog, enter the address of the git file in the repo we've been working 
 
 Then click "Clone."
 
+This menu is a little finicky.  On my machine, I had to click on the URL after I pasted it and then click the "Clone" button.  If I didn't I receveived an error.
+
 ![](images/09.png)
 
 When complete, it will open the README.md for this repo.  In the file explorer on the left, double click on "Lab 5 - Parsing Data."  Click on "parsing-data.ipynb" to open it.
@@ -59,7 +63,7 @@ Click "Select."
 
 ![](images/12.png)
 
-You'll see a message that the kernel is starting.  It takes a while.  Once complete, you should see this.  Now you're all ready to run through this notebook!
+You'll see a message that the kernel is starting.  It takes a while.  In my case, it was three minutes to start.  Once complete, you should see this.  Now you're all ready to run through this notebook!
 
 ![](images/13.png)
 
