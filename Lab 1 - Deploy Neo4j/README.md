@@ -26,65 +26,49 @@ Note that this account has already been subscribed to Neo4j Aura Professional.  
 
 ![](images/03.png)
 
-This takes us to the Neo4j Aura console.  Billing information has been passed over from the AWS account we just came from.  Under "Don't have an account" click "Sign up."
+This takes us to the Neo4j Aura console.  Billing information has been passed over from the AWS account we just came from.  Under "Already have an account?" click "Log in."
 
 ![](images/04.png)
 
-You'll need to enter an email address.  Alternatively you can authenticate with Google.  In my case, I'm entering my personal address.
+Enter the email address provided for this lab.  In my case, it was kind-wind-34940@sandboxhubr.io.  Click "Log in."
 
 ![](images/05.png)
 
-Now enter a password.  Be sure to remember it.  Click "Continue."
+Now enter the password provided for that email address.  Click "Log in."
 
 ![](images/06.png)
 
-You'll now be asked to verify your email address.  Open your email client and view the verification email.
+You'll be presented with some terms.  Click "I agree."
 
 ![](images/07.png)
 
-Click "Verify me e-mail address."
+You'll see a dialog that AWS account details are being verified.
 
 ![](images/08.png)
 
-You should see a message that your address was verified.  Go back to the window with the Neo4j Aura console.
+When that is complete, click "Next."
 
 ![](images/09.png)
 
-Click on "Dashboard."
+Click "Next" to advance to the next dialog.
 
 ![](images/10.png)
 
-Click "I agree" to agree to terms.
+Click "Next" to advance to the next dialog.
 
 ![](images/11.png)
 
-You'll see a dialog that AWS account details are being verified.
+Click "Close" to exit the dialog.
 
 ![](images/12.png)
 
-When that is complete, click "Next."
+In the menu on the left click on "Instances" under "Aura DS."  Important -- be absolutely certain to select AuraDS.  It has components like Graph Data Science that AuraDB does not.  We're going to need those later.
 
 ![](images/13.png)
 
-Click "Next" to advance to the next dialog.
-
-![](images/14.png)
-
-Click "Next" to advance to the next dialog.
-
-![](images/15.png)
-
-Click "Close" to exit the dialog.
-
-![](images/16.png)
-
-In the menu on the left click on "Instances" under "Aura DS."  Important -- be absolutely certain to select AuraDS.  It has components like Graph Data Science that AuraDB does not.  We're going to need those later.
-
-![](images/17.png)
-
 Click "New instance."
 
-![](images/18.png)
+![](images/14.png)
 
 For "Number of nodes" enter 500,000.  For number of relationships, enter "1,000,000."  This will ensure our AuraDS deployment is of sufficient size for our workload.  
 
@@ -92,23 +76,23 @@ For algorithms select "Node Embedding."  This item doesn't change the config, ra
 
 With all that done, click "Calculate Estimate."
 
-![](images/19.png)
+![](images/15.png)
 
 For instance name, let's put "sec-edgar."  Click "Create."
 
-![](images/20.png)
+![](images/16.png)
 
 You'll be presented with the credentials for your database.  Click "Download and continue."  That will download the credentials to a text file on your local machine.  Be sure to save that file as you won't be able to get those credentials later.
 
-![](images/21.png)
+![](images/17.png)
 
 You'll see a dialog that your database is being created.  This takes less than five minutes.
 
-![](images/22.png)
+![](images/18.png)
 
 When deployment is complete you'll see this menu.  
 
-![](images/23.png)
+![](images/19.png)
 
 You can poke around the menus here a bit and see more on database status and connection information.
 
