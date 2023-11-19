@@ -10,11 +10,11 @@ From the search results, click on "SageMaker Studio" under "Top Features".
 
 ![](images/02.png)
 
-Click "Set up for single user."
+Click the "Studio" link on the panel on the left.
 
 ![](images/03.png)
 
-You'll see a message that the domain is being set up.  Wait for that to complete.  It takes a while.  Mine took six minutes to complete.
+You should see a domain has already been created. Click on the domain name and you'll see a message that the domain is being set up.  Wait for that to complete.  It will take a few minutes to complete.
 
 ![](images/04.png)
 
