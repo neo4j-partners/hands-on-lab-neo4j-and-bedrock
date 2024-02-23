@@ -12,25 +12,53 @@ From the search results, click on "SageMaker Studio" under "Top Features".
 
 Click the "Studio" link on the panel on the left.
 
-![](images/03.png)
+![](images/03-0.png)
 
-You should see a domain has already been created. Click on the domain name and you'll see a message that the domain is being set up.  Wait for that to complete.  It will take a few minutes to complete.
+Now click the "Domains" link on the panel on the left under `Admin Configurations`.
+
+If you don't see a domain created already, click "Create Domain"
+![](images/03-1.png)
+
+Click "Set up" in the Set up Sagemaker Domain page
+![](images/03-2.png)
+
+You will see the domain being created as below.
+![](images/03-3.png)
+
+It will take a few minutes to complete. Once done, you will see as below.
+![](images/03-4.png)
+
+Click on the domain name.
 
 ![](images/04.png)
 
 Once it finishes, you'll see a message saying "The SageMaker Domain is ready."  Next to the default user, click "Launch" and select "Studio" under that.  You'll be put through a few redirects.
 
 If the default user isn't shown, you may need to refresh the screen.
+You will be landing in the Studio screen below.
+![](images/05-0.png)
 
-![](images/05.png)
+Click on the button with orange background - "Jupyter Lab".
+![](images/05-1.png)
 
-Then the environment will spend some more time provisioning.  It took me four minutes.  If prompted to "Keep waiting" or "Clear the workspace," choose to wait.
+From the top right, click on "Create JupyterLab Space" button.
+![](images/05-2.png)
 
-![](images/06.png)
+Provide a name for your Jupyter Lab space and click "Create Space"
+![](images/05-3.png)
 
-When complete, you'll land in SageMaker Studio.  This is Amazon's hosted notebook environment.
+You will be landing in the page below. Wait for a few seconds to see the "Run space" button enabled.
+![](images/05-4.png)
 
-![](images/07.png)
+Leave the default values as-is and click "Run space" button.
+![](images/05-5.png)
+
+After a couple of minutes, you will see the space created and the "Open Jupyter Lab" button enabled. Click that button which will open a new window.
+![](images/05-6.png)
+
+When the widnow is loaded, you'll land in SageMaker Studio.  This is Amazon's hosted notebook environment.
+
+![](images/05-7.png)
 
 ## Import from GitHub to SageMaker Studio
 For the rest of the labs, we're going to be working with notebooks in SageMaker Studio.  To load them into Studio, we're going to pull them from GitHub using Studio's git integration.
@@ -39,7 +67,7 @@ Click on the git icon in the upper left of Studio.  It's below the folder icon o
 
 Now click "Clone a Repository."
 
-![](images/08.png)
+![](images/05-8.png)
 
 In the dialog, enter the address of the git file in the repo we've been working with.  That is:
 
