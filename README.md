@@ -38,7 +38,7 @@ You'll need a laptop with a web browser.  Your browser will need to be able to a
 * [Lab 3 - Moving Data](Lab%203%20-%20Moving%20Data/README.md) (15 min)
     * Simple Load Statement
     * More Performant Load
-* [Lab 4 - Exploration](Lab%204%20-%20Exploration/README.md) 10 min)
+* [Lab 4 - Exploration](Lab%204%20-%20Exploration/README.md) (10 min)
     * Exploration with Neo4j Bloom
 * Break (5 min)
 
