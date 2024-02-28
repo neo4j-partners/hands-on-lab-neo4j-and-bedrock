@@ -48,13 +48,14 @@ Now select "OWNS" and then select "Company" and hit enter.
 
 That gives us search results for paths that go from Manager to Company.  We hit a limit of 1000, so it's not visualizing everyone.
 
+![](images/11.png)
+
 Next, we will apply some point-and-click data science to our graph.  Click on the atom icon to open the data science menu.
 
-![](images/11.png)
+![](images/12a.png)
 
 Click "Add algorithm."
 
-![](images/12a.png)
 ![](images/12b.png)
 
 Select "Degree Centrality" from the drop-down and click "Apply".
