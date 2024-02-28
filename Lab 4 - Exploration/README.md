@@ -18,7 +18,7 @@ When that is complete, select "Add category" in the perspective menu.
 
 You should see a pop-up with the node labels in the database. Select "Company."  Then repeat the process to select "Manager."
 
-![](images/04.png)
+![](images/03.png)
 
 When that is complete, you should see labels for Manager and Company. Click the perspective button again to close this menu.
 
