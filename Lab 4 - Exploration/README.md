@@ -12,11 +12,9 @@ Click the slider icon in the upper left to open the perspective menu.
 
 Now click the refresh icon to refresh the perspective.  This pulls the latest data model from our database.  Click "Refresh" to agree to refresh the perspective.
 
-![](images/02.png)
-
 When that is complete, select "Add category" in the perspective menu. 
 
-![](images/03.png)
+![](images/02.png)
 
 You should see a pop-up with the node labels in the database. Select "Company."  Then repeat the process to select "Manager."
 
@@ -34,19 +32,17 @@ The easiest way we can explore data in Bloom is to have it generate a view for u
 
 In this case, we got a view with a company node at the center and 80 managers that own the company through their holdings.
 
-We can click on the company to see its name.
-
 ![](images/07.png)
 
-Now let's try finding a new graph.  Click in the search bar again.  Clear the contents of it.  Then select "Manager."
+We can click on the company to see its name.
 
 ![](images/08.png)
 
-Now select "Company."
+Now let's try finding a new graph.  Click in the search bar again.  Clear the contents of it.  Then select "Manager."
 
 ![](images/09.png)
 
-Now hit enter.
+Now select "OWNS" and then select "Company" and hit enter.
 
 ![](images/10.png)
 
@@ -58,15 +54,12 @@ Next, we will apply some point-and-click data science to our graph.  Click on th
 
 Click "Add algorithm."
 
-![](images/12.png)
+![](images/12a.png)
+![](images/12b.png)
 
-Select "Degree Centrality" from the drop-down.
+Select "Degree Centrality" from the drop-down and click "Apply".
 
 ![](images/13.png)
-
-Click "Apply algorithm."
-
-![](images/14.png)
 
 Now that we've run the algorithm, we can choose how we want to visualize the results in the graph.  Choose "Size scaling". The more central nodes in our graph are now shown as larger. 
 
