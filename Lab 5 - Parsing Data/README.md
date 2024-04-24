@@ -46,11 +46,9 @@ Provide a name for your JupyterLab space, perhaps "sec-edgar."
 
  and click "Create Space"
 
-![](images/10.png)
+![](images/11.png)
 
 You will be landing in the page below. Wait for a few seconds to see the "Run space" button enabled.
-
-![](images/11.png)
 
 Click the "Run space" button.
 
@@ -60,7 +58,7 @@ After a couple of minutes, you will see the space created and the "Open JupyterL
 
 ![](images/13.png)
 
-When the widnow is loaded, you'll land in SageMaker Studio.  This is Amazon's hosted notebook environment.
+When the window is loaded, you'll land in SageMaker Studio.  This is Amazon's hosted notebook environment.
 
 ![](images/14.png)
 
