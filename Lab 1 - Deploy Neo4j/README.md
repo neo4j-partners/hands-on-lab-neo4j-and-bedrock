@@ -38,37 +38,33 @@ Now enter the password provided for that email address.  Click "Log in."
 
 ![](images/06.png)
 
-You may be presented with some terms.  If so, click "I agree."  If not, you may be able to skip over the next few steps.
+You'll be presented with a splash screen.  Click "Next."
 
 ![](images/07.png)
 
-You'll see a dialog that AWS account details are being verified.
+Click "Next" to advance to the next dialog.
 
 ![](images/08.png)
 
-When that is complete, click "Next."
+Click "Next" to advance to the next dialog.
 
 ![](images/09.png)
 
-Click "Next" to advance to the next dialog.
+Click "Close" to exit the dialog.
 
 ![](images/10.png)
 
-Click "Next" to advance to the next dialog.
+Click "Got it" to dismiss the bottom menu.
 
 ![](images/11.png)
 
-Click "Close" to exit the dialog.
+In the menu on the left click on "Instances" under "Aura DS."  Important -- be absolutely certain to select AuraDS.  It has components like Graph Data Science that AuraDB does not.  We're going to need those later.
 
 ![](images/12.png)
 
-In the menu on the left click on "Instances" under "Aura DS."  Important -- be absolutely certain to select AuraDS.  It has components like Graph Data Science that AuraDB does not.  We're going to need those later.
-
-![](images/13.png)
-
 Click "New instance."
 
-![](images/14.png)
+![](images/13.png)
 
 For "Number of nodes" enter 500,000.  For number of relationships, enter "1,000,000."  This will ensure our AuraDS deployment is of sufficient size for our workload.  
 
@@ -76,23 +72,23 @@ For algorithms select "Node Embedding."  This item doesn't change the config, ra
 
 With all that done, click "Calculate Estimate."
 
-![](images/15.png)
+![](images/14.png)
 
 For instance name, let's put "sec-edgar."  Click "Create."
 
-![](images/16.png)
+![](images/15.png)
 
 You'll be presented with the credentials for your database.  Click "Download and continue."  That will download the credentials to a text file on your local machine.  Be sure to save that file as you won't be able to get those credentials later.
 
-![](images/17.png)
+![](images/16.png)
 
 You'll see a dialog that your database is being created.  This takes less than five minutes.
 
-![](images/18.png)
+![](images/17.png)
 
 When deployment is complete you'll see this menu.  
 
-![](images/19.png)
+![](images/18.png)
 
 You can poke around the menus here a bit and see more on database status and connection information.
 
