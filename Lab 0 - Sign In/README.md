@@ -24,4 +24,4 @@ We're now authenticated and logged into the AWS console.
 
 ![](images/04.png)
 
-In the next lab we'll deploy Neo4j.
+At this point you can click through to dismiss any help dialogs.  In the next lab we'll deploy Neo4j.
