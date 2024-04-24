@@ -38,7 +38,7 @@ Now enter the password provided for that email address.  Click "Log in."
 
 ![](images/06.png)
 
-You'll be presented with some terms.  Click "I agree."
+You may be presented with some terms.  If so, click "I agree."  If not, you may be able to skip over the next few steps.
 
 ![](images/07.png)
 
