@@ -20,49 +20,60 @@ You'll see a message that setup is in progress.
 
 ![](images/04.png)
 
-Once it finishes, you'll see a message saying "The SageMaker Domain is ready."  Next to the default user, click "Launch" and select "Studio" under that.  You'll be put through a few redirects.
-
-If the default user isn't shown, you may need to refresh the screen.
-You will be landing in the Studio screen below.
+Then you'll be redirected into SageMaker.
 
 ![](images/05.png)
 
-Click on the button with orange background - "Jupyter Lab".
+Once it finishes, you'll see a message saying "The SageMaker Domain is ready."  Next to the default user, click "Launch" 
 
 ![](images/06.png)
 
-From the top right, click on "Create JupyterLab Space" button.
+Then select "Studio" under that.  You'll be put through a few redirects.
 
 ![](images/07.png)
 
-Provide a name for your Jupyter Lab space and click "Create Space"
+Click on the button with orange background - "JupyterLab".
 
 ![](images/08.png)
 
-You will be landing in the page below. Wait for a few seconds to see the "Run space" button enabled.
+From the top right, click on "Create JupyterLab Space" button.
 
 ![](images/09.png)
 
-Leave the default values as-is and click "Run space" button.
+Provide a name for your JupyterLab space, perhaps "sec-edgar."
 
 ![](images/10.png)
 
-After a couple of minutes, you will see the space created and the "Open Jupyter Lab" button enabled. Click that button which will open a new window.
+ and click "Create Space"
+
+![](images/10.png)
+
+You will be landing in the page below. Wait for a few seconds to see the "Run space" button enabled.
 
 ![](images/11.png)
 
-When the widnow is loaded, you'll land in SageMaker Studio.  This is Amazon's hosted notebook environment.
+Click the "Run space" button.
 
 ![](images/12.png)
+
+After a couple of minutes, you will see the space created and the "Open JupyterLab" button enabled. Click that button which will open a new window.
+
+![](images/13.png)
+
+When the widnow is loaded, you'll land in SageMaker Studio.  This is Amazon's hosted notebook environment.
+
+![](images/14.png)
 
 ## Import from GitHub to SageMaker Studio
 For the rest of the labs, we're going to be working with notebooks in SageMaker Studio.  To load them into Studio, we're going to pull them from GitHub using Studio's git integration.
 
 Click on the git icon in the upper left of Studio.  It's below the folder icon on the extreme left of the menu.
 
+![](images/15.png)
+
 Now click "Clone a Repository."
 
-![](images/13.png)
+![](images/16.png)
 
 In the dialog, enter the address of the git file in the repo we've been working with.  That is:
 
@@ -70,24 +81,22 @@ In the dialog, enter the address of the git file in the repo we've been working 
 
 Then click "Clone."
 
-This menu is a little finicky.  On my machine, I had to click on the URL after I pasted it and then click the "Clone" button.  If I didn't I receveived an error.
-
-![](images/14.png)
-
-When complete, it will open the README.md for this repo.  In the file explorer on the left, double click on "Lab 5 - Parsing Data."  Click on "parsing-data.ipynb" to open it.
-
-![](images/15.png)
-
-For image, select "Data Science 3.0."  That will populate the kernel and so on.
-
-![](images/16.png)
-
-Click "Select."
-
 ![](images/17.png)
 
-You'll see a message that the kernel is starting.  It takes a while.  In my case, it was three minutes to start.  Once complete, you should see this.  Now you're all ready to run through this notebook!
+When complete, it will open the README.md for this repo.  In the file explorer on the left, double click on "Lab 5 - Parsing Data."  
 
 ![](images/18.png)
 
-In the next labs, we'll explore further with notebooks.
+Click on "parsing-data.ipynb" to open it.
+
+![](images/19.png)
+
+Keep the default kernel and click "Select." 
+
+![](images/20.png)
+
+Once complete, you should see this.  Now you're all ready to run through this notebook!  To do so, select a cell and then press the play button.  That runs the cell.  You can now work through the notebook running each cell.
+
+![](images/21.png)
+
+In the next labs, we'll explore further, following this same approach of running through notebooks for each lab.
