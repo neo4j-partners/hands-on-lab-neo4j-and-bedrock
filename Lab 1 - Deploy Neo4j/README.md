@@ -56,8 +56,6 @@ Click "Close" to exit the dialog.
 
 Click "Got it" to dismiss the bottom menu.
 
-![](images/11.png)
-
 In the menu on the left click on "Instances" under "Aura DS."  Important -- be absolutely certain to select AuraDS.  It has components like Graph Data Science that AuraDB does not.  We're going to need those later.
 
 ![](images/12.png)
