@@ -58,8 +58,6 @@ Click "Got it" to dismiss the bottom menu.
 
 In the menu on the left click on "Instances" under "Aura DS."  Important -- be absolutely certain to select AuraDS.  It has components like Graph Data Science that AuraDB does not.  We're going to need those later.
 
-![](images/12.png)
-
 Click "New instance."
 
 ![](images/13.png)
