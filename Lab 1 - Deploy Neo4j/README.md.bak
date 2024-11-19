@@ -38,16 +38,6 @@ Now enter the password provided for that email address.  Click "Log in."
 
 ![](images/06.png)
 
-**NOTE: IF YOU GET THE FOLLOWING ERROR SCREEN, take the following 2 steps:*** 
-
-a. Click the "Back" button or refresh the screen**
-
-![](images/06a.png)
-
-b. Be sure the "AWS Marketplace" tenant is selected from the dropdown menu on the upper left side of the screen**
-
-![](images/06b.png)
-
 You'll be presented with a splash screen.  Click "Next."
 
 ![](images/07.png)
@@ -72,9 +62,7 @@ Click "New instance."
 
 ![](images/13.png)
 
-Once again, make sure the tenant is set to "AWS Marketplace" from the dropdown menu on the upper left. 
-
-Scroll down and for "Number of nodes" enter 500,000.  For number of relationships, enter "1,000,000."  This will ensure our AuraDS deployment is of sufficient size for our workload.  
+For "Number of nodes" enter 500,000.  For number of relationships, enter "1,000,000."  This will ensure our AuraDS deployment is of sufficient size for our workload.  
 
 For algorithms select "Node Embedding."  This item doesn't change the config, rather is a survey of what algorithms users are making use of.
 
@@ -101,4 +89,3 @@ When deployment is complete you'll see this menu.
 You can poke around the menus here a bit and see more on database status and connection information.
 
 You now have a deployment of Neo4j running!  In the next lab, we'll connect to it.
-
