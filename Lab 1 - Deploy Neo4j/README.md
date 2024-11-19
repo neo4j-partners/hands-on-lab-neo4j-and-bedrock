@@ -22,7 +22,7 @@ Click "View purchase options."
 
 ![](images/02.png)
 
-Note that this account has already been subscribed to Neo4j Aura Professional.  Click on "Click here to set up your account."
+Note that this account has already been subscribed to Neo4j Aura Professional.  Click on "Vendor's website"
 
 ![](images/03.png)
 
