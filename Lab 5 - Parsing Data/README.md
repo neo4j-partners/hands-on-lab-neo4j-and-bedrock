@@ -6,7 +6,7 @@ The first step is to deploy a SageMaker domain.  To do that, open the AWS consol
 
 ![](images/01.png)
 
-From the search results, click on "Amazon SageMaker AI" under "Services."
+From the search results, click on "SageMaker Studio" under "Amazon SageMaker AI." 
 
 ![](images/02.png)
 
