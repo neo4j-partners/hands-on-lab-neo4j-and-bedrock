@@ -38,5 +38,5 @@ We're now authenticated and logged into the AWS console.
 
 At this point you can click through to dismiss any help dialogs.  In the next lab we'll deploy Neo4j.
 
-## Progress:  █░░░░░░ 1/7 Labs Completed!
+#### Progress:  █░░░░░░ 1/7 Labs Completed!
 
