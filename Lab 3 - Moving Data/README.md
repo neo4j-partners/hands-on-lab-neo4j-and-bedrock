@@ -128,3 +128,5 @@ This will run for about two minutes.  When complete, you should see this:
 ![](images/13.png)
 
 You've done it!  We've loaded our data set up.  We'll explore it in the next lab.  But, feel free to poke around a bit as well.
+
+#### Progress:  ███░░░░ 3/7 Labs Completed!

@@ -119,3 +119,5 @@ The more central nodes in our graph are now shown as larger.
 ![](images/25.png)
 
 These are just a few examples of what you can do with Bloom.  Feel free to explore!
+
+#### Progress:  ████░░░ 4/7 Labs Completed!
