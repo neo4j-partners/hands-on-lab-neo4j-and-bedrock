@@ -30,7 +30,7 @@ This takes us to the Neo4j Aura console.  Billing information has been passed ov
 
 ![](images/04.png)
 
-Enter the email address provided for this lab.  In my case, it was kind-wind-34940@sandboxhubr.io.  Click "Log in."
+Enter the Neo4j Aura credentials: the Neo4j Username and Neo4j Password provided on the OneBlink page, and click "Log in." 
 
 ![](images/05.png)
 
