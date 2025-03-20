@@ -46,12 +46,7 @@ a. Click the "Back" button or refresh the screen**
 
 b. Be sure the "AWS Marketplace" tenant is selected from the dropdown menu on the upper left side of the screen**
 
-![](images/06b.png)
-
-IF you are using the latest Aura console, please select the AWS Marketplace tenant as below:
-
-![](images/06b-1.png)
-![](images/06b-2.png)
+![](images/06b.gif)
 
 You'll be presented with a splash screen.  Click "Next."
 
