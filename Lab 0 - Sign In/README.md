@@ -37,3 +37,5 @@ We're now authenticated and logged into the AWS console.
 ![](images/04.png)
 
 At this point you can click through to dismiss any help dialogs.  In the next lab we'll deploy Neo4j.
+
+![Progress](https://img.shields.io/badge/Progress-43%25-green)
