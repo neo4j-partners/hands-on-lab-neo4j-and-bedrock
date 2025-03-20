@@ -107,3 +107,5 @@ You can poke around the menus here a bit and see more on database status and con
 
 You now have a deployment of Neo4j running!  In the next lab, we'll connect to it.
 
+#### Progress:  █░░░░░░ 1/7 Labs Completed!
+

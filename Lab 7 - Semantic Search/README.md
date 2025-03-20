@@ -5,3 +5,5 @@ Step through these two notebooks in order to complete the lab.  Run them in Sage
 
 * [01-text-embedding.ipynb](01-text-embedding.ipynb) - Use Bedrock Titan text embedding service on 10-K filings.
 * [02-semantic-search.ipynb](02-semantic-search.ipynb) - Demonstrates knowledge retrieval with connected data (multiple hops from documents) using vector search and graph traversals in Cypher.
+
+#### Progress:  ███████ 7/7 Labs Completed! Congratulations!!!

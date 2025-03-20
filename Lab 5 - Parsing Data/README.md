@@ -98,3 +98,5 @@ Once complete, you should see this.  Now you're all ready to run through this no
 ![](images/21.png)
 
 In the next labs, we'll explore further, following this same approach of running through notebooks for each lab.
+
+#### Progress:  █████░░ 5/7 Labs Completed!
