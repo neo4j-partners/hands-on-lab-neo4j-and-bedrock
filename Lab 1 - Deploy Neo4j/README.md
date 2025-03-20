@@ -14,7 +14,7 @@ We're going to use the SaaS version, AuraDS, in these labs.  This is sometimes r
 
 So, let's get started deploying...  To do so, let's open the seller profile [here](https://aws.amazon.com/marketplace/seller-profile?id=23ec694a-d2af-4641-b4d3-b7201ab2f5f9).
 
-Scroll down and select "Neo4j Aura Professional."
+Scroll down and select "Neo4j AuraDB Professional (pay-as-you-go)."
 
 ![](images/01.png)
 
