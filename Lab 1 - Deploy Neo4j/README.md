@@ -26,25 +26,15 @@ Note that this account has already been subscribed to Neo4j Aura Professional.  
 
 ![](images/03.png)
 
-This takes us to the Neo4j Aura console.  Billing information has been passed over from the AWS account we just came from.  Under "Already have an account?" click "Log in."
-
-![](images/04.png)
-
-Enter the Neo4j Aura credentials: the Neo4j Username and Neo4j Password provided on the OneBlink page, and click "Log in." 
+This takes us to the Neo4j Aura console.  Billing information has been passed over from the AWS account we just came from. Enter the Neo4j Aura credentials: the Neo4j Username and Neo4j Password provided on the OneBlink page, and click "Log in." 
 
 ![](images/05.png)
 
-Now enter the password provided for that email address.  Click "Log in."
+Now enter the Neo4j Password provided for that email address.  Click "Log in."
 
 ![](images/06.png)
 
-**NOTE: IF YOU GET THE FOLLOWING ERROR SCREEN, take the following 2 steps:*** 
-
-a. Click the "Back" button or refresh the screen**
-
-![](images/06a.png)
-
-b. Be sure the "AWS Marketplace" tenant is selected from the dropdown menu on the upper left side of the screen**
+**NOTE: Be sure the "AWS Marketplace" tenant is selected from the dropdown menu on the upper left side of the screen**
 
 ![](images/06b.gif)
 
