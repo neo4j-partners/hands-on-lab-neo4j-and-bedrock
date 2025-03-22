@@ -37,6 +37,7 @@ Currently, the database is empty. The **Nodes**, **Relationships**, and **Proper
 
 ```cypher
 RETURN gds.version() AS version
+```
 
 ![](images/11.gif)
 
