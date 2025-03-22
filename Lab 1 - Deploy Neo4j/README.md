@@ -34,12 +34,6 @@ This takes us to the Neo4j Aura console.  Billing information has been passed ov
 
 ![](images/06b.gif)
 
-Click "New instance."
-
-![](images/13.png)
-
-Once again, make sure the tenant is set to "AWS Marketplace" from the dropdown menu on the upper left. 
-
 To create a new instance, click on **"Create Instance"**, then select **AuraDS** from the right-hand corner. Choose **AuraDS**, keep the default instance size, and enter **"sec-edgar"** as the instance name. Check the box next to **"I Accept"**, then click **"Create"**.
 
 ![](images/15.gif)
