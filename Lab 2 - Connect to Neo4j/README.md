@@ -17,7 +17,7 @@ Enter your password and click "Connect."
 
 Note that the connection to the database is being made over port 7687.  If you have a firewall running on your laptop, or a VPN, it's quite possible that will block this connection.  To continue you will need to disable that.
 
-# Neo4j Aura - Working with Graph Data  
+## Neo4j Aura - Working with Graph Data  
 
 We are now in **Neo4j Aura Console**, a unified experience for working with graph data. The interface includes several sections:  
 
