@@ -46,10 +46,6 @@ Once again, make sure the tenant is set to "AWS Marketplace" from the dropdown m
 
 To create a new instance, click on **"Create Instance"**, then select **AuraDS** from the right-hand corner. Choose **AuraDS**, keep the default instance size, and enter **"sec-edgar"** as the instance name. Check the box next to **"I Accept"**, then click **"Create"**.
 
-![](images/14.png)
-
-For instance name, let's put "sec-edgar."  Click "Create."
-
 ![](images/15.gif)
 
 You'll be presented with the credentials for your database.  Click "Download and continue."  That will download the credentials to a text file on your local machine.  Be sure to save that file as you won't be able to get those credentials later.
