@@ -30,10 +30,6 @@ This takes us to the Neo4j Aura console.  Billing information has been passed ov
 
 ![](images/05.png)
 
-Now enter the Neo4j Password provided for that email address.  Click "Log in."
-
-![](images/06.png)
-
 **NOTE: Be sure the "AWS Marketplace" tenant is selected from the dropdown menu on the upper left side of the screen**
 
 ![](images/06b.gif)
