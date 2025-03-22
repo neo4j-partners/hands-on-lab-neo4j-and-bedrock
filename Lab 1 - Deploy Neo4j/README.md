@@ -34,7 +34,14 @@ This takes us to the Neo4j Aura console.  Billing information has been passed ov
 
 ![](images/06b.gif)
 
-To create a new instance, click on **"Create Instance"**, then select **AuraDS** from the right-hand corner. Choose **AuraDS**, keep the default instance size, and enter **"sec-edgar"** as the instance name. Check the box next to **"I Accept"**, then click **"Create"**.
+Follow these steps to create a new instance in **Neo4j AuraDS**:
+
+1. Click **"Create Instance"**  
+2. Select **AuraDS** from the right-hand corner  
+3. Choose **AuraDS** and keep the default instance size  
+4. Enter **`sec-edgar`** as the instance name  
+5. Check the box next to **"I Accept"**  
+6. Click **"Create"**  
 
 ![](images/15.gif)
 
