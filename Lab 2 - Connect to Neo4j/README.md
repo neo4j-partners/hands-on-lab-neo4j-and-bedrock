@@ -39,7 +39,7 @@ Currently, the database is empty. The **Nodes**, **Relationships**, and **Proper
 RETURN gds.version() AS version
 ```
 
-![](images/11.gif)
+![](images/10.png)
 
 This command should return the current GDS version. If you encounter any errors, it means you have created the wrong instance of Aura. Please start over from Lab 1 to create the correct AuraDS instance.
 
