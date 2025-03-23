@@ -10,9 +10,7 @@ For this portion of the lab, we're going to work with a subset of the data.  Our
 
 You may want to download the data and load it into your favorite tool for exploring CSV files.  Pandas, Excel or anything else should be able to make short work of it.  Once you understand what's in the data, the next step would be to load it into Neo4j.
 
-To load it in Neo4j, let's open the tab that has our Neo4j Workspace in it.  If you don't have that tab open, you can review the previous lab to get into it.
-
-Make sure that "Query" is selected at the top.
+To load it in Neo4j, click on 'Query' under the 'Tools' section in the Aura Console.
 
 ![](images/01.png)
 
