@@ -34,18 +34,16 @@ You will need the following files:
 
 ## Import Instructions
 
-Follow these steps to import the data into your Neo4j Aura database:
-
 1.  **Open Neo4j Aura Console:**
-    * Go to your Neo4j Aura console.
+Follow these steps to import the data into your Neo4j Aura database. Lets' use the Import tool. In the data services section, click on "Import" and in the Import section, select the "Graph models" tab.
 ![](images/01.png)
 
 2.  **Navigate to Import:**
-    * In the data services section, click on "Import."
+    * 
 ![](images/02.png)
 ![](images/03.png)
 3.  **Access Graph Models:**
-    * In the Import section, select the "Graph models" tab.
+    * 
 ![](images/04.png)
 
 4.  **Open Graph Model:**
