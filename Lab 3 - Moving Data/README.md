@@ -59,7 +59,7 @@ Follow these steps to import the data into your Neo4j Aura database. Lets' use t
 ![](images/07.png)
     * Select the `form13-2023.csv` file that you downloaded.
 ![](images/08.png)
-![](images/08.png)
+![](images/09.png)
 9.  **Run Import:**
     * Click on "Run import."
 ![](images/10.png)
