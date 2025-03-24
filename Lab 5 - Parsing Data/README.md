@@ -2,7 +2,7 @@
 In this lab we're going to spin up a SageMaker domain.  We'll then use it to run a notebook that calls Neo4j and Amazon Bedrock APIs to load data into Neo4j.
 
 ## Create a SageMaker Domain
-The first step is to deploy a SageMaker domain.  To do that, open the AWS console [here](https://console.aws.amazon.com/).  In the search bar, type "sagemaker." 
+To get started, please open the SageMaker Domain that has already been created for you. To do that, open the AWS console [here](https://console.aws.amazon.com/).  In the search bar, type "sagemaker." 
 
 ![](images/01.png)
 
@@ -15,22 +15,6 @@ A SageMaker Domain is a container for notebooks and other artifacts deployed wit
 To that end, click "Set up for single user."
 
 ![](images/03.png)
-
-You'll see a message that setup is in progress.
-
-![](images/04.png)
-
-Then you'll be redirected into SageMaker.
-
-![](images/05.png)
-
-Once it finishes, you'll see a message saying "The SageMaker Domain is ready."  Next to the default user, click "Launch" 
-
-![](images/06.png)
-
-Then select "Studio" under that.  You'll be put through a few redirects.
-
-![](images/07.png)
 
 Click on the button with orange background - "JupyterLab".
 
