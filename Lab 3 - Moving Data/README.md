@@ -43,35 +43,36 @@ Follow these steps to import the data into your Neo4j Aura database:
 2.  **Navigate to Import:**
     * In the data services section, click on "Import."
 ![](images/02.png)
+![](images/03.png)
 3.  **Access Graph Models:**
     * In the Import section, select the "Graph models" tab.
-![](images/03.png)
+![](images/04.png)
 
 4.  **Open Graph Model:**
     * Click on the "New graph model" button.
     * Locate the "Run import" button in the top right corner and click the three dots next to it.
     * Select "Open model" from the menu.
-![](images/04.png)
 ![](images/05.png)
+![](images/06.png)
 5.  **Select Graph Model File:**
     * Browse and select the `neo4j_importer_model_sec-edgar-forms13.json` file that you downloaded.
-![](images/06.png)
+![](images/07.png)
 6.  **Select Data Source:**
     * On the left-hand side, next to "Data source," click the "Browse" button.
     * Select the `form13-2023.csv` file that you downloaded.
-![](images/07.png)
+![](images/08.png)
 7.  **Review Graph Model:**
     * The graph model should now be displayed on the canvas in the middle of the screen.
-![](images/08.png)
+![](images/09.png)
 8.  **Inspect Nodes and Relationships:**
     * Click on the "Manager" node to view its properties and keys.
     * Click on the "OWNS" relationship type to view its Node ID Mapping and properties.
-![](images/09.png)
+![](images/10.png)
 9.  **Run Import:**
     * Click on "Run import."
     * Wait for the import process to complete (approximately 5 minutes or less).
-![](images/10.png)
 ![](images/11.png)
+![](images/12.png)
 You've done it!  We've loaded our data set up.  We'll explore it in the next lab.  But, feel free to poke around a bit as well.
 
 #### Progress:  ███░░░░ 3/7 Labs Completed!
