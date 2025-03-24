@@ -35,42 +35,37 @@ You will need the following files:
 ## Import Instructions
 
 1.  **Open Neo4j Aura Console:**
-Follow these steps to import the data into your Neo4j Aura database. Lets' use the Import tool. In the data services section, click on "Import" and in the Import section, select the "Graph models" tab.
-![](images/01.png)
-
-2.  **Navigate to Import:**
-    * 
-![](images/02.png)
-![](images/03.png)
-3.  **Access Graph Models:**
-    * 
-![](images/04.png)
-
-4.  **Open Graph Model:**
+Follow these steps to import the data into your Neo4j Aura database. Lets' use the Import tool. 
+    * In the data services section, click on "Import"
+    * in the Import section, select the "Graph models" tab.
     * Click on the "New graph model" button.
+![](images/01.png)
+2. **Open Graph Model:**
     * Locate the "Run import" button in the top right corner and click the three dots next to it.
     * Select "Open model" from the menu.
-![](images/05.png)
-![](images/06.png)
-5.  **Select Graph Model File:**
     * Browse and select the `neo4j_importer_model_sec-edgar-forms13.json` file that you downloaded.
-![](images/07.png)
-6.  **Select Data Source:**
-    * On the left-hand side, next to "Data source," click the "Browse" button.
-    * Select the `form13-2023.csv` file that you downloaded.
-![](images/08.png)
+![](images/02.png)
+![](images/03.png)
 7.  **Review Graph Model:**
     * The graph model should now be displayed on the canvas in the middle of the screen.
-![](images/09.png)
+![](images/04.png)
 8.  **Inspect Nodes and Relationships:**
     * Click on the "Manager" node to view its properties and keys.
+![](images/05.png)
     * Click on the "OWNS" relationship type to view its Node ID Mapping and properties.
-![](images/10.png)
+![](images/06.png)
+6.  **Select Data Source:**
+    * On the left-hand side, next to "Data source," click the "Browse" button.
+![](images/07.png)
+    * Select the `form13-2023.csv` file that you downloaded.
+![](images/08.png)
 9.  **Run Import:**
     * Click on "Run import."
+![](images/09.png)
     * Wait for the import process to complete (approximately 5 minutes or less).
+![](images/10.png)
 ![](images/11.png)
-![](images/12.png)
 You've done it!  We've loaded our data set up.  We'll explore it in the next lab.  But, feel free to poke around a bit as well.
+![](images/12.png)
 
 #### Progress:  ███░░░░ 3/7 Labs Completed!
