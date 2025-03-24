@@ -66,6 +66,7 @@ Follow these steps to import the data into your Neo4j Aura database. Lets' use t
     * Wait for the import process to complete (approximately 5 minutes or less).
 ![](images/11.png)
 ![](images/12.png)
+
 You've done it!  We've loaded our data set up.  We'll explore it in the next lab.  But, feel free to poke around a bit as well.
 ![](images/13.png)
 
