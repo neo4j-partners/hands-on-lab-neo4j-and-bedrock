@@ -3,5 +3,6 @@ In this lab, we'll build a chatbot.  The chatbot interface will use gradio.  Und
 
 So, let's open up the notebook in our SageMaker Studio environment, as we did in the previous lab.  The notebook we want to open is [chatbot.ipynb](chatbot.ipynb).
 
+Below is a screenshot of the chatbot application.
 
-#### Progress:  ██████░ 6/7 Labs Completed!
+![](images/01.png)
