@@ -59,13 +59,14 @@ Follow these steps to import the data into your Neo4j Aura database. Lets' use t
 ![](images/07.png)
     * Select the `form13-2023.csv` file that you downloaded.
 ![](images/08.png)
+![](images/08.png)
 9.  **Run Import:**
     * Click on "Run import."
-![](images/09.png)
-    * Wait for the import process to complete (approximately 5 minutes or less).
 ![](images/10.png)
+    * Wait for the import process to complete (approximately 5 minutes or less).
 ![](images/11.png)
-You've done it!  We've loaded our data set up.  We'll explore it in the next lab.  But, feel free to poke around a bit as well.
 ![](images/12.png)
+You've done it!  We've loaded our data set up.  We'll explore it in the next lab.  But, feel free to poke around a bit as well.
+![](images/13.png)
 
 #### Progress:  ███░░░░ 3/7 Labs Completed!
