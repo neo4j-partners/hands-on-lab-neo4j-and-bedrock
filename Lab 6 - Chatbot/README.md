@@ -6,3 +6,5 @@ So, let's open up the notebook in our SageMaker Studio environment, as we did in
 Below is a screenshot of the chatbot application.
 
 ![](images/01.png)
+
+#### Progress:  ██████░ 6/7 Labs Completed!
