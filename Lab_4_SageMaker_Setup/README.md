@@ -2,6 +2,34 @@
 
 In this lab, you'll set up Amazon SageMaker Studio and clone the workshop repository. This prepares your development environment for building AI agents that connect to Neo4j using the Model Context Protocol (MCP).
 
+## Pre-Workshop Setup (For Organizers)
+
+> **Note:** If you're a workshop attendee, skip this section. Your organizer may have already set everything up for you.
+
+Workshop organizers can pre-provision accounts using the scripts in `setup-scripts/`:
+
+```bash
+cd setup-scripts
+
+# Option 1: CloudFormation (single account, full automation)
+aws cloudformation create-stack \
+  --stack-name bedrock-agents-lab \
+  --template-body file://datazone-lab-stack.yaml \
+  --capabilities CAPABILITY_NAMED_IAM
+
+# Option 2: CLI scripts (multiple accounts)
+./setup-datazone.sh                              # Create DataZone domain/project
+./setup-datazone.sh --add-user user/attendee-1   # Add attendees
+./setup-bedrock-lab-org.sh 123456789012          # Provision account(s)
+```
+
+If pre-provisioned, attendees will have:
+- DataZone domain and project ready
+- `BedrockLabRole` with all required permissions
+- Inference profiles already created with proper tags
+
+See `setup-scripts/SETUP.md` for details.
+
 ## Create a SageMaker Domain
 
 Open the AWS console at [console.aws.amazon.com](https://console.aws.amazon.com/). In the search bar, type "sagemaker."
@@ -76,9 +104,20 @@ When complete, it will open the README.md for this repo. In the file explorer on
 
 Verify your SageMaker environment is working correctly with AWS Bedrock by running the minimal agent notebook.
 
-### Step 1: Create an Inference Profile
+### Step 1: Check for Existing Inference Profiles
 
-SageMaker Unified Studio requires application inference profiles with special tags. The `setup-inference-profile.sh` script creates these for you.
+First, check if inference profiles were already created by your workshop organizer:
+
+```bash
+cd hands-on-lab-neo4j-and-bedrock/Lab_4_SageMaker_Setup
+./setup-inference-profile.sh --list
+```
+
+If you see profiles listed (e.g., `langgraph-lab-haiku` or `{domain_id} {project_id} haiku`), skip to Step 2.
+
+### Step 1b: Create an Inference Profile (If Needed)
+
+If no profiles exist, create one. SageMaker Unified Studio requires application inference profiles with special tags. The `setup-inference-profile.sh` script creates these for you.
 
 Open a terminal in JupyterLab (File → New → Terminal) and run:
 
@@ -109,6 +148,8 @@ The script will:
 ./setup-inference-profile.sh --all          # Create profiles for all models
 ./setup-inference-profile.sh --help         # See all options
 ```
+
+> **Note:** If you get permission errors, you may need IAM permissions. See `setup-iam.sh --help` or ask your workshop organizer.
 
 ### Step 2: Run the Test Notebook
 
@@ -192,9 +233,13 @@ llm = BedrockLLM(
 | `AccessDeniedException: bedrock:GetInferenceProfile` | SageMaker role lacks this permission | Add `base_model_id` parameter |
 | `ValidationException: provider` | Using ARN without provider param | Add `provider="anthropic"` |
 
-### Setup Script
+### Setup Scripts
 
-The `setup-inference-profile.sh` script creates properly tagged inference profiles:
+This lab includes two setup scripts:
+
+#### setup-inference-profile.sh
+
+Creates properly tagged inference profiles for SageMaker Unified Studio:
 
 ```bash
 ./setup-inference-profile.sh haiku      # Create haiku profile
@@ -207,6 +252,28 @@ The script adds required tags:
 - `AmazonBedrockManaged` = `true` (the key tag for SageMaker access)
 - `AmazonDataZoneProject` = `{project_id}`
 - `AmazonDataZoneDomain` = `{domain_id}`
+
+#### setup-iam.sh
+
+Creates and attaches IAM permissions (only needed if using your own AWS account):
+
+```bash
+./setup-iam.sh --list-roles              # List SageMaker execution roles
+./setup-iam.sh --attach YOUR_ROLE_NAME   # Create policy and attach
+./setup-iam.sh --check YOUR_ROLE_NAME    # Verify permissions
+./setup-iam.sh --help                    # See all options
+```
+
+> **When to use:** Only run `setup-iam.sh` if you're using your own AWS account and getting permission errors. Workshop accounts pre-provisioned with `setup-scripts/` already have the required IAM permissions.
+
+### Script Summary
+
+| Script | Purpose | When to Use |
+|--------|---------|-------------|
+| `setup-inference-profile.sh` | Create inference profiles | Always (check with `--list` first) |
+| `setup-iam.sh` | Create/attach IAM policy | Only if permission errors |
+| `setup-scripts/setup-datazone.sh` | Create DataZone domain/project | Workshop organizers only |
+| `setup-scripts/setup-bedrock-lab-org.sh` | Provision multiple accounts | Workshop organizers only |
 
 ---
 

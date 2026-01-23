@@ -253,8 +253,17 @@ auto_detect_datazone() {
             echo "  Domain:  $DATAZONE_DOMAIN_ID"
             echo "  Project: $DATAZONE_PROJECT_ID"
         else
-            echo -e "${YELLOW}⚠ DataZone IDs not detected - profiles will not have AmazonBedrockManaged tag${NC}"
-            echo "  Run '$0 --detect' for details"
+            echo -e "${RED}ERROR: DataZone IDs not detected${NC}"
+            echo ""
+            echo "Inference profiles require DataZone to be set up first."
+            echo "Without DataZone tags, profiles won't be visible in SageMaker Unified Studio."
+            echo ""
+            echo "Options:"
+            echo "  1. Run setup-datazone.sh first (in setup-scripts/)"
+            echo "  2. Use CloudFormation: aws cloudformation create-stack ... (see setup-scripts/README.md)"
+            echo ""
+            echo "Run '$0 --detect' for diagnostic details."
+            exit 1
         fi
     fi
 }
