@@ -1,0 +1,7 @@
+# Jupyter Notebook
+.ipynb_checkpoints
+__pycache__
+.env
+
+# Apple Filesystem
+.DS_STORE
