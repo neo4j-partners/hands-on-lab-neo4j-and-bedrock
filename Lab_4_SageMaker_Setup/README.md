@@ -82,6 +82,98 @@ If you want to verify your SageMaker environment is working correctly with AWS B
 
 This optional step confirms that LangGraph and Bedrock are working before you add the MCP complexity in Lab 5.
 
+---
+
+## Model Configuration: Why It's Different in Each Environment
+
+AWS Bedrock models can be referenced in several ways, but **the correct approach depends on your environment**:
+
+### The Challenge
+
+SageMaker Unified Studio uses a **permissions boundary** (`SageMakerStudioProjectUserRolePermissionsBoundary`) that restricts direct Bedrock model access. This boundary only allows `bedrock:InvokeModel` on inference profiles with the `AmazonBedrockManaged=true` tag.
+
+### Three Ways to Reference Models
+
+| Format | Example | Works in SageMaker? | Works Locally? |
+|--------|---------|---------------------|----------------|
+| **Base model ID** | `anthropic.claude-3-5-haiku-20241022-v1:0` | No | Yes |
+| **Cross-region inference profile** | `us.anthropic.claude-sonnet-4-5-20250929-v1:0` | No | Yes |
+| **Application inference profile ARN** | `arn:aws:bedrock:us-west-2:ACCOUNT:application-inference-profile/ID` | Yes (if properly tagged) | Yes |
+
+### Notebook Configuration (SageMaker)
+
+Notebooks running in SageMaker **must use application inference profile ARNs** created by the setup script:
+
+```python
+# From setup-inference-profile.sh output
+MODEL = "haiku"
+INFERENCE_PROFILE_ARN = "arn:aws:bedrock:us-west-2:ACCOUNT:application-inference-profile/ID"
+
+# For langchain-aws - requires provider and base_model_id
+BASE_MODEL_IDS = {
+    "haiku": "anthropic.claude-3-5-haiku-20241022-v1:0",
+    "sonnet": "anthropic.claude-3-5-sonnet-20241022-v2:0",
+    "sonnet4": "anthropic.claude-sonnet-4-20250514-v1:0",
+    "sonnet45": "anthropic.claude-sonnet-4-5-20250929-v1:0",
+}
+
+llm = ChatBedrockConverse(
+    model=INFERENCE_PROFILE_ARN,
+    provider="anthropic",                    # Required when using ARN
+    base_model_id=BASE_MODEL_IDS[MODEL],     # Bypasses GetInferenceProfile call
+    region_name="us-west-2",
+)
+
+# For neo4j-graphrag
+llm = BedrockLLM(
+    model_id=INFERENCE_PROFILE_ARN,
+    region_name="us-west-2",
+)
+```
+
+**Why `base_model_id`?** The `langchain-aws` library calls `bedrock:GetInferenceProfile` which SageMaker roles don't have permission for. Adding `base_model_id` bypasses this call.
+
+### Local Python Configuration
+
+When running outside SageMaker (locally, EC2, Lambda), you can use cross-region inference profile IDs directly:
+
+```python
+# Cross-region inference profile ID (simpler, works outside SageMaker)
+AWS_BEDROCK_INFERENCE_PROFILE_ID = "us.anthropic.claude-sonnet-4-5-20250929-v1:0"
+
+# For neo4j-graphrag
+llm = BedrockLLM(
+    inference_profile_id=AWS_BEDROCK_INFERENCE_PROFILE_ID,
+    region_name="us-west-2",
+)
+```
+
+### Common Errors
+
+| Error | Cause | Fix |
+|-------|-------|-----|
+| `AccessDeniedException: bedrock:InvokeModel` | Profile missing `AmazonBedrockManaged=true` tag | Recreate with `./setup-inference-profile.sh` |
+| `AccessDeniedException: bedrock:GetInferenceProfile` | SageMaker role lacks this permission | Add `base_model_id` parameter |
+| `ValidationException: provider` | Using ARN without provider param | Add `provider="anthropic"` |
+
+### Setup Script
+
+The `setup-inference-profile.sh` script creates properly tagged inference profiles:
+
+```bash
+./setup-inference-profile.sh haiku      # Create haiku profile
+./setup-inference-profile.sh sonnet45   # Create Claude Sonnet 4.5 profile
+./setup-inference-profile.sh --list     # Show profiles with tag status
+./setup-inference-profile.sh --help     # See all options
+```
+
+The script adds required tags:
+- `AmazonBedrockManaged` = `true` (the key tag for SageMaker access)
+- `AmazonDataZoneProject` = `{project_id}`
+- `AmazonDataZoneDomain` = `{domain_id}`
+
+---
+
 ## Next Steps
 
 Continue to [Lab 5 - Neo4j MCP Agent](../Lab_5_Neo4j_MCP_Agent) to build an AI agent that queries your Neo4j knowledge graph using the Model Context Protocol.
