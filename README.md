@@ -2,42 +2,85 @@
 
 Build Generative AI and GraphRAG Agents with Neo4j and AWS.
 
+Neo4j is the [leading graph database](https://db-engines.com/en/ranking/graph+dbms) vendor. We've worked closely with AWS engineering for years. Our products, AuraDB and AuraDS, are offered as managed services available on AWS through the [AWS Marketplace](https://aws.amazon.com/marketplace/seller-profile?id=23ec694a-d2af-4641-b4d3-b7201ab2f5f9).
+
 ## Overview
 
-In this hands-on lab, you'll learn how to build AI agents that query knowledge graphs using Neo4j, Amazon Bedrock, and the Model Context Protocol (MCP). The lab is designed for data scientists, data engineers, and developers interested in applying graph-powered AI to real-world datasets.
+In this hands-on lab, you'll learn about Neo4j, Amazon Bedrock, and the [Model Context Protocol (MCP)](https://modelcontextprotocol.io/). The lab is designed for data scientists, data engineers, and AI developers who want to master GraphRAG (Graph Retrieval-Augmented Generation) techniques and build production-ready agentic AI applications.
 
-You'll work with a knowledge graph built from SEC 10-K filings - regulatory documents filed by publicly traded companies. The graph contains companies, their risk factors, asset manager ownership data, and extracted entities. By the end of this lab, you'll be able to ask natural language questions about complex financial relationships and get accurate, grounded answers.
+In today's landscape, organizations need AI systems that can extract deep insights from unstructured documents, understand complex entity relationships, and build intelligent systems that can autonomously reason over vast information networks. This hands-on lab addresses this need directly by providing mastery in the most powerful pattern available for complex document intelligence: Graph Retrieval-Augmented Generation (GraphRAG).
 
-### What You'll Learn
+You'll work with a real-world dataset of SEC 10-K company filings to learn fundamental GraphRAG patterns. We'll start with a pre-built knowledge graph containing extracted entities from unstructured text. Then you'll implement multiple retrieval strategies: vector similarity search for semantic retrieval, graph-enhanced retrievers that leverage entity relationships, and natural language to Cypher query generation. Finally, you'll build intelligent agents using LangGraph and Strands that can autonomously reason over your knowledge graph to answer complex questions.
 
-- **Neo4j Aura**: Deploy and manage a cloud-hosted graph database
-- **Knowledge Graphs**: Explore relationships between companies, risks, and investors
-- **Aura Agents**: Build no-code AI agents with semantic search and graph traversal
-- **Model Context Protocol**: Connect AI agents to enterprise data sources securely
-- **LangGraph/Strands**: Build production-ready AI agents with Python
+By the end of this lab, you'll have hands-on experience with:
+- Exploring knowledge graphs built from unstructured documents
+- Implementing semantic search with vector embeddings
+- Creating graph-enhanced retrieval patterns for richer context
+- Building no-code AI agents with Neo4j Aura Agents
+- Developing agentic AI systems using the Model Context Protocol
+- Deploying GraphRAG applications on AWS infrastructure
 
-## Workshop Structure
+These techniques apply to any domain where you need to extract insights from documents, understand entity relationships, and build AI systems that can reason over complex information networks.
 
-The workshop is divided into two tracks:
+## Starting the Lab
 
-### Part 1: No-Code Track (Labs 0-2)
+To get started, follow the labs in the agenda below in order.
 
-Build AI agents without writing code using Neo4j Aura's built-in tools.
+**Quick Start Options:**
+- **No-Code Track Only (1 hour):** Complete Part 1 (Labs 0-2) to explore Neo4j and AI agents without coding
+- **Full Workshop (3 hours):** Complete both Part 1 and Part 2 for the full development experience
+- **Skip to Coding:** If you already have your AWS account and Aura credentials, go straight to [Lab 4 - SageMaker Setup](Lab_4_SageMaker_Setup)
 
-| Lab | Title | Description |
-|-----|-------|-------------|
-| [Lab 0](Lab_0_Sign_In) | Sign In | Access AWS and Neo4j accounts |
-| [Lab 1](Lab_1_Aura_Setup) | Aura Setup | Create Neo4j Aura database, restore knowledge graph |
-| [Lab 2](Lab_2_Aura_Agents) | Aura Agents | Build AI agent with Cypher templates, semantic search, and Text2Cypher |
+## Duration
 
-### Part 2: Coding Track (Labs 4-5)
+3 hours (full workshop) or 1 hour (no-code track only).
 
-Build AI agents programmatically using Python, LangGraph, and MCP.
+## Prerequisites
 
-| Lab | Title | Description |
-|-----|-------|-------------|
-| [Lab 4](Lab_4_SageMaker_Setup) | SageMaker Setup | Set up development environment in Amazon SageMaker |
-| [Lab 5](Lab_5_Neo4j_MCP_Agent) | Neo4j MCP Agent | Build LangGraph/Strands agent with Model Context Protocol |
+You'll need a laptop with a web browser. Your browser will need to be able to access the AWS Console and the Neo4j Aura Console. If your laptop has a firewall you can't control, you may want to bring your personal laptop.
+
+## Agenda
+
+### Part 1 - No-Code Getting Started
+
+*This section requires no coding. You'll use visual tools and pre-built interfaces to explore Neo4j and AI agents.*
+
+* Introductions
+* Lecture - Introduction to Neo4j (10 min)
+    * What is Neo4j?
+    * How is it deployed and managed on AWS?
+* [Lab 0 - Sign In](Lab_0_Sign_In) (5 min)
+    * Improving the Labs
+    * Sign into AWS
+* [Lab 1 - Neo4j Aura Setup](Lab_1_Aura_Setup) (15 min)
+    * Signing up for Neo4j Aura through AWS Marketplace
+    * Restoring the pre-built knowledge graph
+    * Visual exploration with Neo4j Explore
+* [Lab 2 - Aura Agents](Lab_2_Aura_Agents) (20 min)
+    * Building AI agents using Neo4j Aura Agent (no-code)
+    * Creating Cypher template tools
+    * Adding semantic search and Text2Cypher capabilities
+* Break (5 min)
+
+---
+
+### Part 2 - Coding and MCP Development
+
+*This section involves Python programming using Jupyter notebooks in Amazon SageMaker.*
+
+* Lecture - Neo4j and Generative AI (15 min)
+    * Generating Knowledge Graphs
+    * Retrieval Augmented Generation
+    * Model Context Protocol
+* [Lab 4 - SageMaker Setup](Lab_4_SageMaker_Setup) (15 min)
+    * Launch SageMaker Studio
+    * Clone the workshop repository
+    * Configure inference profiles for Bedrock
+* [Lab 5 - Neo4j MCP Agent](Lab_5_Neo4j_MCP_Agent) (30 min)
+    * Connect to Neo4j via AgentCore Gateway
+    * Build LangGraph or Strands agent
+    * Query the knowledge graph with natural language
+* Questions and Next Steps (10 min)
 
 ## Architecture
 
@@ -63,43 +106,6 @@ Build AI agents programmatically using Python, LangGraph, and MCP.
                     │  • Vector Embeddings          │
                     └───────────────────────────────┘
 ```
-
-## Prerequisites
-
-- Laptop with a web browser
-- Access to AWS Console (provided during workshop)
-- Access to Neo4j Aura (provided during workshop)
-
-## Venue
-
-These workshops are organized onsite at AWS and Neo4j partner events.
-
-## Duration
-
-3 hours total:
-- Part 1 (No-Code): ~1 hour
-- Part 2 (Coding): ~2 hours
-
-## Agenda
-
-### Part 1: No-Code Track
-
-| Time | Activity |
-|------|----------|
-| 10 min | Introduction to Neo4j and Knowledge Graphs |
-| 5 min | [Lab 0](Lab_0_Sign_In) - Sign In to AWS |
-| 15 min | [Lab 1](Lab_1_Aura_Setup) - Neo4j Aura Setup |
-| 20 min | [Lab 2](Lab_2_Aura_Agents) - Build Aura Agent |
-| 5 min | Break |
-
-### Part 2: Coding Track
-
-| Time | Activity |
-|------|----------|
-| 15 min | Introduction to MCP and AgentCore |
-| 15 min | [Lab 4](Lab_4_SageMaker_Setup) - SageMaker Setup |
-| 30 min | [Lab 5](Lab_5_Neo4j_MCP_Agent) - Build MCP Agent |
-| 15 min | Q&A and Next Steps |
 
 ## The Dataset
 
