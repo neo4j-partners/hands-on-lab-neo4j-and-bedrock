@@ -1,0 +1,18 @@
+[project]
+name = "graphrag-retrievers"
+version = "0.1.0"
+description = "Neo4j GraphRAG Retrievers - Vector, VectorCypher, and Text2Cypher examples"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "boto3>=1.35.0",
+    "openai>=1.0.0",
+    "python-dotenv>=1.0.0",
+    # Local fork with Bedrock support
+    "neo4j-graphrag[bedrock] @ file:///Users/ryanknight/projects/neo4j-graphrag-python",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0.0",
+]
