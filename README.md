@@ -22,6 +22,111 @@ By the end of this lab, you'll have hands-on experience with:
 
 These techniques apply to any domain where you need to extract insights from documents, understand entity relationships, and build AI systems that can reason over complex information networks.
 
+## Knowledge Graph Data Model
+
+The workshop uses a hybrid knowledge graph that combines **lexical structure** (documents and chunks) with **semantic knowledge** (entities and relationships extracted by LLM). This architecture enables multiple retrieval strategies.
+
+### Graph Structure
+
+```
+                      NEXT_CHUNK
+                 ┌──────────────────┐
+                 │                  │
+                 v                  │
+┌──────────┐       ┌──────────┐       ┌──────────┐
+│  Chunk   │──────>│  Chunk   │──────>│  Chunk   │
+│          │       │          │       │          │
+│ text     │       │ text     │       │ text     │
+│ embedding│       │ embedding│       │ embedding│
+└──────────┘       └──────────┘       └──────────┘
+     │                  │                  │
+     │ FROM_DOCUMENT    │                  │
+     v                  v                  v
+┌─────────────────────────────────────────────────┐
+│                    Document                      │
+│                                                  │
+│  path: "sec-10k-filings/apple-10k.pdf"          │
+└─────────────────────────────────────────────────┘
+
+     ^                  ^                  ^
+     │ FROM_CHUNK       │                  │
+     │                  │                  │
+┌──────────┐       ┌──────────┐       ┌──────────┐
+│ Company  │       │ Product  │       │RiskFactor│
+│          │       │          │       │          │
+│ Apple    │       │ iPhone   │       │ Supply   │
+│ Inc.     │       │          │       │ Chain    │
+└──────────┘       └──────────┘       └──────────┘
+     │                                      ^
+     │ FACES_RISK                           │
+     └──────────────────────────────────────┘
+```
+
+### Node Types
+
+| Node Label | Description | Key Properties |
+|------------|-------------|----------------|
+| `Document` | Source PDF file | `path`, `createdAt` |
+| `Chunk` | Text segment from document | `text`, `index`, `embedding` (1536-dim vector) |
+| `Company` | Extracted company entity | `name`, `ticker` |
+| `Product` | Products/services mentioned | `name` |
+| `RiskFactor` | Business risks identified | `name` |
+| `Executive` | Key personnel | `name`, `title` |
+| `FinancialMetric` | Financial data points | `name`, `value` |
+| `AssetManager` | Institutional investors | `managerName` |
+
+### Relationship Types
+
+| Relationship | Direction | Description |
+|--------------|-----------|-------------|
+| `FROM_DOCUMENT` | `(Chunk)->(Document)` | Links chunk to source document |
+| `NEXT_CHUNK` | `(Chunk)->(Chunk)` | Sequential chunk ordering |
+| `FROM_CHUNK` | `(Entity)->(Chunk)` | Provenance: where entity was extracted |
+| `FACES_RISK` | `(Company)->(RiskFactor)` | Company faces this risk |
+| `OFFERS` | `(Company)->(Product)` | Company offers this product |
+| `HAS_EXECUTIVE` | `(Company)->(Executive)` | Company has this executive |
+| `REPORTS` | `(Company)->(FinancialMetric)` | Company reports this metric |
+| `OWNS` | `(AssetManager)->(Company)` | Investor owns shares in company |
+
+### Search Indexes
+
+The knowledge graph includes indexes to support different retrieval strategies:
+
+| Index Name | Type | Target | Purpose |
+|------------|------|--------|---------|
+| `chunkEmbeddings` | Vector | `Chunk.embedding` | Semantic similarity search |
+| `chunkText` | Fulltext | `Chunk.text` | Keyword search for hybrid retrieval |
+| `search_entities` | Fulltext | Entity `.name` properties | Entity lookup by name |
+
+### Retrieval Strategies
+
+**1. Vector Search** - Find semantically similar content using embeddings:
+```cypher
+CALL db.index.vector.queryNodes('chunkEmbeddings', 5, $embedding)
+YIELD node, score
+RETURN node.text, score
+```
+
+**2. Graph-Enhanced Retrieval** - Combine vector search with graph traversal:
+```cypher
+-- Find chunks, then traverse to related entities
+CALL db.index.vector.queryNodes('chunkEmbeddings', 5, $embedding)
+YIELD node AS chunk, score
+MATCH (company:Company)-[:FROM_CHUNK]->(chunk)
+OPTIONAL MATCH (company)-[:FACES_RISK]->(risk:RiskFactor)
+RETURN chunk.text, company.name, collect(risk.name) AS risks
+```
+
+**3. Hybrid Search** - Combine keyword and semantic search:
+```cypher
+-- Uses both chunkEmbeddings (vector) and chunkText (fulltext) indexes
+-- Alpha parameter controls the balance: 1.0 = pure vector, 0.0 = pure keyword
+```
+
+**4. Text2Cypher** - Natural language to Cypher query generation using LLM.
+
+This hybrid architecture enables rich, context-aware retrieval that leverages both the semantic understanding from embeddings and the structural relationships in the knowledge graph.
+
 ## Starting the Lab
 
 To get started, follow the labs in the agenda below in order.
