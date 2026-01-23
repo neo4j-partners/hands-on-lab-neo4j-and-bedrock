@@ -28,13 +28,9 @@ These techniques apply to any domain where you need to extract insights from doc
 To get started, follow the labs in the agenda below in order.
 
 **Quick Start Options:**
-- **No-Code Track Only (1 hour):** Complete Part 1 (Labs 0-2) to explore Neo4j and AI agents without coding
-- **Full Workshop (3 hours):** Complete both Part 1 and Part 2 for the full development experience
+- **No-Code Track Only:** Complete Part 1 (Labs 0-2) to explore Neo4j and AI agents without coding
+- **Full Workshop:** Complete both Part 1 and Part 2 for the full development experience
 - **Skip to Coding:** If you already have your AWS account and Aura credentials, go straight to [Lab 4 - SageMaker Setup](Lab_4_SageMaker_Setup)
-
-## Duration
-
-3 hours (full workshop) or 1 hour (no-code track only).
 
 ## Prerequisites
 
@@ -47,21 +43,21 @@ You'll need a laptop with a web browser. Your browser will need to be able to ac
 *This section requires no coding. You'll use visual tools and pre-built interfaces to explore Neo4j and AI agents.*
 
 * Introductions
-* Lecture - Introduction to Neo4j (10 min)
+* Lecture - Introduction to Neo4j
     * What is Neo4j?
     * How is it deployed and managed on AWS?
-* [Lab 0 - Sign In](Lab_0_Sign_In) (5 min)
+* [Lab 0 - Sign In](Lab_0_Sign_In)
     * Improving the Labs
     * Sign into AWS
-* [Lab 1 - Neo4j Aura Setup](Lab_1_Aura_Setup) (15 min)
+* [Lab 1 - Neo4j Aura Setup](Lab_1_Aura_Setup)
     * Signing up for Neo4j Aura through AWS Marketplace
     * Restoring the pre-built knowledge graph
     * Visual exploration with Neo4j Explore
-* [Lab 2 - Aura Agents](Lab_2_Aura_Agents) (20 min)
+* [Lab 2 - Aura Agents](Lab_2_Aura_Agents)
     * Building AI agents using Neo4j Aura Agent (no-code)
     * Creating Cypher template tools
     * Adding semantic search and Text2Cypher capabilities
-* Break (5 min)
+* Break
 
 ---
 
@@ -69,23 +65,23 @@ You'll need a laptop with a web browser. Your browser will need to be able to ac
 
 *This section involves Python programming using Jupyter notebooks in Amazon SageMaker.*
 
-* Lecture - Neo4j and Generative AI (15 min)
+* Lecture - Neo4j and Generative AI
     * Generating Knowledge Graphs
     * Retrieval Augmented Generation
     * Model Context Protocol
-* [Lab 4 - SageMaker Setup](Lab_4_SageMaker_Setup) (15 min)
+* [Lab 4 - SageMaker Setup](Lab_4_SageMaker_Setup)
     * Launch SageMaker Studio
     * Clone the workshop repository
     * Configure inference profiles for Bedrock
-* [Lab 5 - Neo4j MCP Agent](Lab_5_Neo4j_MCP_Agent) (30 min)
+* [Lab 5 - Neo4j MCP Agent](Lab_5_Neo4j_MCP_Agent)
     * Connect to Neo4j via AgentCore Gateway
     * Build LangGraph or Strands agent
     * Query the knowledge graph with natural language
-* [Lab 8 - Aura Agents API](Lab_8_Aura_Agents_API) (20 min)
+* [Lab 8 - Aura Agents API](Lab_8_Aura_Agents_API)
     * Call your Lab 2 Aura Agent programmatically
     * OAuth2 authentication with client credentials
     * Build a reusable Python client for application integration
-* Questions and Next Steps (10 min)
+* Questions and Next Steps
 
 ## Architecture
 
