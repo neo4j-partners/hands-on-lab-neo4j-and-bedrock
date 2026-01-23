@@ -50,7 +50,7 @@ TRUST_POLICY='{
   ]
 }'
 
-# Permissions policy
+# Permissions policy - comprehensive for SageMaker Unified Studio V2
 PERMISSIONS_POLICY='{
   "Version": "2012-10-17",
   "Statement": [
@@ -84,11 +84,50 @@ PERMISSIONS_POLICY='{
       ]
     },
     {
-      "Sid": "DataZoneAutoDetect",
+      "Sid": "DataZoneFullAccess",
       "Effect": "Allow",
       "Action": [
-        "datazone:ListDomains",
-        "datazone:ListProjects"
+        "datazone:*"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "RAMForProjectProfiles",
+      "Effect": "Allow",
+      "Action": [
+        "ram:GetResourceShareAssociations",
+        "ram:GetResourceShares",
+        "ram:ListResources",
+        "ram:ListResourceSharePermissions"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "IAMForServiceRoles",
+      "Effect": "Allow",
+      "Action": [
+        "iam:GetRole",
+        "iam:PassRole",
+        "iam:ListRoles",
+        "iam:CreateServiceLinkedRole"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "S3ForBlueprints",
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject",
+        "s3:ListBucket",
+        "s3:GetBucketLocation"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "SageMakerUnifiedStudio",
+      "Effect": "Allow",
+      "Action": [
+        "sagemaker:*"
       ],
       "Resource": "*"
     }

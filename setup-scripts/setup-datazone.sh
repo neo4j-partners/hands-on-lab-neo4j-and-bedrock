@@ -131,6 +131,7 @@ create_domain() {
         --region "$REGION" \
         --name "$DOMAIN_NAME" \
         --description "Bedrock Agents Lab workshop domain" \
+        --domain-version V2 \
         --output json 2>&1)
 
     if echo "$result" | grep -q '"id"'; then

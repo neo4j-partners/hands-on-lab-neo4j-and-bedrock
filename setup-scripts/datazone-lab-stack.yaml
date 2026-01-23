@@ -67,12 +67,12 @@ Resources:
         - Key: Purpose
           Value: BedrockAgentsLab
 
-  # Lab Policy - permissions for inference profiles and model invocation
+  # Lab Policy - comprehensive permissions for SageMaker Unified Studio V2
   BedrockLabPolicy:
     Type: AWS::IAM::ManagedPolicy
     Properties:
       ManagedPolicyName: BedrockAgentsLabPolicy
-      Description: Permissions for Bedrock Agents Lab - inference profiles, model invocation, DataZone
+      Description: Permissions for Bedrock Agents Lab - SageMaker Unified Studio V2, inference profiles, model invocation
       Roles:
         - !Ref BedrockLabRole
       PolicyDocument:
@@ -100,11 +100,38 @@ Resources:
               - arn:aws:bedrock:*::foundation-model/anthropic.*
               - arn:aws:bedrock:*:*:inference-profile/*
               - arn:aws:bedrock:*:*:application-inference-profile/*
-          - Sid: DataZoneAutoDetect
+          - Sid: DataZoneFullAccess
             Effect: Allow
             Action:
-              - datazone:ListDomains
-              - datazone:ListProjects
+              - datazone:*
+            Resource: '*'
+          - Sid: RAMForProjectProfiles
+            Effect: Allow
+            Action:
+              - ram:GetResourceShareAssociations
+              - ram:GetResourceShares
+              - ram:ListResources
+              - ram:ListResourceSharePermissions
+            Resource: '*'
+          - Sid: IAMForServiceRoles
+            Effect: Allow
+            Action:
+              - iam:GetRole
+              - iam:PassRole
+              - iam:ListRoles
+              - iam:CreateServiceLinkedRole
+            Resource: '*'
+          - Sid: S3ForBlueprints
+            Effect: Allow
+            Action:
+              - s3:GetObject
+              - s3:ListBucket
+              - s3:GetBucketLocation
+            Resource: '*'
+          - Sid: SageMakerUnifiedStudio
+            Effect: Allow
+            Action:
+              - sagemaker:*
             Resource: '*'
 
   #############################################

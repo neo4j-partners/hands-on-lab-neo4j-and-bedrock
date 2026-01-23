@@ -21,7 +21,7 @@ YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
-# The complete IAM policy for this lab
+# The complete IAM policy for this lab - comprehensive for SageMaker Unified Studio V2
 POLICY_DOCUMENT='{
   "Version": "2012-10-17",
   "Statement": [
@@ -55,11 +55,50 @@ POLICY_DOCUMENT='{
       ]
     },
     {
-      "Sid": "DataZoneAutoDetect",
+      "Sid": "DataZoneFullAccess",
       "Effect": "Allow",
       "Action": [
-        "datazone:ListDomains",
-        "datazone:ListProjects"
+        "datazone:*"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "RAMForProjectProfiles",
+      "Effect": "Allow",
+      "Action": [
+        "ram:GetResourceShareAssociations",
+        "ram:GetResourceShares",
+        "ram:ListResources",
+        "ram:ListResourceSharePermissions"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "IAMForServiceRoles",
+      "Effect": "Allow",
+      "Action": [
+        "iam:GetRole",
+        "iam:PassRole",
+        "iam:ListRoles",
+        "iam:CreateServiceLinkedRole"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "S3ForBlueprints",
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject",
+        "s3:ListBucket",
+        "s3:GetBucketLocation"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "SageMakerUnifiedStudio",
+      "Effect": "Allow",
+      "Action": [
+        "sagemaker:*"
       ],
       "Resource": "*"
     }
