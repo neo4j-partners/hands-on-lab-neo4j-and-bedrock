@@ -122,6 +122,7 @@ cython_debug/
 .env.*
 !.env.example
 !.env.template
+!.env.sample
 
 # ===== VSCode =====
 .vscode/
