@@ -1,7 +1,16 @@
 # Jupyter Notebook
 .ipynb_checkpoints
 __pycache__
+
+# Environment files
 .env
+*.env
+
+# Temp files
+.tmpfile
+
+# Connection/credential files
+*connection*.txt
 
 # Apple Filesystem
 .DS_STORE
