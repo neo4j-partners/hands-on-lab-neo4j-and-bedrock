@@ -117,6 +117,7 @@ Resources:
       Name: !Ref DomainName
       Description: Bedrock Agents Lab workshop domain for SageMaker Unified Studio
       DomainExecutionRole: !GetAtt DataZoneDomainExecutionRole.Arn
+      DomainVersion: V2
       Tags:
         - Key: Purpose
           Value: BedrockAgentsLab
