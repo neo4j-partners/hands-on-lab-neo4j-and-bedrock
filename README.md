@@ -18,6 +18,7 @@ By the end of this lab, you'll have hands-on experience with:
 - Creating graph-enhanced retrieval patterns for richer context
 - Building no-code AI agents with Neo4j Aura Agents
 - Developing agentic AI systems using the Model Context Protocol
+- Calling Aura Agents programmatically via REST API
 - Deploying GraphRAG applications on AWS infrastructure
 
 These techniques apply to any domain where you need to extract insights from documents, understand entity relationships, and build AI systems that can reason over complex information networks.
@@ -185,6 +186,10 @@ You'll need a laptop with a web browser. Your browser will need to be able to ac
     * Connect to Neo4j via AgentCore Gateway
     * Build LangGraph or Strands agent
     * Query the knowledge graph with natural language
+* [Lab 8 - Aura Agents API](Lab_8_Aura_Agents_API) (20 min)
+    * Call your Lab 2 Aura Agent programmatically
+    * OAuth2 authentication with client credentials
+    * Build a reusable Python client for application integration
 * Questions and Next Steps (10 min)
 
 ## Architecture
@@ -193,13 +198,14 @@ You'll need a laptop with a web browser. Your browser will need to be able to ac
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │                              YOUR AGENTS                                     │
 ├─────────────────────────────────┬───────────────────────────────────────────┤
-│         No-Code (Labs 0-2)      │           Coding (Labs 4-5)               │
+│         No-Code (Labs 0-2)      │           Coding (Labs 4-8)               │
 │  ┌───────────────────────────┐  │  ┌─────────────────────────────────────┐  │
 │  │      Aura Agents          │  │  │   LangGraph / Strands Agents        │  │
 │  │  • Cypher Templates       │  │  │   • MCP Protocol                    │  │
 │  │  • Similarity Search      │  │  │   • AgentCore Gateway               │  │
 │  │  • Text2Cypher            │  │  │   • Claude via Bedrock              │  │
-│  └───────────────────────────┘  │  └─────────────────────────────────────┘  │
+│  └───────────────────────────┘  │  │   • Aura Agents REST API (Lab 8)    │  │
+│                                 │  └─────────────────────────────────────┘  │
 └─────────────────────────────────┴───────────────────────────────────────────┘
                                     │
                                     ▼

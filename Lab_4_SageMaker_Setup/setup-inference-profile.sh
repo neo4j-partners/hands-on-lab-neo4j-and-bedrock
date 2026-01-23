@@ -103,7 +103,97 @@ show_help() {
     echo ""
 }
 
-detect_datazone_ids() {
+detect_datazone_from_cli() {
+    local silent="${1:-}"
+
+    [ -z "$silent" ] && echo "Detecting DataZone IDs from AWS CLI..." >&2
+
+    # Get list of domains
+    local domains_json=$(aws datazone list-domains --region "${REGION}" --output json 2>/dev/null)
+    if [ -z "$domains_json" ] || [ "$(echo "$domains_json" | python3 -c "import sys,json; print(len(json.load(sys.stdin).get('items',[])))" 2>/dev/null)" == "0" ]; then
+        [ -z "$silent" ] && echo -e "${RED}No DataZone domains found in ${REGION}${NC}" >&2
+        return 1
+    fi
+
+    local domain_count=$(echo "$domains_json" | python3 -c "import sys,json; print(len(json.load(sys.stdin).get('items',[])))")
+    local domain_id=""
+
+    if [ "$domain_count" == "1" ]; then
+        domain_id=$(echo "$domains_json" | python3 -c "import sys,json; print(json.load(sys.stdin)['items'][0]['id'])")
+        local domain_name=$(echo "$domains_json" | python3 -c "import sys,json; print(json.load(sys.stdin)['items'][0]['name'])")
+        [ -z "$silent" ] && echo -e "  Domain: ${GREEN}${domain_name}${NC} (${domain_id})" >&2
+    else
+        # Multiple domains - ask user to choose
+        [ -z "$silent" ] && echo -e "${YELLOW}Multiple DataZone domains found:${NC}" >&2
+        local i=1
+        echo "$domains_json" | python3 -c "
+import sys, json
+items = json.load(sys.stdin)['items']
+for i, item in enumerate(items, 1):
+    print(f\"  {i}) {item['name']} ({item['id']})\")" >&2
+
+        if [ -z "$silent" ]; then
+            read -p "Select domain [1-${domain_count}]: " choice
+            domain_id=$(echo "$domains_json" | python3 -c "import sys,json; print(json.load(sys.stdin)['items'][int(${choice})-1]['id'])")
+        else
+            # In silent mode, use first domain
+            domain_id=$(echo "$domains_json" | python3 -c "import sys,json; print(json.load(sys.stdin)['items'][0]['id'])")
+        fi
+    fi
+
+    # Get list of projects in the domain
+    local projects_json=$(aws datazone list-projects --domain-identifier "$domain_id" --region "${REGION}" --output json 2>/dev/null)
+    if [ -z "$projects_json" ] || [ "$(echo "$projects_json" | python3 -c "import sys,json; print(len(json.load(sys.stdin).get('items',[])))" 2>/dev/null)" == "0" ]; then
+        [ -z "$silent" ] && echo -e "${RED}No projects found in domain ${domain_id}${NC}" >&2
+        return 1
+    fi
+
+    # Filter out admin and governance projects
+    local filtered_projects=$(echo "$projects_json" | python3 -c "
+import sys, json
+items = json.load(sys.stdin)['items']
+filtered = [p for p in items if 'admin-project' not in p['name'] and 'Governance' not in p['name']]
+print(json.dumps({'items': filtered}))")
+
+    local project_count=$(echo "$filtered_projects" | python3 -c "import sys,json; print(len(json.load(sys.stdin).get('items',[])))")
+    local project_id=""
+
+    if [ "$project_count" == "0" ]; then
+        [ -z "$silent" ] && echo -e "${RED}No user projects found (only admin/governance projects exist)${NC}" >&2
+        return 1
+    elif [ "$project_count" == "1" ]; then
+        project_id=$(echo "$filtered_projects" | python3 -c "import sys,json; print(json.load(sys.stdin)['items'][0]['id'])")
+        local project_name=$(echo "$filtered_projects" | python3 -c "import sys,json; print(json.load(sys.stdin)['items'][0]['name'])")
+        [ -z "$silent" ] && echo -e "  Project: ${GREEN}${project_name}${NC} (${project_id})" >&2
+    else
+        # Multiple projects - ask user to choose
+        [ -z "$silent" ] && echo -e "${YELLOW}Multiple projects found:${NC}" >&2
+        echo "$filtered_projects" | python3 -c "
+import sys, json
+items = json.load(sys.stdin)['items']
+for i, item in enumerate(items, 1):
+    print(f\"  {i}) {item['name']} ({item['id']})\")" >&2
+
+        if [ -z "$silent" ]; then
+            read -p "Select project [1-${project_count}]: " choice
+            project_id=$(echo "$filtered_projects" | python3 -c "import sys,json; print(json.load(sys.stdin)['items'][int(${choice})-1]['id'])")
+        else
+            # In silent mode, use first project
+            project_id=$(echo "$filtered_projects" | python3 -c "import sys,json; print(json.load(sys.stdin)['items'][0]['id'])")
+        fi
+    fi
+
+    if [ -n "$project_id" ] && [ -n "$domain_id" ]; then
+        DATAZONE_PROJECT_ID="$project_id"
+        DATAZONE_DOMAIN_ID="$domain_id"
+        [ -z "$silent" ] && echo -e "${GREEN}✓ DataZone IDs detected from AWS CLI${NC}" >&2
+        return 0
+    fi
+
+    return 1
+}
+
+detect_datazone_from_export() {
     local silent="${1:-}"
 
     [ -z "$silent" ] && echo "Detecting DataZone IDs from Bedrock IDE exports..." >&2
@@ -128,21 +218,31 @@ detect_datazone_ids() {
     done
 
     if [ -n "$project_id" ] && [ -n "$domain_id" ]; then
-        if [ -z "$silent" ]; then
-            echo ""
-            echo "export DATAZONE_PROJECT_ID=\"$project_id\""
-            echo "export DATAZONE_DOMAIN_ID=\"$domain_id\""
-            echo ""
-            echo -e "${GREEN}To use: eval \$($0 --detect)${NC}" >&2
-        fi
         DATAZONE_PROJECT_ID="$project_id"
         DATAZONE_DOMAIN_ID="$domain_id"
+        [ -z "$silent" ] && echo -e "${GREEN}✓ DataZone IDs detected from export file${NC}" >&2
         return 0
-    else
-        [ -z "$silent" ] && echo -e "${RED}Could not auto-detect DataZone IDs.${NC}" >&2
-        [ -z "$silent" ] && echo "Make sure you have a Bedrock IDE export folder nearby." >&2
-        return 1
     fi
+
+    return 1
+}
+
+detect_datazone_ids() {
+    local silent="${1:-}"
+
+    # Try AWS CLI first (preferred)
+    if detect_datazone_from_cli "$silent"; then
+        return 0
+    fi
+
+    # Fall back to export file
+    if detect_datazone_from_export "$silent"; then
+        return 0
+    fi
+
+    [ -z "$silent" ] && echo -e "${RED}Could not auto-detect DataZone IDs.${NC}" >&2
+    [ -z "$silent" ] && echo "Ensure you have DataZone access or a Bedrock IDE export folder nearby." >&2
+    return 1
 }
 
 auto_detect_datazone() {
@@ -150,8 +250,11 @@ auto_detect_datazone() {
         detect_datazone_ids "silent" || true
         if [ -n "$DATAZONE_PROJECT_ID" ] && [ -n "$DATAZONE_DOMAIN_ID" ]; then
             echo -e "${GREEN}✓ Auto-detected DataZone IDs${NC}"
-            echo "  Project: $DATAZONE_PROJECT_ID"
             echo "  Domain:  $DATAZONE_DOMAIN_ID"
+            echo "  Project: $DATAZONE_PROJECT_ID"
+        else
+            echo -e "${YELLOW}⚠ DataZone IDs not detected - profiles will not have AmazonBedrockManaged tag${NC}"
+            echo "  Run '$0 --detect' for details"
         fi
     fi
 }
@@ -319,6 +422,7 @@ output_config() {
     echo -e "${BLUE}║              COPY THIS TO YOUR NOTEBOOK                    ║${NC}"
     echo -e "${BLUE}╚════════════════════════════════════════════════════════════╝${NC}"
     echo ""
+    echo "MODEL = \"${model_key}\""
     echo "INFERENCE_PROFILE_ARN = \"${arn}\""
     echo ""
 
@@ -326,6 +430,7 @@ output_config() {
     cat > ".inference-profile-${model_key}.env" << EOF
 # Generated by setup-inference-profile.sh
 # Model: ${model_key}
+MODEL="${model_key}"
 INFERENCE_PROFILE_ARN="${arn}"
 AWS_REGION="${REGION}"
 EOF
