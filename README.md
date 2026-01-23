@@ -23,7 +23,110 @@ By the end of this lab, you'll have hands-on experience with:
 
 These techniques apply to any domain where you need to extract insights from documents, understand entity relationships, and build AI systems that can reason over complex information networks.
 
+## Starting the Lab
+
+To get started, follow the labs in the agenda below in order.
+
+**Quick Start Options:**
+- **No-Code Track Only (1 hour):** Complete Part 1 (Labs 0-2) to explore Neo4j and AI agents without coding
+- **Full Workshop (3 hours):** Complete both Part 1 and Part 2 for the full development experience
+- **Skip to Coding:** If you already have your AWS account and Aura credentials, go straight to [Lab 4 - SageMaker Setup](Lab_4_SageMaker_Setup)
+
+## Duration
+
+3 hours (full workshop) or 1 hour (no-code track only).
+
+## Prerequisites
+
+You'll need a laptop with a web browser. Your browser will need to be able to access the AWS Console and the Neo4j Aura Console. If your laptop has a firewall you can't control, you may want to bring your personal laptop.
+
+## Agenda
+
+### Part 1 - No-Code Getting Started
+
+*This section requires no coding. You'll use visual tools and pre-built interfaces to explore Neo4j and AI agents.*
+
+* Introductions
+* Lecture - Introduction to Neo4j (10 min)
+    * What is Neo4j?
+    * How is it deployed and managed on AWS?
+* [Lab 0 - Sign In](Lab_0_Sign_In) (5 min)
+    * Improving the Labs
+    * Sign into AWS
+* [Lab 1 - Neo4j Aura Setup](Lab_1_Aura_Setup) (15 min)
+    * Signing up for Neo4j Aura through AWS Marketplace
+    * Restoring the pre-built knowledge graph
+    * Visual exploration with Neo4j Explore
+* [Lab 2 - Aura Agents](Lab_2_Aura_Agents) (20 min)
+    * Building AI agents using Neo4j Aura Agent (no-code)
+    * Creating Cypher template tools
+    * Adding semantic search and Text2Cypher capabilities
+* Break (5 min)
+
+---
+
+### Part 2 - Coding and MCP Development
+
+*This section involves Python programming using Jupyter notebooks in Amazon SageMaker.*
+
+* Lecture - Neo4j and Generative AI (15 min)
+    * Generating Knowledge Graphs
+    * Retrieval Augmented Generation
+    * Model Context Protocol
+* [Lab 4 - SageMaker Setup](Lab_4_SageMaker_Setup) (15 min)
+    * Launch SageMaker Studio
+    * Clone the workshop repository
+    * Configure inference profiles for Bedrock
+* [Lab 5 - Neo4j MCP Agent](Lab_5_Neo4j_MCP_Agent) (30 min)
+    * Connect to Neo4j via AgentCore Gateway
+    * Build LangGraph or Strands agent
+    * Query the knowledge graph with natural language
+* [Lab 8 - Aura Agents API](Lab_8_Aura_Agents_API) (20 min)
+    * Call your Lab 2 Aura Agent programmatically
+    * OAuth2 authentication with client credentials
+    * Build a reusable Python client for application integration
+* Questions and Next Steps (10 min)
+
+## Architecture
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                              YOUR AGENTS                                     │
+├─────────────────────────────────┬───────────────────────────────────────────┤
+│         No-Code (Labs 0-2)      │           Coding (Labs 4-8)               │
+│  ┌───────────────────────────┐  │  ┌─────────────────────────────────────┐  │
+│  │      Aura Agents          │  │  │   LangGraph / Strands Agents        │  │
+│  │  • Cypher Templates       │  │  │   • MCP Protocol                    │  │
+│  │  • Similarity Search      │  │  │   • AgentCore Gateway               │  │
+│  │  • Text2Cypher            │  │  │   • Claude via Bedrock              │  │
+│  └───────────────────────────┘  │  │   • Aura Agents REST API (Lab 8)    │  │
+│                                 │  └─────────────────────────────────────┘  │
+└─────────────────────────────────┴───────────────────────────────────────────┘
+                                    │
+                                    ▼
+                    ┌───────────────────────────────┐
+                    │        Neo4j Aura             │
+                    │   SEC 10-K Knowledge Graph    │
+                    │  • Companies & Risk Factors   │
+                    │  • Asset Manager Ownership    │
+                    │  • Vector Embeddings          │
+                    └───────────────────────────────┘
+```
+
 ## Knowledge Graph Data Model
+
+The knowledge graph contains SEC 10-K filings from major technology companies:
+
+- **Companies**: Apple, Microsoft, NVIDIA, and more
+- **Risk Factors**: Extracted risk disclosures from SEC filings
+- **Asset Managers**: Institutional investors and their holdings
+- **Financial Metrics**: Key financial data mentioned in filings
+- **Vector Embeddings**: Pre-computed embeddings for semantic search
+
+Example questions you can answer:
+- "What risk factors do Apple and Microsoft share?"
+- "Which asset managers have the largest tech portfolios?"
+- "What do companies say about AI and machine learning in their filings?"
 
 The workshop uses a hybrid knowledge graph that combines **lexical structure** (documents and chunks) with **semantic knowledge** (entities and relationships extracted by LLM). This architecture enables multiple retrieval strategies.
 
@@ -127,111 +230,6 @@ RETURN chunk.text, company.name, collect(risk.name) AS risks
 **4. Text2Cypher** - Natural language to Cypher query generation using LLM.
 
 This hybrid architecture enables rich, context-aware retrieval that leverages both the semantic understanding from embeddings and the structural relationships in the knowledge graph.
-
-## Starting the Lab
-
-To get started, follow the labs in the agenda below in order.
-
-**Quick Start Options:**
-- **No-Code Track Only (1 hour):** Complete Part 1 (Labs 0-2) to explore Neo4j and AI agents without coding
-- **Full Workshop (3 hours):** Complete both Part 1 and Part 2 for the full development experience
-- **Skip to Coding:** If you already have your AWS account and Aura credentials, go straight to [Lab 4 - SageMaker Setup](Lab_4_SageMaker_Setup)
-
-## Duration
-
-3 hours (full workshop) or 1 hour (no-code track only).
-
-## Prerequisites
-
-You'll need a laptop with a web browser. Your browser will need to be able to access the AWS Console and the Neo4j Aura Console. If your laptop has a firewall you can't control, you may want to bring your personal laptop.
-
-## Agenda
-
-### Part 1 - No-Code Getting Started
-
-*This section requires no coding. You'll use visual tools and pre-built interfaces to explore Neo4j and AI agents.*
-
-* Introductions
-* Lecture - Introduction to Neo4j (10 min)
-    * What is Neo4j?
-    * How is it deployed and managed on AWS?
-* [Lab 0 - Sign In](Lab_0_Sign_In) (5 min)
-    * Improving the Labs
-    * Sign into AWS
-* [Lab 1 - Neo4j Aura Setup](Lab_1_Aura_Setup) (15 min)
-    * Signing up for Neo4j Aura through AWS Marketplace
-    * Restoring the pre-built knowledge graph
-    * Visual exploration with Neo4j Explore
-* [Lab 2 - Aura Agents](Lab_2_Aura_Agents) (20 min)
-    * Building AI agents using Neo4j Aura Agent (no-code)
-    * Creating Cypher template tools
-    * Adding semantic search and Text2Cypher capabilities
-* Break (5 min)
-
----
-
-### Part 2 - Coding and MCP Development
-
-*This section involves Python programming using Jupyter notebooks in Amazon SageMaker.*
-
-* Lecture - Neo4j and Generative AI (15 min)
-    * Generating Knowledge Graphs
-    * Retrieval Augmented Generation
-    * Model Context Protocol
-* [Lab 4 - SageMaker Setup](Lab_4_SageMaker_Setup) (15 min)
-    * Launch SageMaker Studio
-    * Clone the workshop repository
-    * Configure inference profiles for Bedrock
-* [Lab 5 - Neo4j MCP Agent](Lab_5_Neo4j_MCP_Agent) (30 min)
-    * Connect to Neo4j via AgentCore Gateway
-    * Build LangGraph or Strands agent
-    * Query the knowledge graph with natural language
-* [Lab 8 - Aura Agents API](Lab_8_Aura_Agents_API) (20 min)
-    * Call your Lab 2 Aura Agent programmatically
-    * OAuth2 authentication with client credentials
-    * Build a reusable Python client for application integration
-* Questions and Next Steps (10 min)
-
-## Architecture
-
-```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                              YOUR AGENTS                                     │
-├─────────────────────────────────┬───────────────────────────────────────────┤
-│         No-Code (Labs 0-2)      │           Coding (Labs 4-8)               │
-│  ┌───────────────────────────┐  │  ┌─────────────────────────────────────┐  │
-│  │      Aura Agents          │  │  │   LangGraph / Strands Agents        │  │
-│  │  • Cypher Templates       │  │  │   • MCP Protocol                    │  │
-│  │  • Similarity Search      │  │  │   • AgentCore Gateway               │  │
-│  │  • Text2Cypher            │  │  │   • Claude via Bedrock              │  │
-│  └───────────────────────────┘  │  │   • Aura Agents REST API (Lab 8)    │  │
-│                                 │  └─────────────────────────────────────┘  │
-└─────────────────────────────────┴───────────────────────────────────────────┘
-                                    │
-                                    ▼
-                    ┌───────────────────────────────┐
-                    │        Neo4j Aura             │
-                    │   SEC 10-K Knowledge Graph    │
-                    │  • Companies & Risk Factors   │
-                    │  • Asset Manager Ownership    │
-                    │  • Vector Embeddings          │
-                    └───────────────────────────────┘
-```
-
-## The Dataset
-
-The knowledge graph contains SEC 10-K filings from major technology companies:
-
-- **Companies**: Apple, Microsoft, NVIDIA, and more
-- **Risk Factors**: Extracted risk disclosures from SEC filings
-- **Asset Managers**: Institutional investors and their holdings
-- **Financial Metrics**: Key financial data mentioned in filings
-- **Vector Embeddings**: Pre-computed embeddings for semantic search
-
-Example questions you can answer:
-- "What risk factors do Apple and Microsoft share?"
-- "Which asset managers have the largest tech portfolios?"
-- "What do companies say about AI and machine learning in their filings?"
 
 ## Improving the Labs
 
