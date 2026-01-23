@@ -9,7 +9,6 @@ Standalone Python application demonstrating three Neo4j GraphRAG retriever patte
 - AWS account with Bedrock access (Claude Sonnet 4.5)
 - OpenAI API key (for embeddings)
 - Neo4j Aura instance with data loaded
-- Local clone of [neo4j-graphrag-python](https://github.com/neo4j/neo4j-graphrag-python) with Bedrock support at `~/projects/neo4j-graphrag-python`
 
 ## Setup
 
@@ -75,4 +74,4 @@ Converts natural language to Cypher queries using LLM.
 - **LLM**: AWS Bedrock Claude Sonnet 4.5 (via inference profile)
 - **Embeddings**: OpenAI `text-embedding-ada-002` (matching existing vector index)
 - **Graph Database**: Neo4j with vector search
-- **Library**: Local fork of `neo4j-graphrag-python` with Bedrock support
+- **Library**: [neo4j-graphrag-python](https://github.com/neo4j-partners/neo4j-graphrag-python) with Bedrock support
