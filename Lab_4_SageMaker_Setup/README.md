@@ -72,15 +72,51 @@ When complete, it will open the README.md for this repo. In the file explorer on
 
 ![](images/18.png)
 
-## Test LangGraph with Bedrock (Optional)
+## Test LangGraph with Bedrock
 
-If you want to verify your SageMaker environment is working correctly with AWS Bedrock, you can run the minimal agent notebook:
+Verify your SageMaker environment is working correctly with AWS Bedrock by running the minimal agent notebook.
+
+### Step 1: Create an Inference Profile
+
+SageMaker Unified Studio requires application inference profiles with special tags. The `setup-inference-profile.sh` script creates these for you.
+
+Open a terminal in JupyterLab (File → New → Terminal) and run:
+
+```bash
+cd hands-on-lab-neo4j-and-bedrock/Lab_4_SageMaker_Setup
+./setup-inference-profile.sh haiku
+```
+
+The script will:
+- Auto-detect your DataZone project and domain IDs
+- Create an inference profile with the required `AmazonBedrockManaged=true` tag
+- Output the ARN to copy into your notebook
+
+**Available models:**
+
+| Command | Model | Best For |
+|---------|-------|----------|
+| `./setup-inference-profile.sh haiku` | Claude 3.5 Haiku | Testing (fast, cheap) |
+| `./setup-inference-profile.sh sonnet` | Claude 3.5 Sonnet v2 | Balanced performance |
+| `./setup-inference-profile.sh sonnet4` | Claude Sonnet 4 | Latest capabilities |
+| `./setup-inference-profile.sh sonnet45` | Claude Sonnet 4.5 | Most capable |
+
+**Useful options:**
+
+```bash
+./setup-inference-profile.sh --test haiku   # Create and verify it works
+./setup-inference-profile.sh --list         # Show existing profiles
+./setup-inference-profile.sh --all          # Create profiles for all models
+./setup-inference-profile.sh --help         # See all options
+```
+
+### Step 2: Run the Test Notebook
 
 1. Open `minimal_langgraph_agent.ipynb` in this lab folder
-2. Follow the instructions to create an inference profile
+2. Copy the `INFERENCE_PROFILE_ARN` from the script output into the notebook
 3. Run through the cells to test a simple LangGraph agent
 
-This optional step confirms that LangGraph and Bedrock are working before you add the MCP complexity in Lab 5.
+This step confirms that LangGraph and Bedrock are working before you add the MCP complexity in Lab 5.
 
 ---
 

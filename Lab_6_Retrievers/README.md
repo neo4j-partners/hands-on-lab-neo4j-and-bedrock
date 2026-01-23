@@ -36,93 +36,18 @@ Use natural language to query your graph directly:
 - Understand the graph schema and how it guides query generation
 - Build accessible natural language interfaces to your knowledge graph
 
-## Model Configuration
-
-### Notebooks vs Local Python
-
-Model references differ between notebooks and local Python due to environment constraints:
-
-| Environment | Model Reference | Why |
-|-------------|-----------------|-----|
-| **Notebooks (SageMaker)** | Application inference profile ARN + `provider` + `base_model_id` | SageMaker permissions boundary requires tagged inference profiles |
-| **Local Python (src/)** | Cross-region inference profile ID (`us.anthropic.claude-...`) | Direct Bedrock access without permissions boundary |
-
-### Notebook Configuration
-
-Notebooks use the application inference profile ARN from Lab 4:
-
-```python
-# Configuration (paste from Lab 4 setup script output)
-MODEL = "haiku"
-INFERENCE_PROFILE_ARN = "arn:aws:bedrock:us-west-2:ACCOUNT:application-inference-profile/ID"
-REGION = "us-west-2"
-
-BASE_MODEL_IDS = {
-    "haiku": "anthropic.claude-3-5-haiku-20241022-v1:0",
-    "sonnet": "anthropic.claude-3-5-sonnet-20241022-v2:0",
-    "sonnet4": "anthropic.claude-sonnet-4-20250514-v1:0",
-    "sonnet45": "anthropic.claude-sonnet-4-5-20250929-v1:0",
-}
-
-# For langchain-aws (ChatBedrockConverse)
-llm = ChatBedrockConverse(
-    model=INFERENCE_PROFILE_ARN,
-    provider="anthropic",
-    base_model_id=BASE_MODEL_IDS[MODEL],
-    region_name=REGION,
-)
-
-# For neo4j-graphrag (BedrockLLM)
-llm = BedrockLLM(
-    model_id=INFERENCE_PROFILE_ARN,
-    region_name=REGION,
-)
-```
-
-### Local Python Configuration (src/)
-
-Local Python can use cross-region inference profile IDs directly:
-
-```python
-# Configuration
-AWS_BEDROCK_INFERENCE_PROFILE_ID = "us.anthropic.claude-sonnet-4-5-20250929-v1:0"
-AWS_REGION = "us-west-2"
-
-# For neo4j-graphrag (BedrockLLM)
-llm = BedrockLLM(
-    inference_profile_id=AWS_BEDROCK_INFERENCE_PROFILE_ID,
-    region_name=AWS_REGION,
-)
-```
-
-See [Lab 4 README](../Lab_4_SageMaker_Setup/README.md) for details on why these configurations differ.
-
 ## Getting Started
 
-1. Run the inference profile setup script (if not done already):
+1. Create an inference profile using the Lab 4 setup script:
    ```bash
    cd ../Lab_4_SageMaker_Setup
    ./setup-inference-profile.sh haiku
    ```
 2. Copy the `MODEL` and `INFERENCE_PROFILE_ARN` values to each notebook
 3. Add your OpenAI API key (for embeddings)
-4. Open the first notebook: `01_vector_retriever.ipynb`
-5. Work through each notebook in order
-
-## Standalone Python Version
-
-A standalone Python version is available in `src/` for running outside of notebooks:
-
-```bash
-cd src
-cp .env.sample .env  # Edit with your credentials
-uv sync
-uv run python main.py 1  # Vector Retriever
-uv run python main.py 2  # Vector Cypher Retriever
-uv run python main.py 3  # Text2Cypher Retriever
-```
-
-See [src/README.md](src/README.md) for details.
+4. Add your Neo4j connection details
+5. Open the first notebook: `01_vector_retriever.ipynb`
+6. Work through each notebook in order
 
 ## Key Concepts
 
@@ -139,6 +64,53 @@ See [src/README.md](src/README.md) for details.
 | **Vector** | Semantic questions where meaning matters more than exact matches |
 | **Vector Cypher** | Questions requiring both semantic similarity and graph relationships |
 | **Text2Cypher** | Fact-based questions about specific entities, counts, or relationships |
+
+## Model Configuration
+
+Model references differ between notebooks (SageMaker) and local Python due to environment constraints. See [Lab 4 README](../Lab_4_SageMaker_Setup/README.md) for detailed explanation.
+
+### Notebooks (SageMaker)
+
+Notebooks use application inference profile ARNs created by the setup script:
+
+```python
+MODEL = "haiku"
+INFERENCE_PROFILE_ARN = "arn:aws:bedrock:us-west-2:ACCOUNT:application-inference-profile/ID"
+
+# For neo4j-graphrag (BedrockLLM)
+llm = BedrockLLM(
+    model_id=INFERENCE_PROFILE_ARN,
+    region_name="us-west-2",
+)
+```
+
+### Local Python (src/)
+
+Local Python can use cross-region inference profile IDs directly:
+
+```python
+AWS_BEDROCK_INFERENCE_PROFILE_ID = "us.anthropic.claude-sonnet-4-5-20250929-v1:0"
+
+llm = BedrockLLM(
+    inference_profile_id=AWS_BEDROCK_INFERENCE_PROFILE_ID,
+    region_name="us-west-2",
+)
+```
+
+## Standalone Python Version
+
+A standalone Python version is available in `src/` for running outside of notebooks:
+
+```bash
+cd src
+cp .env.sample .env  # Edit with your credentials
+uv sync
+uv run python main.py 1  # Vector Retriever
+uv run python main.py 2  # Vector Cypher Retriever
+uv run python main.py 3  # Text2Cypher Retriever
+```
+
+See [src/README.md](src/README.md) for details.
 
 ## Next Steps
 
