@@ -111,7 +111,6 @@ Click **Add Tool** and select **Similarity Search** to configure a semantic sear
 - **Embedding provider:** `openai`
 - **Embedding model:** `text-embedding-ada-002`
 - **Vector Index:** `chunkEmbeddings`
-- **Return Properties:** `text`
 - **Top K:** 5
 
 ![Similarity Search Tool](images/similiarity_search_tool.png)
