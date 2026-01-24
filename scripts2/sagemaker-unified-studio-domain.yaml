@@ -1,0 +1,505 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Amazon SageMaker Unified Studio Domain with proper IAM roles (January 2026)
+
+Parameters:
+  DomainName:
+    Description: Name for the SageMaker Unified Studio domain
+    Type: String
+    Default: SageMakerUnifiedStudioDomain
+    MaxLength: 64
+    AllowedPattern: ^[a-zA-Z0-9](-*[a-zA-Z0-9]){0,62}$
+
+  DomainDescription:
+    Description: Description for the domain
+    Type: String
+    Default: SageMaker Unified Studio Domain for data analytics, ML, and GenAI
+
+  EnableSSO:
+    Description: Enable IAM Identity Center (SSO) authentication
+    Type: String
+    Default: "true"
+    AllowedValues:
+      - "true"
+      - "false"
+
+  IdcInstanceArn:
+    Description: (Optional) ARN of the IAM Identity Center instance. Leave empty to use default.
+    Type: String
+    Default: ""
+
+Conditions:
+  SSOEnabled: !Equals [!Ref EnableSSO, "true"]
+  HasIdcInstanceArn: !Not [!Equals [!Ref IdcInstanceArn, ""]]
+
+Resources:
+  # =============================================================================
+  # DOMAIN EXECUTION ROLE
+  # Required: SageMakerStudioDomainExecutionRolePolicy
+  # Used by SageMaker Unified Studio to catalog, discover, govern, share, and analyze data
+  # =============================================================================
+  DomainExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub AmazonSageMakerDomainExecution-${DomainName}
+      Description: Execution role for SageMaker Unified Studio domain
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: datazone.amazonaws.com
+            Action:
+              - sts:AssumeRole
+              - sts:TagSession
+              - sts:SetContext
+            Condition:
+              StringEquals:
+                aws:SourceAccount: !Ref AWS::AccountId
+              ForAllValues:StringLike:
+                aws:TagKeys: datazone*
+      ManagedPolicyArns:
+        - !Sub arn:${AWS::Partition}:iam::aws:policy/service-role/SageMakerStudioDomainExecutionRolePolicy
+      Tags:
+        - Key: Name
+          Value: !Sub ${DomainName}-ExecutionRole
+        - Key: Workshop
+          Value: "true"
+
+  # =============================================================================
+  # DOMAIN SERVICE ROLE
+  # Required: SageMakerStudioDomainServiceRolePolicy
+  # Used for domain-level actions performed by SageMaker Unified Studio
+  # =============================================================================
+  DomainServiceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub AmazonSageMakerDomainService-${DomainName}
+      Description: Service role for SageMaker Unified Studio domain
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: datazone.amazonaws.com
+            Action: sts:AssumeRole
+            Condition:
+              StringEquals:
+                aws:SourceAccount: !Ref AWS::AccountId
+      ManagedPolicyArns:
+        - !Sub arn:${AWS::Partition}:iam::aws:policy/service-role/SageMakerStudioDomainServiceRolePolicy
+      Tags:
+        - Key: Name
+          Value: !Sub ${DomainName}-ServiceRole
+        - Key: Workshop
+          Value: "true"
+
+  # =============================================================================
+  # PROVISIONING ROLE (for blueprints)
+  # Required: SageMakerStudioProjectProvisioningRolePolicy
+  # Used to provision and manage resources defined in blueprints
+  # =============================================================================
+  ProvisioningRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub AmazonSageMakerProvisioning-${DomainName}
+      Description: Provisioning role for SageMaker Unified Studio blueprints
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: datazone.amazonaws.com
+            Action: sts:AssumeRole
+            Condition:
+              StringEquals:
+                aws:SourceAccount: !Ref AWS::AccountId
+      ManagedPolicyArns:
+        - !Sub arn:${AWS::Partition}:iam::aws:policy/service-role/SageMakerStudioProjectProvisioningRolePolicy
+      Tags:
+        - Key: Name
+          Value: !Sub ${DomainName}-ProvisioningRole
+        - Key: Workshop
+          Value: "true"
+
+  # Inline policy for PassRole permissions (needed for query execution role)
+  ProvisioningRolePassRolePolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: !Sub ${DomainName}-ProvisioningPassRole
+      Roles:
+        - !Ref ProvisioningRole
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: IamRolePermissionsForQueryExecution
+            Effect: Allow
+            Action:
+              - iam:PassRole
+              - iam:GetRole
+            Resource: !Sub arn:${AWS::Partition}:iam::${AWS::AccountId}:role/*
+
+  # =============================================================================
+  # MANAGE ACCESS ROLE (for Redshift/Lakehouse/Glue)
+  # Required: AmazonDataZone managed policies
+  # Grants permissions to publish, grant/revoke access to data
+  # =============================================================================
+  ManageAccessRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub AmazonSageMakerManageAccess-${DomainName}
+      Description: Manage access role for SageMaker Unified Studio
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: datazone.amazonaws.com
+            Action: sts:AssumeRole
+            Condition:
+              StringEquals:
+                aws:SourceAccount: !Ref AWS::AccountId
+      ManagedPolicyArns:
+        - !Sub arn:${AWS::Partition}:iam::aws:policy/service-role/AmazonDataZoneGlueManageAccessRolePolicy
+        - !Sub arn:${AWS::Partition}:iam::aws:policy/service-role/AmazonDataZoneRedshiftManageAccessRolePolicy
+      Tags:
+        - Key: Name
+          Value: !Sub ${DomainName}-ManageAccessRole
+        - Key: Workshop
+          Value: "true"
+
+  # Inline policy for Secrets Manager access (per documentation)
+  ManageAccessRoleSecretsPolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: !Sub ${DomainName}-ManageAccessSecrets
+      Roles:
+        - !Ref ManageAccessRole
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: RedshiftSecretStatement
+            Effect: Allow
+            Action: secretsmanager:GetSecretValue
+            Resource: '*'
+            Condition:
+              StringEquals:
+                secretsmanager:ResourceTag/AmazonDataZoneDomain: !Ref UnifiedStudioDomain
+
+  # =============================================================================
+  # WORKSHOP PARTICIPANT ROLE
+  # Broad permissions for workshop use - uses inline policy to avoid 10 policy limit
+  # =============================================================================
+  WorkshopParticipantRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub WorkshopParticipant-${DomainName}
+      Description: Broad permissions role for workshop participants
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - sagemaker.amazonaws.com
+                - datazone.amazonaws.com
+                - bedrock.amazonaws.com
+                - lambda.amazonaws.com
+                - glue.amazonaws.com
+                - states.amazonaws.com
+            Action: sts:AssumeRole
+          - Effect: Allow
+            Principal:
+              AWS: !Ref AWS::AccountId
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        # Use the official SageMaker Studio Full Access policy
+        - !Sub arn:${AWS::Partition}:iam::aws:policy/SageMakerStudioFullAccess
+      Tags:
+        - Key: Name
+          Value: !Sub ${DomainName}-WorkshopParticipantRole
+        - Key: Workshop
+          Value: "true"
+
+  # =============================================================================
+  # WORKSHOP LAB POLICY
+  # Comprehensive inline policy for workshop participants
+  # Attached only to WorkshopParticipantRole to avoid 10 policy limit on other roles
+  # =============================================================================
+  WorkshopLabPolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: !Sub ${DomainName}-WorkshopLabPolicy
+      Roles:
+        - !Ref WorkshopParticipantRole
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          # Bedrock Full Access including Inference Profiles
+          - Sid: BedrockFullAccess
+            Effect: Allow
+            Action:
+              - bedrock:*
+              - bedrock-runtime:*
+            Resource: '*'
+
+          # DataZone Full Access
+          - Sid: DataZoneFullAccess
+            Effect: Allow
+            Action:
+              - datazone:*
+            Resource: '*'
+
+          # SageMaker Full Access
+          - Sid: SageMakerFullAccess
+            Effect: Allow
+            Action:
+              - sagemaker:*
+            Resource: '*'
+
+          # S3 Full Access
+          - Sid: S3FullAccess
+            Effect: Allow
+            Action:
+              - s3:*
+            Resource: '*'
+
+          # Glue Full Access
+          - Sid: GlueFullAccess
+            Effect: Allow
+            Action:
+              - glue:*
+            Resource: '*'
+
+          # Athena Full Access
+          - Sid: AthenaFullAccess
+            Effect: Allow
+            Action:
+              - athena:*
+            Resource: '*'
+
+          # Lake Formation Full Access
+          - Sid: LakeFormationFullAccess
+            Effect: Allow
+            Action:
+              - lakeformation:*
+            Resource: '*'
+
+          # Redshift Full Access
+          - Sid: RedshiftFullAccess
+            Effect: Allow
+            Action:
+              - redshift:*
+              - redshift-data:*
+              - redshift-serverless:*
+              - sqlworkbench:*
+            Resource: '*'
+
+          # EMR Full Access
+          - Sid: EMRFullAccess
+            Effect: Allow
+            Action:
+              - elasticmapreduce:*
+              - emr-serverless:*
+              - emr-containers:*
+            Resource: '*'
+
+          # CloudWatch and Logs
+          - Sid: CloudWatchFullAccess
+            Effect: Allow
+            Action:
+              - logs:*
+              - cloudwatch:*
+            Resource: '*'
+
+          # Lambda and Step Functions
+          - Sid: ServerlessAccess
+            Effect: Allow
+            Action:
+              - lambda:*
+              - states:*
+            Resource: '*'
+
+          # IAM for Service Roles
+          - Sid: IAMForServiceRoles
+            Effect: Allow
+            Action:
+              - iam:GetRole
+              - iam:GetRolePolicy
+              - iam:PassRole
+              - iam:ListRoles
+              - iam:ListRolePolicies
+              - iam:ListAttachedRolePolicies
+              - iam:CreateServiceLinkedRole
+            Resource: '*'
+
+          # Secrets and KMS
+          - Sid: SecretsAndKMS
+            Effect: Allow
+            Action:
+              - secretsmanager:*
+              - kms:Decrypt
+              - kms:GenerateDataKey
+              - kms:GenerateDataKeyWithoutPlaintext
+              - kms:DescribeKey
+              - kms:Encrypt
+              - kms:CreateGrant
+              - kms:ListAliases
+              - kms:ListKeys
+            Resource: '*'
+
+          # EC2 Networking
+          - Sid: EC2NetworkingAccess
+            Effect: Allow
+            Action:
+              - ec2:Describe*
+              - ec2:CreateNetworkInterface
+              - ec2:DeleteNetworkInterface
+              - ec2:CreateVpcEndpoint
+            Resource: '*'
+
+          # CloudFormation
+          - Sid: CloudFormationAccess
+            Effect: Allow
+            Action:
+              - cloudformation:*
+            Resource: '*'
+
+          # RAM for Project Profiles
+          - Sid: RAMAccess
+            Effect: Allow
+            Action:
+              - ram:*
+            Resource: '*'
+
+          # SSM Parameter Store
+          - Sid: SSMAccess
+            Effect: Allow
+            Action:
+              - ssm:*
+            Resource: '*'
+
+          # Code Services
+          - Sid: CodeServicesAccess
+            Effect: Allow
+            Action:
+              - codecommit:*
+              - codebuild:*
+              - codestar-connections:*
+            Resource: '*'
+
+          # Messaging
+          - Sid: MessagingAccess
+            Effect: Allow
+            Action:
+              - sns:*
+              - sqs:*
+              - events:*
+            Resource: '*'
+
+          # ECR
+          - Sid: ECRAccess
+            Effect: Allow
+            Action:
+              - ecr:*
+            Resource: '*'
+
+          # STS
+          - Sid: STSAccess
+            Effect: Allow
+            Action:
+              - sts:GetCallerIdentity
+              - sts:AssumeRole
+            Resource: '*'
+
+  # =============================================================================
+  # SAGEMAKER UNIFIED STUDIO DOMAIN (DataZone V2)
+  # =============================================================================
+  UnifiedStudioDomain:
+    Type: AWS::DataZone::Domain
+    DependsOn:
+      - DomainExecutionRole
+      - DomainServiceRole
+    Properties:
+      Name: !Ref DomainName
+      Description: !Ref DomainDescription
+      DomainVersion: V2
+      DomainExecutionRole: !GetAtt DomainExecutionRole.Arn
+      ServiceRole: !GetAtt DomainServiceRole.Arn
+      SingleSignOn: !If
+        - SSOEnabled
+        - !If
+          - HasIdcInstanceArn
+          - Type: IAM_IDC
+            UserAssignment: AUTOMATIC
+            IdcInstanceArn: !Ref IdcInstanceArn
+          - Type: IAM_IDC
+            UserAssignment: AUTOMATIC
+        - Type: DISABLED
+      Tags:
+        - Key: Name
+          Value: !Ref DomainName
+        - Key: Environment
+          Value: Workshop
+        - Key: Workshop
+          Value: "true"
+
+Outputs:
+  DomainId:
+    Description: The ID of the SageMaker Unified Studio domain
+    Value: !Ref UnifiedStudioDomain
+    Export:
+      Name: !Sub ${DomainName}-DomainId
+
+  DomainArn:
+    Description: The ARN of the SageMaker Unified Studio domain
+    Value: !GetAtt UnifiedStudioDomain.Arn
+    Export:
+      Name: !Sub ${DomainName}-DomainArn
+
+  DomainPortalUrl:
+    Description: The portal URL for the SageMaker Unified Studio domain
+    Value: !GetAtt UnifiedStudioDomain.PortalUrl
+    Export:
+      Name: !Sub ${DomainName}-PortalUrl
+
+  DomainStatus:
+    Description: The status of the domain
+    Value: !GetAtt UnifiedStudioDomain.Status
+    Export:
+      Name: !Sub ${DomainName}-Status
+
+  RootDomainUnitId:
+    Description: The ID of the root domain unit
+    Value: !GetAtt UnifiedStudioDomain.RootDomainUnitId
+    Export:
+      Name: !Sub ${DomainName}-RootDomainUnitId
+
+  DomainExecutionRoleArn:
+    Description: The ARN of the domain execution role
+    Value: !GetAtt DomainExecutionRole.Arn
+    Export:
+      Name: !Sub ${DomainName}-ExecutionRoleArn
+
+  DomainServiceRoleArn:
+    Description: The ARN of the domain service role
+    Value: !GetAtt DomainServiceRole.Arn
+    Export:
+      Name: !Sub ${DomainName}-ServiceRoleArn
+
+  ProvisioningRoleArn:
+    Description: The ARN of the provisioning role
+    Value: !GetAtt ProvisioningRole.Arn
+    Export:
+      Name: !Sub ${DomainName}-ProvisioningRoleArn
+
+  ManageAccessRoleArn:
+    Description: The ARN of the manage access role
+    Value: !GetAtt ManageAccessRole.Arn
+    Export:
+      Name: !Sub ${DomainName}-ManageAccessRoleArn
+
+  WorkshopParticipantRoleArn:
+    Description: The ARN of the workshop participant role
+    Value: !GetAtt WorkshopParticipantRole.Arn
+    Export:
+      Name: !Sub ${DomainName}-WorkshopParticipantRoleArn
