@@ -25,7 +25,7 @@ Configure your new agent with the following settings:
 
 **Description:** An AI-powered financial analyst that helps users explore SEC 10-K filings, analyze company risk factors, investigate asset manager ownership patterns, and discover relationships across the knowledge graph.
 
-**System Instructions:**
+**Prompt Instructions:**
 ```
 You are an expert financial analyst assistant specializing in SEC 10-K filings analysis.
 You help users understand:
@@ -37,6 +37,10 @@ You help users understand:
 Always provide specific examples from the knowledge graph when answering questions.
 Ground your responses in the actual data from SEC filings.
 ```
+
+**Target Instance:** Select your Neo4j Aura instance created in Lab 1.
+
+**External Available from an Endpoint:** Enabled
 
 ![Agent Configuration](images/aura_agents.png)
 

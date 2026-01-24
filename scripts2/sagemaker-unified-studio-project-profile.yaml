@@ -43,28 +43,28 @@ Outputs:
     Description: The ID of the project profile
     Value: !GetAtt AllCapabilitiesProjectProfile.Id
     Export:
-      Name: !Sub ${ProjectProfileName}-ProjectProfileId
+      Name: !Sub ${AWS::StackName}-ProjectProfileId
 
   ProjectProfileIdentifier:
     Description: The identifier of the project profile
     Value: !GetAtt AllCapabilitiesProjectProfile.Identifier
     Export:
-      Name: !Sub ${ProjectProfileName}-Identifier
+      Name: !Sub ${AWS::StackName}-Identifier
 
   ProjectProfileDomainId:
     Description: The domain ID associated with the project profile
     Value: !GetAtt AllCapabilitiesProjectProfile.DomainId
     Export:
-      Name: !Sub ${ProjectProfileName}-DomainId
+      Name: !Sub ${AWS::StackName}-DomainId
 
   ProjectProfileCreatedAt:
     Description: Timestamp when the project profile was created
     Value: !GetAtt AllCapabilitiesProjectProfile.CreatedAt
     Export:
-      Name: !Sub ${ProjectProfileName}-CreatedAt
+      Name: !Sub ${AWS::StackName}-CreatedAt
 
   ProjectProfileCreatedBy:
     Description: User who created the project profile
     Value: !GetAtt AllCapabilitiesProjectProfile.CreatedBy
     Export:
-      Name: !Sub ${ProjectProfileName}-CreatedBy
+      Name: !Sub ${AWS::StackName}-CreatedBy
