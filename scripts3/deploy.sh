@@ -5,7 +5,10 @@ STACK_NAME="sagemaker-studio"
 
 deploy() {
     echo "=== Deploying SageMaker Studio ==="
-    rain deploy sagemaker-studio.yaml $STACK_NAME -y
+    aws cloudformation deploy \
+        --template-file sagemaker-studio.yaml \
+        --stack-name $STACK_NAME \
+        --capabilities CAPABILITY_IAM CAPABILITY_NAMED_IAM
 
     echo ""
     echo "=== Deployment Complete ==="
@@ -15,7 +18,9 @@ deploy() {
 
 outputs() {
     echo "=== Stack Outputs ==="
-    rain ls $STACK_NAME -o 2>/dev/null || echo "(stack not deployed)"
+    aws cloudformation describe-stacks --stack-name $STACK_NAME \
+        --query "Stacks[0].Outputs[*].[OutputKey,OutputValue]" \
+        --output table 2>/dev/null || echo "(stack not deployed)"
 
     echo ""
     echo "=== Quick Start ==="
@@ -58,7 +63,10 @@ delete() {
     fi
 
     echo "Deleting CloudFormation stack..."
-    rain rm $STACK_NAME -y 2>/dev/null || true
+    aws cloudformation delete-stack --stack-name $STACK_NAME 2>/dev/null || true
+
+    echo "Waiting for stack deletion..."
+    aws cloudformation wait stack-delete-complete --stack-name $STACK_NAME 2>/dev/null || true
 
     echo "=== Deletion Complete ==="
 }
