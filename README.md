@@ -111,18 +111,19 @@ You'll need a laptop with a web browser. Your browser will need to be able to ac
 - **VectorCypherRetriever**: Vector search enhanced with graph traversal
 - **GraphRAG**: Orchestration class combining retrieval with LLM generation
 
-**Important Note:** The pre-built knowledge graph uses OpenAI embeddings (1536 dimensions), which are not compatible with Amazon Titan embeddings (1024 dimensions). AWS Bedrock embedding models do not provide an OpenAI-compatible API. Therefore, in Lab 6 we reset the database and rebuild the vector index using Amazon Titan embeddings. This demonstrates a real-world scenario where you need to match embedding dimensions between your index and query embeddings.
+* [Lab 6 - Aura Agents API](Lab_6_Aura_Agents_API)
+    * Call your Lab 2 Aura Agent programmatically
+    * OAuth2 authentication with client credentials
+    * Build a reusable Python client for application integration
 
-* [Lab 6 - GraphRAG with Neo4j](Lab_6_Knowledge_Graph)
+**Important Note:** The pre-built knowledge graph uses OpenAI embeddings (1536 dimensions), which are not compatible with Amazon Titan embeddings (1024 dimensions). AWS Bedrock embedding models do not provide an OpenAI-compatible API. Therefore, in Lab 8 we reset the database and rebuild the vector index using Amazon Titan embeddings. This demonstrates a real-world scenario where you need to match embedding dimensions between your index and query embeddings.
+
+* [Lab 8 - GraphRAG with Neo4j](Lab_8_GraphRAG)
     * Load data and create embeddings with Amazon Titan
     * Build vector indexes in Neo4j
     * Implement VectorRetriever for semantic search
     * Use VectorCypherRetriever for graph-enhanced context
     * Build complete GraphRAG pipelines
-* [Lab 8 - Aura Agents API](Lab_8_Aura_Agents_API)
-    * Call your Lab 2 Aura Agent programmatically
-    * OAuth2 authentication with client credentials
-    * Build a reusable Python client for application integration
 * Questions and Next Steps
 
 ---

@@ -1,4 +1,4 @@
-# Lab 6 - GraphRAG with Neo4j
+# Lab 8 - GraphRAG with Neo4j
 
 This lab teaches you how to build Graph Retrieval-Augmented Generation (GraphRAG) applications using the official **neo4j-graphrag** Python library. You'll learn to load data into Neo4j, create embeddings, and use various retrieval strategies to build intelligent question-answering systems.
 
@@ -242,7 +242,7 @@ Leverage graph structure for richer context:
 ## Installation
 
 ```bash
-cd Lab_6_Knowledge_Graph/src
+cd Lab_8_GraphRAG/src
 pip install -e .
 ```
 
@@ -303,7 +303,13 @@ Ensure your vector index dimensions match the embedder output:
 
 ## Next Steps
 
-After completing this lab, continue to **Lab 8** to learn how to expose your GraphRAG pipeline as an API using Neo4j Aura Agents.
+**Congratulations!** You have completed all labs in the workshop.
+
+You now have hands-on experience with:
+- Building no-code AI agents with Neo4j Aura Agents
+- Connecting LLM agents to Neo4j via the Model Context Protocol
+- Calling Aura Agents programmatically via REST API
+- Building GraphRAG pipelines with the neo4j-graphrag library
 
 ## Additional Resources
 

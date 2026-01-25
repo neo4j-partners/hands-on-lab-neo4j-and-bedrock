@@ -69,15 +69,14 @@ The `CONFIG.txt` file contains all settings for the workshop. Here's when each s
 | `MODEL_ID` | Lab 4+ | AWS Bedrock model ID (pre-configured) |
 | `BASE_MODEL_ID` | Lab 4+ | AWS Bedrock base model ID (pre-configured) |
 | `REGION` | Lab 4+ | AWS region (pre-configured: us-west-2) |
-| `NEO4J_URI` | Lab 6+ | **Fill in after Lab 1** - Your Aura connection URI |
-| `NEO4J_USERNAME` | Lab 6+ | **Fill in after Lab 1** - Usually `neo4j` |
-| `NEO4J_PASSWORD` | Lab 6+ | **Fill in after Lab 1** - Your database password |
+| `NEO4J_URI` | Lab 5+ | **Fill in after Lab 1** - Your Aura connection URI |
+| `NEO4J_USERNAME` | Lab 5+ | **Fill in after Lab 1** - Usually `neo4j` |
+| `NEO4J_PASSWORD` | Lab 5+ | **Fill in after Lab 1** - Your database password |
 | `MCP_GATEWAY_URL` | Lab 5 | Fill in after AgentCore Gateway setup |
 | `MCP_ACCESS_TOKEN` | Lab 5 | Fill in after AgentCore Gateway setup |
-| `OPENAI_API_KEY` | Lab 6+ | Fill in if using OpenAI embeddings |
-| `NEO4J_CLIENT_ID` | Lab 8 | Fill in after creating Aura Agent API key |
-| `NEO4J_CLIENT_SECRET` | Lab 8 | Fill in after creating Aura Agent API key |
-| `NEO4J_AGENT_ENDPOINT` | Lab 8 | Fill in after creating Aura Agent |
+| `NEO4J_CLIENT_ID` | Lab 6 | Fill in after creating Aura Agent API key |
+| `NEO4J_CLIENT_SECRET` | Lab 6 | Fill in after creating Aura Agent API key |
+| `NEO4J_AGENT_ENDPOINT` | Lab 6 | Fill in after creating Aura Agent |
 
 All notebooks load their configuration from this single file using `python-dotenv`.
 

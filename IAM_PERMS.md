@@ -4,27 +4,15 @@
 
 **Before workshop participants can use Anthropic Claude models**, an account admin must enable model access. This is a one-time setup per AWS account.
 
-### Option 1: AWS Console
+### AWS Console Request Model Access
 
 1. Sign in to AWS Console with admin credentials
 2. Go to **Amazon Bedrock → Model catalog**
-3. Select any **Anthropic Claude model**
+3. Request access for the following **Anthropic Claude models**:
+   - **Claude Sonnet 4** (`us.anthropic.claude-sonnet-4-20250514-v1:0`)
+   - **Claude Sonnet 4.5** (`us.anthropic.claude-sonnet-4-5-20250514-v1:0`)
 4. Complete the **use case form** (company name, website, intended use)
 5. Submit - access is granted immediately
-
-### Option 2: AWS CLI
-
-```bash
-aws bedrock put-use-case-for-model-access \
-  --region us-west-2 \
-  --form-data $(echo -n '{
-    "companyName": "Your Company",
-    "companyWebsite": "https://yourcompany.com",
-    "intendedUsers": "Workshop participants",
-    "industryOption": "Technology",
-    "useCases": "Educational workshop on building AI agents with Bedrock"
-  }' | base64)
-```
 
 Requires admin permissions: `bedrock:PutUseCaseForModelAccess`, `aws-marketplace:Subscribe`, `aws-marketplace:ViewSubscriptions`
 

@@ -1,4 +1,4 @@
-# Lab 8 - Aura Agents API
+# Lab 6 - Aura Agents API
 
 In this lab, you'll learn how to call the Neo4j Aura Agent you created in Lab 2 programmatically using Python. This enables you to integrate your no-code Aura Agent into applications, scripts, and automated workflows.
 
@@ -157,13 +157,7 @@ Try these questions with your agent (same as Lab 2):
 
 ## Next Steps
 
-After completing this lab, you can:
-- Integrate the agent into your own applications
-- Build custom chat interfaces
-- Create automated workflows that query your knowledge graph
-- Combine with other APIs and data sources
-
-**Congratulations!** You have completed all labs in the workshop.
+Continue to [Lab 8 - GraphRAG with Neo4j](../Lab_8_GraphRAG) to learn how to build GraphRAG pipelines using the neo4j-graphrag library with Amazon Titan embeddings.
 
 ## Resources
 
