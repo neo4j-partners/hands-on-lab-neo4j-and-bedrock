@@ -4,26 +4,10 @@
 # =============================================================================
 # AWS Bedrock Settings (Lab 4+)
 # =============================================================================
-# Choose ONE model by uncommenting it (and commenting out the others)
-#
 # CLAUDE 3 SONNET (Default - best tool calling support)
 MODEL_ID=us.anthropic.claude-3-sonnet-20240229-v1:0
-#
-# CLAUDE 3 HAIKU (Faster, cheaper)
-# MODEL_ID=us.anthropic.claude-3-haiku-20240307-v1:0
-#
-# AMAZON NOVA PRO (No Marketplace needed, but tool calling issues)
-# MODEL_ID=us.amazon.nova-pro-v1:0
-#
-# AMAZON NOVA PREMIER (Highest quality)
-# MODEL_ID=us.amazon.nova-premier-v1:0
-#
-# MISTRAL LARGE (Good for Cypher, but NO streaming tool use)
-# MODEL_ID=mistral.mistral-large-2407-v1:0
-#
 # EMBEDDING MODEL (for vector search / RAG)
 EMBEDDING_MODEL_ID=amazon.titan-embed-text-v2:0
-#
 REGION=us-west-2
 
 # =============================================================================
