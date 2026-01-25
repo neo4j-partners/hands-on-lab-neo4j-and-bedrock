@@ -157,7 +157,7 @@ Try these questions with your agent (same as Lab 2):
 
 ## Next Steps
 
-Continue to [Lab 8 - GraphRAG with Neo4j](../Lab_8_GraphRAG) to learn how to build GraphRAG pipelines using the neo4j-graphrag library with Amazon Titan embeddings.
+Continue to [Lab 7 - Neo4j MCP Agent](../Lab_7_Neo4j_MCP_Agent) to build an AI agent that queries your Neo4j knowledge graph using the Model Context Protocol.
 
 ## Resources
 

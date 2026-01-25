@@ -102,4 +102,4 @@ agent = graph.compile()
 
 ## Next Steps
 
-Continue to [Lab 5 - Neo4j MCP Agent](../Lab_5_Neo4j_MCP_Agent) to build an AI agent that queries your Neo4j knowledge graph using the Model Context Protocol.
+Continue to [Lab 5 - GraphRAG with Neo4j](../Lab_5_GraphRAG) to learn how to build GraphRAG pipelines using the neo4j-graphrag library with Amazon Titan embeddings.
