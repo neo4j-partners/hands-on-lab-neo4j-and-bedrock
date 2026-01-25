@@ -4,11 +4,16 @@
 # =============================================================================
 # AWS Bedrock Settings (Lab 4+)
 # =============================================================================
-# MISTRAL LARGE (Default - good quality for Cypher generation)
-MODEL_ID=mistral.mistral-large-2407-v1:0
+# Choose ONE model by uncommenting it (and commenting out the others)
 #
-# AMAZON NOVA PREMIER (Highest quality, cross-region)
+# AMAZON NOVA PRO (Default - supports tool use + streaming, no Marketplace needed)
+MODEL_ID=us.amazon.nova-pro-v1:0
+#
+# AMAZON NOVA PREMIER (Highest quality)
 # MODEL_ID=us.amazon.nova-premier-v1:0
+#
+# MISTRAL LARGE (Good for Cypher, but NO streaming tool use)
+# MODEL_ID=mistral.mistral-large-2407-v1:0
 #
 # EMBEDDING MODEL (for vector search / RAG)
 EMBEDDING_MODEL_ID=amazon.titan-embed-text-v2:0
