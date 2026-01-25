@@ -6,11 +6,11 @@
 # =============================================================================
 # Choose ONE model by uncommenting it (and commenting out the others)
 #
-# AMAZON NOVA PRO (Default - supports tool use + streaming, no Marketplace needed)
-MODEL_ID=us.amazon.nova-pro-v1:0
+# AMAZON NOVA PRO (Good quality, no Marketplace needed)
+# MODEL_ID=us.amazon.nova-pro-v1:0
 #
-# AMAZON NOVA PREMIER (Highest quality)
-# MODEL_ID=us.amazon.nova-premier-v1:0
+# AMAZON NOVA PREMIER (Default - highest quality, best for tool use)
+MODEL_ID=us.amazon.nova-premier-v1:0
 #
 # MISTRAL LARGE (Good for Cypher, but NO streaming tool use)
 # MODEL_ID=mistral.mistral-large-2407-v1:0
