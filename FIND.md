@@ -103,7 +103,84 @@ echo "=============================================="
 echo "  Summary"
 echo "=============================================="
 echo ""
-echo "Models marked 'ACCESS GRANTED' can be used in CONFIG.txt"
+echo "For the workshop notebooks, use INFERENCE PROFILES (not foundation models):"
+echo ""
+echo "  MODEL_ID     = us.anthropic.claude-3-5-sonnet-...  (inference profile)"
+echo "  BASE_MODEL_ID = anthropic.claude-3-5-sonnet-...    (foundation model)"
+echo ""
+echo "Example for Claude 3.5 Sonnet:"
+echo "  MODEL_ID     = us.anthropic.claude-3-5-sonnet-20241022-v2:0"
+echo "  BASE_MODEL_ID = anthropic.claude-3-5-sonnet-20241022-v2:0"
+echo ""
+echo "To enable models: AWS Console > Bedrock > Model access > Manage"
+echo ""
+EOF
+```
+
+## Test Embedding Model Access
+
+```bash
+cat << 'EOF' | bash
+# Test which embedding models you have access to
+# Region from CONFIG.txt: us-west-2
+
+REGION="us-west-2"
+
+echo "=============================================="
+echo "  Testing Embedding Model Access in $REGION"
+echo "=============================================="
+echo ""
+
+# Get list of embedding model IDs
+MODELS=$(aws bedrock list-foundation-models \
+    --region "$REGION" \
+    --by-output-modality EMBEDDING \
+    --query 'modelSummaries[*].modelId' \
+    --output text | tr '\t' '\n')
+
+for MODEL_ID in $MODELS; do
+    echo -n "Testing: $MODEL_ID ... "
+
+    # Determine the correct request format based on provider
+    if [[ "$MODEL_ID" == amazon.titan-embed* ]]; then
+        BODY='{"inputText":"test"}'
+    elif [[ "$MODEL_ID" == cohere.embed* ]]; then
+        BODY='{"texts":["test"],"input_type":"search_document"}'
+    else
+        BODY='{"inputText":"test"}'
+    fi
+
+    RESULT=$(aws bedrock-runtime invoke-model \
+        --region "$REGION" \
+        --model-id "$MODEL_ID" \
+        --content-type "application/json" \
+        --body "$BODY" \
+        /dev/stdout 2>&1)
+
+    if [ $? -eq 0 ] && echo "$RESULT" | grep -q "embedding"; then
+        echo "ACCESS GRANTED"
+    else
+        if echo "$RESULT" | grep -q "AccessDeniedException"; then
+            echo "NO ACCESS (enable in Bedrock Console)"
+        elif echo "$RESULT" | grep -q "ValidationException"; then
+            echo "VALIDATION ERROR"
+        elif echo "$RESULT" | grep -q "ThrottlingException"; then
+            echo "THROTTLED (have access, try again)"
+        else
+            echo "FAILED"
+        fi
+    fi
+done
+
+echo ""
+echo "=============================================="
+echo "  Embedding Model Summary"
+echo "=============================================="
+echo ""
+echo "Recommended for the workshop:"
+echo "  amazon.titan-embed-text-v2:0  (1024 dimensions, best quality)"
+echo "  amazon.titan-embed-text-v1    (1536 dimensions, legacy)"
+echo ""
 echo "To enable models: AWS Console > Bedrock > Model access > Manage"
 echo ""
 EOF
