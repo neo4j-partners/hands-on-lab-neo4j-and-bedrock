@@ -29,12 +29,14 @@ To get started, follow the labs in the agenda below in order.
 
 **Quick Start Options:**
 - **No-Code Track Only:** Complete Part 1 (Labs 0-2) to explore Neo4j and AI agents without coding
-- **Full Workshop:** Complete both Part 1 and Part 2 for the full development experience
-- **Skip to Coding:** If you already have your AWS account and Aura credentials, go straight to [Lab 4 - SageMaker Setup](Lab_4_SageMaker_Setup)
+- **Intro to Agents:** Complete Parts 1 and 2 (Labs 0-5) to build your first MCP agent
+- **Full Workshop:** Complete all three parts for the complete GraphRAG development experience
 
 ## Prerequisites
 
 You'll need a laptop with a web browser. Your browser will need to be able to access the AWS Console and the Neo4j Aura Console. If your laptop has a firewall you can't control, you may want to bring your personal laptop.
+
+---
 
 ## Agenda
 
@@ -61,9 +63,21 @@ You'll need a laptop with a web browser. Your browser will need to be able to ac
 
 ---
 
-### Part 2 - Coding and MCP Development
+### Part 2 - Introduction to Agents and the Neo4j MCP Server
 
-*This section involves Python programming using Jupyter notebooks in Amazon SageMaker.*
+*This section introduces you to building AI agents with Python. You'll use the Model Context Protocol (MCP) to connect LLM agents to Neo4j.*
+
+**What You'll Learn:**
+- How AI agents use tools to interact with external systems
+- The Model Context Protocol (MCP) standard for tool integration
+- Building LangGraph agents that can query knowledge graphs
+- Using the Neo4j MCP Server via AgentCore Gateway
+
+**Key Technologies:**
+- **LangGraph**: Framework for building stateful, multi-step AI agents
+- **Model Context Protocol (MCP)**: Open standard for connecting AI models to data sources
+- **Neo4j MCP Server**: Official Neo4j tool server exposing Cypher query capabilities
+- **AgentCore Gateway**: AWS service for hosting and managing MCP servers
 
 * Lecture - Neo4j and Generative AI
     * Generating Knowledge Graphs
@@ -73,31 +87,61 @@ You'll need a laptop with a web browser. Your browser will need to be able to ac
     * Launch SageMaker Studio
     * Clone the workshop repository
     * Configure inference profiles for Bedrock
+    * Build a basic LangGraph agent with tool calling
 * [Lab 5 - Neo4j MCP Agent](Lab_5_Neo4j_MCP_Agent)
     * Connect to Neo4j via AgentCore Gateway
-    * Build LangGraph or Strands agent
+    * Build a LangGraph agent with MCP tools
     * Query the knowledge graph with natural language
+
+---
+
+### Part 3 - GraphRAG and the Neo4j GraphRAG Library
+
+*This section dives deep into GraphRAG patterns using the official neo4j-graphrag Python library. You'll build sophisticated retrieval pipelines and learn to call Aura Agents programmatically.*
+
+**What You'll Learn:**
+- The neo4j-graphrag library architecture and components
+- Multiple retrieval strategies (Vector, VectorCypher, Hybrid, Text2Cypher)
+- Building complete RAG pipelines with the GraphRAG class
+- Calling Aura Agents via REST API for application integration
+
+**Key Technologies:**
+- **neo4j-graphrag**: Neo4j's official Python library for GraphRAG applications
+- **VectorRetriever**: Semantic similarity search using embeddings
+- **VectorCypherRetriever**: Vector search enhanced with graph traversal
+- **GraphRAG**: Orchestration class combining retrieval with LLM generation
+
+**Important Note:** The pre-built knowledge graph uses OpenAI embeddings (1536 dimensions), which are not compatible with Amazon Titan embeddings (1024 dimensions). AWS Bedrock embedding models do not provide an OpenAI-compatible API. Therefore, in Lab 6 we reset the database and rebuild the vector index using Amazon Titan embeddings. This demonstrates a real-world scenario where you need to match embedding dimensions between your index and query embeddings.
+
+* [Lab 6 - GraphRAG with Neo4j](Lab_6_Knowledge_Graph)
+    * Load data and create embeddings with Amazon Titan
+    * Build vector indexes in Neo4j
+    * Implement VectorRetriever for semantic search
+    * Use VectorCypherRetriever for graph-enhanced context
+    * Build complete GraphRAG pipelines
 * [Lab 8 - Aura Agents API](Lab_8_Aura_Agents_API)
     * Call your Lab 2 Aura Agent programmatically
     * OAuth2 authentication with client credentials
     * Build a reusable Python client for application integration
 * Questions and Next Steps
 
+---
+
 ## Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │                              YOUR AGENTS                                     │
-├─────────────────────────────────┬───────────────────────────────────────────┤
-│         No-Code (Labs 0-2)      │           Coding (Labs 4-8)               │
-│  ┌───────────────────────────┐  │  ┌─────────────────────────────────────┐  │
-│  │      Aura Agents          │  │  │   LangGraph / Strands Agents        │  │
-│  │  • Cypher Templates       │  │  │   • MCP Protocol                    │  │
-│  │  • Similarity Search      │  │  │   • AgentCore Gateway               │  │
-│  │  • Text2Cypher            │  │  │   • Claude via Bedrock              │  │
-│  └───────────────────────────┘  │  │   • Aura Agents REST API (Lab 8)    │  │
-│                                 │  └─────────────────────────────────────┘  │
-└─────────────────────────────────┴───────────────────────────────────────────┘
+├───────────────────┬─────────────────────────┬───────────────────────────────┤
+│   Part 1 (No-Code) │     Part 2 (Agents)     │      Part 3 (GraphRAG)        │
+│  ┌───────────────┐ │  ┌─────────────────────┐ │  ┌─────────────────────────┐  │
+│  │ Aura Agents   │ │  │  LangGraph Agent    │ │  │   neo4j-graphrag        │  │
+│  │ • Templates   │ │  │  • MCP Protocol     │ │  │   • VectorRetriever     │  │
+│  │ • Similarity  │ │  │  • Neo4j MCP Server │ │  │   • VectorCypherRetr.   │  │
+│  │ • Text2Cypher │ │  │  • AgentCore GW     │ │  │   • GraphRAG Pipeline   │  │
+│  └───────────────┘ │  └─────────────────────┘ │  │   • Aura Agents API     │  │
+│                    │                          │  └─────────────────────────┘  │
+└───────────────────┴─────────────────────────┴───────────────────────────────┘
                                     │
                                     ▼
                     ┌───────────────────────────────┐
@@ -167,7 +211,7 @@ The workshop uses a hybrid knowledge graph that combines **lexical structure** (
 | Node Label | Description | Key Properties |
 |------------|-------------|----------------|
 | `Document` | Source PDF file | `path`, `createdAt` |
-| `Chunk` | Text segment from document | `text`, `index`, `embedding` (1536-dim vector) |
+| `Chunk` | Text segment from document | `text`, `index`, `embedding` |
 | `Company` | Extracted company entity | `name`, `ticker` |
 | `Product` | Products/services mentioned | `name` |
 | `RiskFactor` | Business risks identified | `name` |
@@ -235,6 +279,7 @@ We'd appreciate your feedback! Open an issue at [github.com/neo4j-partners/hands
 
 - [Neo4j Aura](https://neo4j.com/cloud/aura/)
 - [Neo4j MCP Server](https://github.com/neo4j/mcp)
+- [neo4j-graphrag Python Library](https://neo4j.com/docs/neo4j-graphrag-python/)
 - [Amazon Bedrock](https://aws.amazon.com/bedrock/)
 - [Amazon Bedrock AgentCore](https://docs.aws.amazon.com/bedrock-agentcore/)
 - [Model Context Protocol](https://modelcontextprotocol.io/)
