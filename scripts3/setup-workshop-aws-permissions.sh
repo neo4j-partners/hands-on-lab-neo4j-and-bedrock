@@ -84,14 +84,6 @@ PERMISSIONS_POLICY='{
       ]
     },
     {
-      "Sid": "DataZoneFullAccess",
-      "Effect": "Allow",
-      "Action": [
-        "datazone:*"
-      ],
-      "Resource": "*"
-    },
-    {
       "Sid": "RAMForProjectProfiles",
       "Effect": "Allow",
       "Action": [
@@ -223,7 +215,7 @@ list_org_accounts() {
 
 create_role() {
     local account_id="$1"
-    echo -e "${YELLOW}[1/5] Creating IAM Role: ${ROLE_NAME}${NC}"
+    echo -e "${YELLOW}[1/3] Creating IAM Role: ${ROLE_NAME}${NC}"
     
     if aws iam get-role --role-name "$ROLE_NAME" &>/dev/null; then
         echo -e "  ${GREEN}✓${NC} Role already exists"
@@ -241,7 +233,7 @@ create_role() {
 
 create_policy() {
     local account_id="$1"
-    echo -e "${YELLOW}[2/5] Creating IAM Policy: ${POLICY_NAME}${NC}"
+    echo -e "${YELLOW}[2/3] Creating IAM Policy: ${POLICY_NAME}${NC}"
     
     local policy_arn="arn:aws:iam::${account_id}:policy/${POLICY_NAME}"
     
@@ -261,7 +253,7 @@ create_policy() {
 
 attach_policy() {
     local account_id="$1"
-    echo -e "${YELLOW}[3/5] Attaching policy to role${NC}"
+    echo -e "${YELLOW}[3/3] Attaching policy to role${NC}"
     
     local policy_arn="arn:aws:iam::${account_id}:policy/${POLICY_NAME}"
     
@@ -275,144 +267,6 @@ attach_policy() {
         --policy-arn "$policy_arn"
     
     echo -e "  ${GREEN}✓${NC} Policy attached"
-}
-
-# Detect DataZone domain and project in the current account
-detect_datazone() {
-    DATAZONE_DOMAIN_ID=""
-    DATAZONE_PROJECT_ID=""
-
-    # Get first DataZone domain
-    local domains_json=$(aws datazone list-domains --region "$REGION" --output json 2>/dev/null)
-    if [ -z "$domains_json" ]; then
-        return 1
-    fi
-
-    local domain_count=$(echo "$domains_json" | python3 -c "import sys,json; print(len(json.load(sys.stdin).get('items',[])))" 2>/dev/null)
-    if [ "$domain_count" == "0" ] || [ -z "$domain_count" ]; then
-        return 1
-    fi
-
-    DATAZONE_DOMAIN_ID=$(echo "$domains_json" | python3 -c "import sys,json; print(json.load(sys.stdin)['items'][0]['id'])" 2>/dev/null)
-
-    # Get first non-admin project in that domain
-    local projects_json=$(aws datazone list-projects --domain-identifier "$DATAZONE_DOMAIN_ID" --region "$REGION" --output json 2>/dev/null)
-    if [ -z "$projects_json" ]; then
-        return 1
-    fi
-
-    # Filter out admin and governance projects
-    DATAZONE_PROJECT_ID=$(echo "$projects_json" | python3 -c "
-import sys, json
-items = json.load(sys.stdin).get('items', [])
-filtered = [p for p in items if 'admin-project' not in p.get('name','') and 'Governance' not in p.get('name','')]
-print(filtered[0]['id'] if filtered else '')
-" 2>/dev/null)
-
-    if [ -n "$DATAZONE_DOMAIN_ID" ] && [ -n "$DATAZONE_PROJECT_ID" ]; then
-        return 0
-    fi
-    return 1
-}
-
-# Add workshop user to the DataZone project
-add_workshop_user_to_project() {
-    echo -e "${YELLOW}[5/5] Adding workshop user to DataZone project${NC}"
-
-    # Check if DataZone was detected
-    if [ -z "$DATAZONE_DOMAIN_ID" ] || [ -z "$DATAZONE_PROJECT_ID" ]; then
-        echo -e "  ${CYAN}ℹ${NC} No DataZone project detected, skipping user addition"
-        return 0
-    fi
-
-    # Get the workshop user ARN (adjust pattern as needed)
-    WORKSHOP_USER=$(aws iam list-users --query "Users[?contains(UserName, 'canoe') || contains(UserName, 'workshop')].Arn" --output text | head -1)
-
-    if [ -n "$WORKSHOP_USER" ]; then
-        local username=$(echo "$WORKSHOP_USER" | sed 's/.*\///')
-        echo -e "  ${CYAN}ℹ${NC} Found workshop user: $username"
-        
-        if aws datazone create-project-membership \
-            --region "$REGION" \
-            --domain-identifier "$DATAZONE_DOMAIN_ID" \
-            --project-identifier "$DATAZONE_PROJECT_ID" \
-            --member "userIdentifier=$WORKSHOP_USER" \
-            --designation PROJECT_CONTRIBUTOR \
-            --output text > /dev/null 2>&1; then
-            echo -e "  ${GREEN}✓${NC} Added $username to project as PROJECT_CONTRIBUTOR"
-        else
-            echo -e "  ${YELLOW}⚠${NC} Could not add user (may already be a member or require SSO setup)"
-        fi
-    else
-        echo -e "  ${CYAN}ℹ${NC} No workshop user found matching 'canoe' or 'workshop'"
-    fi
-}
-
-create_inference_profiles() {
-    local account_id="$1"
-    echo -e "${YELLOW}[4/5] Creating Inference Profiles${NC}"
-
-    # Try to detect DataZone for proper tagging
-    if detect_datazone; then
-        echo -e "  ${GREEN}✓${NC} DataZone detected: domain=${DATAZONE_DOMAIN_ID}, project=${DATAZONE_PROJECT_ID}"
-    else
-        echo -e "  ${CYAN}ℹ${NC} No DataZone found (profiles will still work outside Unified Studio)"
-        DATAZONE_DOMAIN_ID=""
-        DATAZONE_PROJECT_ID=""
-    fi
-
-    # Models to create profiles for (bash 3.x compatible - no associative arrays)
-    # Format: "model_key|model_id"
-    MODELS="haiku|us.anthropic.claude-3-5-haiku-20241022-v1:0
-sonnet|us.anthropic.claude-3-5-sonnet-20241022-v2:0
-sonnet4|us.anthropic.claude-sonnet-4-20250514-v1:0
-sonnet45|us.anthropic.claude-sonnet-4-5-20250929-v1:0"
-
-    echo "$MODELS" | while IFS='|' read -r model_key model_id; do
-        # Use DataZone-style naming if detected, otherwise use simple naming
-        local profile_name
-        if [ -n "$DATAZONE_DOMAIN_ID" ] && [ -n "$DATAZONE_PROJECT_ID" ]; then
-            profile_name="${DATAZONE_DOMAIN_ID} ${DATAZONE_PROJECT_ID} ${model_key}"
-        else
-            profile_name="langgraph-lab-${model_key}"
-        fi
-
-        local model_arn="arn:aws:bedrock:${REGION}:${account_id}:inference-profile/${model_id}"
-
-        # Check if exists
-        local existing=$(aws bedrock list-inference-profiles \
-            --region "$REGION" \
-            --type-equals APPLICATION \
-            --query "inferenceProfileSummaries[?inferenceProfileName=='${profile_name}'].inferenceProfileArn" \
-            --output text 2>/dev/null)
-
-        if [ -n "$existing" ] && [ "$existing" != "None" ]; then
-            echo -e "  ${GREEN}✓${NC} $model_key (already exists)"
-            continue
-        fi
-
-        # Build tags - always include AmazonBedrockManaged=true (required for Unified Studio)
-        local tags="key=Purpose,value=BedrockLab key=Model,value=${model_key} key=AmazonBedrockManaged,value=true"
-
-        # Add DataZone tags if detected
-        if [ -n "$DATAZONE_DOMAIN_ID" ] && [ -n "$DATAZONE_PROJECT_ID" ]; then
-            tags="$tags key=AmazonDataZoneDomain,value=${DATAZONE_DOMAIN_ID} key=AmazonDataZoneProject,value=${DATAZONE_PROJECT_ID}"
-        fi
-
-        # Create profile with all required tags for SageMaker Unified Studio
-        aws bedrock create-inference-profile \
-            --region "$REGION" \
-            --inference-profile-name "$profile_name" \
-            --model-source "copyFrom=${model_arn}" \
-            --description "Lab profile for ${model_key}" \
-            --tags $tags \
-            --output text > /dev/null 2>&1 || {
-                echo -e "  ${YELLOW}⚠${NC} $model_key (skipped - model may not be available)"
-                continue
-            }
-
-        echo -e "  ${GREEN}✓${NC} $model_key"
-    done
 }
 
 setup_account() {
@@ -441,8 +295,6 @@ setup_account() {
     create_role "$account_id"
     create_policy "$account_id"
     attach_policy "$account_id"
-    create_inference_profiles "$account_id"
-    add_workshop_user_to_project
     
     # Clear credentials
     clear_assumed_role
@@ -486,24 +338,7 @@ check_account() {
     else
         echo -e "${RED}✗${NC} Policy not attached to role"
     fi
-    
-    # Check inference profiles
-    echo ""
-    echo -e "${YELLOW}Inference Profiles:${NC}"
-    local profiles=$(aws bedrock list-inference-profiles \
-        --region "$REGION" \
-        --type-equals APPLICATION \
-        --query 'inferenceProfileSummaries[].inferenceProfileName' \
-        --output text 2>/dev/null)
-    
-    if [ -n "$profiles" ] && [ "$profiles" != "None" ]; then
-        for p in $profiles; do
-            echo -e "  ${GREEN}✓${NC} $p"
-        done
-    else
-        echo -e "  ${RED}✗${NC} No inference profiles found"
-    fi
-    
+
     clear_assumed_role
 }
 
@@ -521,24 +356,7 @@ cleanup_account() {
     fi
     
     local policy_arn="arn:aws:iam::${account_id}:policy/${POLICY_NAME}"
-    
-    # Delete inference profiles
-    echo -e "${YELLOW}Deleting inference profiles...${NC}"
-    local profiles=$(aws bedrock list-inference-profiles \
-        --region "$REGION" \
-        --type-equals APPLICATION \
-        --query "inferenceProfileSummaries[?contains(inferenceProfileName,'langgraph-lab')].inferenceProfileArn" \
-        --output text 2>/dev/null)
-    
-    for arn in $profiles; do
-        if [ -n "$arn" ] && [ "$arn" != "None" ]; then
-            aws bedrock delete-inference-profile \
-                --region "$REGION" \
-                --inference-profile-identifier "$arn" 2>/dev/null || true
-            echo -e "  ${GREEN}✓${NC} Deleted profile"
-        fi
-    done
-    
+
     # Detach policy
     echo -e "${YELLOW}Detaching policy...${NC}"
     aws iam detach-role-policy \
