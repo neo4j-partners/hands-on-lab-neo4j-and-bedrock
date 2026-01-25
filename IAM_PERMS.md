@@ -1,20 +1,26 @@
 # IAM Permissions for Neo4j + Bedrock Workshop
 
-## Account Admin: One-Time Setup Required
+## Account Admin: One-Time Anthropic Use Case Submission
 
-**Before workshop participants can use Anthropic Claude models**, an account admin must enable model access. This is a one-time setup per AWS account.
+**Before workshop participants can use Anthropic Claude models**, a one-time use case form must be submitted. This is required once per AWS account (or once at the AWS Organization management account level).
 
-### AWS Console Request Model Access
+### Submit Anthropic Use Case Details
 
 1. Sign in to AWS Console with admin credentials
 2. Go to **Amazon Bedrock → Model catalog**
-3. Request access for the following **Anthropic Claude models**:
-   - **Claude Sonnet 4** (`us.anthropic.claude-sonnet-4-20250514-v1:0`)
-   - **Claude Sonnet 4.5** (`us.anthropic.claude-sonnet-4-5-20250514-v1:0`)
-4. Complete the **use case form** (company name, website, intended use)
+3. Select any **Anthropic Claude model** (e.g., Claude Sonnet 4)
+4. Complete the **use case form**:
+   - Company name
+   - Company website
+   - Industry
+   - Intended use cases
 5. Submit - access is granted immediately
 
-Requires admin permissions: `bedrock:PutUseCaseForModelAccess`, `aws-marketplace:Subscribe`, `aws-marketplace:ViewSubscriptions`
+**Models used in this workshop:**
+- **Claude Sonnet 4** (`us.anthropic.claude-sonnet-4-20250514-v1:0`)
+- **Claude Sonnet 4.5** (`us.anthropic.claude-sonnet-4-5-20250929-v1:0`)
+
+Requires permissions: `bedrock:PutUseCaseForModelAccess`, `aws-marketplace:Subscribe`, `aws-marketplace:ViewSubscriptions`
 
 ### Automated Setup
 
