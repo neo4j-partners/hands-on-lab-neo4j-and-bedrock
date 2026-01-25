@@ -1,154 +1,184 @@
-# Lab 5 - Neo4j MCP Agent
+# Lab 5 - Building AI Agents with MCP and Neo4j
 
-In this lab, you'll build an AI agent that queries your Neo4j knowledge graph using the **Model Context Protocol (MCP)**. The agent uses natural language to interact with the database, automatically generating and executing Cypher queries.
+This lab introduces two key concepts: how AI agents interact with external tools using the **Model Context Protocol (MCP)**, and how the **Neo4j MCP Server** enables natural language querying of graph databases.
 
-## Overview
+## What is the Model Context Protocol (MCP)?
 
-The Model Context Protocol (MCP) is an open standard that enables AI assistants to securely connect to external data sources and tools. In this lab, you'll connect to a **pre-deployed Neo4j MCP Server** running on **Amazon Bedrock AgentCore**.
+MCP is an open standard that defines how AI assistants connect to external data sources and tools. Think of it as a universal adapter—instead of building custom integrations for every tool, MCP provides a consistent interface that any AI agent can use.
 
-### What You'll Build
+### The Problem MCP Solves
 
-An AI agent that can:
-- Retrieve the database schema from Neo4j
-- Answer natural language questions about the SEC filings knowledge graph
-- Generate and execute Cypher queries automatically
-- Format results in human-readable responses
+Without MCP, connecting an AI agent to external tools requires:
+- Custom code for each integration
+- Handling authentication differently per service
+- Parsing tool-specific response formats
+- Managing connection lifecycle manually
 
-### Choose Your Framework
+MCP standardizes all of this into a simple protocol:
 
-You can build the agent using either:
+```
+┌──────────────┐         ┌──────────────┐         ┌──────────────┐
+│   AI Agent   │◀──MCP──▶│  MCP Server  │◀───────▶│  Data Source │
+│              │         │              │         │  (Neo4j, etc)│
+└──────────────┘         └──────────────┘         └──────────────┘
+```
 
-| Framework | Notebook | Best For |
-|-----------|----------|----------|
-| **LangGraph** | `neo4j_langgraph_mcp_agent.ipynb` | LangChain ecosystem users |
-| **Strands Agents** | `neo4j_strands_mcp_agent.ipynb` | AWS-native development |
+### How Agents Call MCP Servers
 
-Both notebooks connect to the same MCP server and produce equivalent results.
+An MCP server exposes **tools** that agents can discover and invoke. The interaction follows this pattern:
 
-## Prerequisites
+1. **Discovery**: The agent connects and requests the list of available tools
+2. **Tool Selection**: The LLM decides which tool(s) to call based on the user's question
+3. **Invocation**: The agent sends a tool call request with parameters
+4. **Response**: The MCP server executes the tool and returns results
+5. **Synthesis**: The LLM incorporates results into its response
 
-- Completed **Lab 4** (SageMaker setup with repo cloned)
-- **MCP Gateway credentials** (provided by workshop facilitator)
-- **Inference Profile ARN** (created in Lab 4 optional step, or create now)
+Here's a simplified example of what happens under the hood:
+
+```python
+# 1. Agent discovers available tools
+tools = mcp_client.list_tools()
+# Returns: [{"name": "get-schema", ...}, {"name": "read-cypher", ...}]
+
+# 2. LLM selects a tool based on user question
+# User asks: "How many companies are there?"
+# LLM decides: I need to run a Cypher query
+
+# 3. Agent invokes the tool
+result = mcp_client.call_tool(
+    name="read-cypher",
+    arguments={"query": "MATCH (c:Company) RETURN count(c) AS count"}
+)
+
+# 4. MCP server returns results
+# {"count": 8}
+
+# 5. LLM synthesizes response
+# "There are 8 companies in the database."
+```
+
+### MCP Transport Options
+
+MCP supports multiple transport mechanisms:
+
+| Transport | Use Case |
+|-----------|----------|
+| **stdio** | Local processes (CLI tools, desktop apps) |
+| **HTTP/SSE** | Remote servers, cloud deployments |
+| **WebSocket** | Real-time bidirectional communication |
+
+In this lab, we use HTTP transport to connect to a remote MCP server.
+
+## The Neo4j MCP Server
+
+The [Neo4j MCP Server](https://github.com/neo4j/mcp) exposes Neo4j graph databases through the MCP protocol. This enables AI agents to:
+
+- Understand database structure through schema introspection
+- Execute Cypher queries using natural language
+- Retrieve graph data without manual query writing
+
+### Available Tools
+
+The Neo4j MCP Server provides two primary tools:
+
+| Tool | Purpose | Example Use |
+|------|---------|-------------|
+| `get-schema` | Retrieves node labels, relationship types, and properties | Understanding what data exists |
+| `read-cypher` | Executes read-only Cypher queries | Fetching actual data |
+
+### Why Schema Matters
+
+Graph databases are schema-flexible, meaning structure emerges from the data. The `get-schema` tool helps agents understand:
+
+- What types of nodes exist (e.g., `Company`, `RiskFactor`)
+- How nodes connect via relationships (e.g., `(:Company)-[:HAS_RISK]->(:RiskFactor)`)
+- What properties each node type has
+
+This context enables the LLM to generate accurate Cypher queries.
+
+## How the Agent Works
+
+When you ask a question, here's what happens:
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│  User: "What risk factors does Apple face?"                         │
+└─────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    ▼
+┌─────────────────────────────────────────────────────────────────────┐
+│  LLM: Analyzes question, decides to first understand the schema     │
+│       Calls: get-schema                                             │
+└─────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    ▼
+┌─────────────────────────────────────────────────────────────────────┐
+│  MCP Server: Returns schema                                         │
+│  - Nodes: Company, RiskFactor, AssetManager                         │
+│  - Relationships: HAS_RISK, OWNS                                    │
+└─────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    ▼
+┌─────────────────────────────────────────────────────────────────────┐
+│  LLM: Formulates Cypher query based on schema                       │
+│       MATCH (c:Company {name: 'Apple'})-[:HAS_RISK]->(r:RiskFactor) │
+│       RETURN r.description                                          │
+│       Calls: read-cypher                                            │
+└─────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    ▼
+┌─────────────────────────────────────────────────────────────────────┐
+│  MCP Server: Executes query, returns risk factors                   │
+└─────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    ▼
+┌─────────────────────────────────────────────────────────────────────┐
+│  LLM: Synthesizes human-readable response                           │
+│  "Apple faces the following risk factors: ..."                      │
+└─────────────────────────────────────────────────────────────────────┘
+```
 
 ## Architecture
 
-The Neo4j MCP Server has been pre-deployed to Amazon Bedrock AgentCore. Here's how the architecture works:
+This lab uses a pre-deployed Neo4j MCP Server running on Amazon Bedrock AgentCore:
 
 ```
 ┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
 │  Your Notebook  │────▶│    AgentCore    │────▶│   Neo4j MCP     │────▶│   Neo4j Aura    │
-│  (SageMaker)    │ JWT │    Gateway      │OAuth│    Server       │     │   Database      │
+│  (Agent Code)   │     │    Gateway      │     │    Server       │     │   Database      │
 └─────────────────┘     └─────────────────┘     └─────────────────┘     └─────────────────┘
-        │                       │
-        │ Bedrock API           │ Validates JWT
-        ▼                       ▼
-┌─────────────────┐     ┌─────────────────┐
-│  Claude LLM     │     │ Amazon Cognito  │
-│  (Bedrock)      │     │ (OAuth2 Tokens) │
-└─────────────────┘     └─────────────────┘
+        │
+        │ Bedrock API
+        ▼
+┌─────────────────┐
+│  Claude LLM     │
+│  (Reasoning)    │
+└─────────────────┘
 ```
 
-### Component Overview
+## Choose Your Framework
 
-| Component | Description |
-|-----------|-------------|
-| **AgentCore Gateway** | Entry point for MCP requests with JWT authentication |
-| **AgentCore Runtime** | Runs the Neo4j MCP Server in isolated MicroVMs |
-| **Neo4j MCP Server** | Exposes Neo4j as MCP tools (schema retrieval, Cypher execution) |
-| **Amazon Cognito** | Provides OAuth2 tokens for M2M authentication |
-| **AWS Bedrock** | Hosts Claude LLM for agent reasoning |
+Two notebooks demonstrate the same concepts using different agent frameworks:
 
-### MCP Tools Available
+| Framework | Notebook | Description |
+|-----------|----------|-------------|
+| **LangGraph** | `neo4j_langgraph_mcp_agent.ipynb` | Uses LangChain's graph-based agent framework |
+| **Strands Agents** | `neo4j_strands_mcp_agent.ipynb` | Uses AWS's lightweight agent SDK |
 
-When you connect to the Gateway, you'll have access to these tools:
+Both produce equivalent results—choose based on your preferred ecosystem.
 
-| Tool | Description |
-|------|-------------|
-| `neo4j-mcp-server-target___get-schema` | Retrieves the database schema (labels, relationships, properties) |
-| `neo4j-mcp-server-target___read-cypher` | Executes read-only Cypher queries |
+## Sample Queries
 
-> **Note:** Tool names are prefixed with the Gateway target name (`neo4j-mcp-server-target___`). The notebooks handle this automatically.
-
-### Why AgentCore?
-
-The MCP server runs on AgentCore (not Lambda or Fargate) because:
-
-- **Session Isolation**: Each session runs in a dedicated MicroVM with complete isolation
-- **Long-Running Sessions**: Supports sessions up to 8 hours (vs Lambda's 15-minute limit)
-- **Built-in Observability**: Automatic tracing of agent reasoning and tool calls
-- **Unified Gateway**: Single endpoint with authentication for multiple MCP servers
-
-## Configuration
-
-### Step 1: Get Your Credentials
-
-Your workshop facilitator will provide a `.mcp-credentials.json` file or the values directly. You need:
-
-| Field | Description | Example |
-|-------|-------------|---------|
-| `gateway_url` | AgentCore Gateway endpoint | `https://xxx.execute-api.us-west-2.amazonaws.com/mcp` |
-| `access_token` | JWT bearer token for authentication | `eyJ...` |
-
-### Step 2: Create an Inference Profile (If Not Done)
-
-If you skipped the optional step in Lab 4, create an inference profile now:
-
-1. Open a terminal in SageMaker Studio
-2. Navigate to the lab folder:
-   ```bash
-   cd hands-on-lab-neo4j-and-bedrock/Lab_5_Neo4j_MCP_Agent
-   ```
-3. Run the setup script:
-   ```bash
-   ./setup-inference-profile.sh haiku
-   ```
-4. Copy the ARN output - you'll paste this in the notebook
-
-> **Tip:** Use `haiku` for testing (fast & cheap) or `sonnet` for better quality responses.
-
-## Running the Notebooks
-
-### Option A: LangGraph Agent
-
-1. In SageMaker Studio, navigate to `Lab_5_Neo4j_MCP_Agent`
-2. Open `neo4j_langgraph_mcp_agent.ipynb`
-3. In the **Configuration** cell, paste your values:
-   ```python
-   INFERENCE_PROFILE_ARN = "arn:aws:bedrock:us-west-2:..."  # From setup script
-   GATEWAY_URL = "https://..."  # From credentials
-   ACCESS_TOKEN = "eyJ..."  # From credentials
-   ```
-4. Run all cells to:
-   - Install dependencies
-   - Connect to the MCP server
-   - Query the Neo4j knowledge graph
-
-### Option B: Strands Agent
-
-1. In SageMaker Studio, navigate to `Lab_5_Neo4j_MCP_Agent`
-2. Open `neo4j_strands_mcp_agent.ipynb`
-3. In the **Configuration** cell, paste your values:
-   ```python
-   INFERENCE_PROFILE_ARN = "arn:aws:bedrock:us-west-2:..."
-   GATEWAY_URL = "https://..."
-   ACCESS_TOKEN = "eyJ..."
-   ```
-4. Run all cells
-
-### Sample Questions to Try
-
-Once the agent is running, try asking questions about the SEC filings knowledge graph:
+Once connected, try these natural language queries:
 
 ```python
-# Schema exploration
+# Explore the data model
 query("What is the database schema?")
 
-# Count queries
+# Simple counts
 query("How many companies are in the database?")
-query("How many risk factors are there?")
 
-# Relationship queries
+# Relationship traversal
 query("What companies does BlackRock own?")
 query("What risk factors does Apple face?")
 
@@ -157,74 +187,17 @@ query("Which company has the most risk factors?")
 query("What risks do Apple and Microsoft share?")
 ```
 
-## How It Works
+## Key Takeaways
 
-1. **You ask a question** in natural language
-2. **The LLM analyzes** the question and decides which MCP tool to call
-3. **First tool call**: Usually `get-schema` to understand the database structure
-4. **Second tool call**: `read-cypher` with a generated Cypher query
-5. **The LLM synthesizes** the results into a human-readable response
+1. **MCP standardizes tool integration** - One protocol for connecting AI agents to any data source
+2. **Schema-first approach** - Understanding data structure enables accurate query generation
+3. **Natural language to Cypher** - LLMs can translate questions into graph queries
+4. **Separation of concerns** - The MCP server handles database access; the agent handles reasoning
 
-Example flow for "How many companies are in the database?":
+## Resources
 
-```
-User: "How many companies are in the database?"
-    ↓
-LLM: Calls get-schema to understand the data model
-    ↓
-MCP Server: Returns schema with Company, RiskFactor, AssetManager labels
-    ↓
-LLM: Formulates Cypher query: MATCH (c:Company) RETURN count(c)
-    ↓
-LLM: Calls read-cypher with the query
-    ↓
-MCP Server: Executes query, returns [{"count(c)": 8}]
-    ↓
-LLM: "There are 8 companies in the database."
-```
-
-## Troubleshooting
-
-### Token Expired
-
-If you see authentication errors, your access token may have expired (tokens last ~1 hour). Ask your facilitator for a fresh token.
-
-### Connection Timeout
-
-If connections time out:
-- Verify the `GATEWAY_URL` is correct
-- Check that you're connected to the internet
-- Try running the test connection cell again
-
-### Model Access Denied
-
-If you see "AccessDeniedException":
-- Verify your inference profile ARN is correct
-- Ensure the profile was created with the `setup-inference-profile.sh` script
-- Check that the profile has the `AmazonBedrockManaged=true` tag
-
-### No Results Returned
-
-If queries return empty results:
-- First run the schema query to see available labels
-- Check that your Cypher patterns match the actual schema
-- Remember the database was populated from SEC 10-K filings
-
-## Summary
-
-You've built an AI agent that:
-- Connects to Neo4j via the Model Context Protocol
-- Uses Claude (via AWS Bedrock) for natural language understanding
-- Automatically generates Cypher queries
-- Retrieves and formats data from the SEC filings knowledge graph
-
-This demonstrates how MCP enables **secure, standardized connections** between AI agents and enterprise data sources.
-
-## Going Further
-
-To learn more about the MCP server deployment:
-- [Neo4j MCP Server Repository](https://github.com/neo4j/mcp)
-- [Amazon Bedrock AgentCore Documentation](https://docs.aws.amazon.com/bedrock-agentcore/)
 - [Model Context Protocol Specification](https://modelcontextprotocol.io/)
+- [Neo4j MCP Server](https://github.com/neo4j/mcp)
 - [LangGraph Documentation](https://langchain-ai.github.io/langgraph/)
-- [Strands Agents Documentation](https://github.com/awslabs/strands-agents)
+- [Strands Agents](https://github.com/awslabs/strands-agents)
+- [Amazon Bedrock AgentCore](https://docs.aws.amazon.com/bedrock-agentcore/)

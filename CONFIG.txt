@@ -2,15 +2,6 @@
 # Fill in your credentials after completing each lab setup
 
 # =============================================================================
-# AWS Bedrock Settings (Lab 4+)
-# =============================================================================
-# CLAUDE 3 SONNET (Default - best tool calling support)
-MODEL_ID=us.anthropic.claude-3-sonnet-20240229-v1:0
-# EMBEDDING MODEL (for vector search / RAG)
-EMBEDDING_MODEL_ID=amazon.titan-embed-text-v2:0
-REGION=us-west-2
-
-# =============================================================================
 # Neo4j Aura Database (Lab 1 - fill in after Aura setup)
 # =============================================================================
 NEO4J_URI=neo4j+s://xxxxxxxx.databases.neo4j.io
@@ -24,14 +15,17 @@ MCP_GATEWAY_URL=your-gateway-url-here
 MCP_ACCESS_TOKEN=your-access-token-here
 
 # =============================================================================
-# OpenAI API Key (Lab 6+ - for embeddings)
-# Get your key at: https://platform.openai.com/api-keys
-# =============================================================================
-OPENAI_API_KEY=sk-your-openai-api-key-here
-
-# =============================================================================
 # Neo4j Aura Agent API (Lab 8 - fill in after creating Aura Agent)
 # =============================================================================
 NEO4J_CLIENT_ID=your-client-id-here
 NEO4J_CLIENT_SECRET=your-client-secret-here
 NEO4J_AGENT_ENDPOINT=your-agent-endpoint-here
+
+# =============================================================================
+# AWS Bedrock Settings (Lab 4+) - Bedrock access is limited because of IAM restrictions
+# =============================================================================
+# CLAUDE 3 SONNET (Default - best tool calling support)
+MODEL_ID=us.anthropic.claude-3-sonnet-20240229-v1:0
+# EMBEDDING MODEL (for vector search / RAG)
+EMBEDDING_MODEL_ID=amazon.titan-embed-text-v2:0
+REGION=us-west-2
