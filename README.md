@@ -83,7 +83,7 @@ You'll need a laptop with a web browser. Your browser will need to be able to ac
     * Generating Knowledge Graphs
     * Retrieval Augmented Generation
     * Model Context Protocol
-* [Lab 4 - SageMaker Setup](Lab_4_SageMaker_Setup)
+* [Lab 4 - Intro to Bedrock and Agents](Lab_4_Intro_to_Bedrock_and_Agents)
     * Launch SageMaker Studio
     * Clone the workshop repository
     * Configure inference profiles for Bedrock

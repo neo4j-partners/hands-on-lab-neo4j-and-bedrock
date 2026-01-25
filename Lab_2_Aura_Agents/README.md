@@ -195,7 +195,7 @@ These same patterns are implemented programmatically in Lab 5 using Python, Lang
 
 **This completes Part 1 (No-Code Track) of the workshop.**
 
-To continue with the coding labs, proceed to [Lab 4 - SageMaker Setup](../Lab_4_SageMaker_Setup) to set up your development environment in Amazon SageMaker.
+To continue with the coding labs, proceed to [Lab 4 - Intro to Bedrock and Agents](../Lab_4_Intro_to_Bedrock_and_Agents) to set up your development environment in Amazon SageMaker.
 
 ## Future Tools
 

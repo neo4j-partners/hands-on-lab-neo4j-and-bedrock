@@ -52,7 +52,7 @@ Then click "Clone."
 
 ![](images/17.png)
 
-When complete, it will open the README.md for this repo. In the file explorer on the left, double click on "Lab_4_SageMaker_Setup."
+When complete, it will open the README.md for this repo. In the file explorer on the left, double click on "Lab_4_Intro_to_Bedrock_and_Agents."
 
 ![](images/18.png)
 

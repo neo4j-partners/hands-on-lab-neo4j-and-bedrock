@@ -40,7 +40,7 @@ Use natural language to query your graph directly:
 
 1. Create an inference profile using the Lab 4 setup script:
    ```bash
-   cd ../Lab_4_SageMaker_Setup
+   cd ../Lab_4_Intro_to_Bedrock_and_Agents
    ./setup-inference-profile.sh haiku
    ```
 2. Copy the `MODEL` and `INFERENCE_PROFILE_ARN` values to each notebook
@@ -67,7 +67,7 @@ Use natural language to query your graph directly:
 
 ## Model Configuration
 
-Model references differ between notebooks (SageMaker) and local Python due to environment constraints. See [Lab 4 README](../Lab_4_SageMaker_Setup/README.md) for detailed explanation.
+Model references differ between notebooks (SageMaker) and local Python due to environment constraints. See [Lab 4 README](../Lab_4_Intro_to_Bedrock_and_Agents/README.md) for detailed explanation.
 
 ### Notebooks (SageMaker)
 
