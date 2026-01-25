@@ -215,7 +215,7 @@ list_org_accounts() {
 
 create_role() {
     local account_id="$1"
-    echo -e "${YELLOW}[1/3] Creating IAM Role: ${ROLE_NAME}${NC}"
+    echo -e "${YELLOW}[1/5] Creating IAM Role: ${ROLE_NAME}${NC}"
     
     if aws iam get-role --role-name "$ROLE_NAME" &>/dev/null; then
         echo -e "  ${GREEN}✓${NC} Role already exists"
@@ -233,7 +233,7 @@ create_role() {
 
 create_policy() {
     local account_id="$1"
-    echo -e "${YELLOW}[2/3] Creating IAM Policy: ${POLICY_NAME}${NC}"
+    echo -e "${YELLOW}[2/5] Creating IAM Policy: ${POLICY_NAME}${NC}"
     
     local policy_arn="arn:aws:iam::${account_id}:policy/${POLICY_NAME}"
     
@@ -253,20 +253,112 @@ create_policy() {
 
 attach_policy() {
     local account_id="$1"
-    echo -e "${YELLOW}[3/3] Attaching policy to role${NC}"
-    
+    echo -e "${YELLOW}[3/5] Attaching policy to role${NC}"
+
     local policy_arn="arn:aws:iam::${account_id}:policy/${POLICY_NAME}"
-    
+
     if aws iam list-attached-role-policies --role-name "$ROLE_NAME" 2>/dev/null | grep -q "$POLICY_NAME"; then
         echo -e "  ${GREEN}✓${NC} Policy already attached"
         return 0
     fi
-    
+
     aws iam attach-role-policy \
         --role-name "$ROLE_NAME" \
         --policy-arn "$policy_arn"
-    
+
     echo -e "  ${GREEN}✓${NC} Policy attached"
+}
+
+# Add Bedrock permissions to SageMaker execution roles
+add_sagemaker_bedrock_permissions() {
+    echo -e "${YELLOW}[4/5] Adding Bedrock permissions to SageMaker execution roles${NC}"
+
+    # Find SageMaker execution roles
+    local roles=$(aws iam list-roles \
+        --query "Roles[?contains(RoleName, 'SageMaker') && contains(RoleName, 'Execution')].RoleName" \
+        --output text 2>/dev/null)
+
+    if [ -z "$roles" ]; then
+        echo -e "  ${CYAN}ℹ${NC} No SageMaker execution roles found"
+        return 0
+    fi
+
+    local bedrock_policy='{
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Sid": "BedrockAccess",
+                "Effect": "Allow",
+                "Action": [
+                    "bedrock:ListFoundationModels",
+                    "bedrock:GetFoundationModel",
+                    "bedrock-runtime:Converse",
+                    "bedrock-runtime:ConverseStream",
+                    "bedrock-runtime:InvokeModel",
+                    "bedrock-runtime:InvokeModelWithResponseStream"
+                ],
+                "Resource": "*"
+            }
+        ]
+    }'
+
+    for role in $roles; do
+        # Check if policy already exists
+        if aws iam get-role-policy --role-name "$role" --policy-name "BedrockAccess" &>/dev/null; then
+            echo -e "  ${GREEN}✓${NC} $role (already has BedrockAccess)"
+        else
+            aws iam put-role-policy \
+                --role-name "$role" \
+                --policy-name "BedrockAccess" \
+                --policy-document "$bedrock_policy" 2>/dev/null && \
+            echo -e "  ${GREEN}✓${NC} $role (added BedrockAccess)" || \
+            echo -e "  ${YELLOW}⚠${NC} $role (failed to add BedrockAccess)"
+        fi
+    done
+}
+
+# Add Marketplace permissions to SageMaker execution roles
+add_sagemaker_marketplace_permissions() {
+    echo -e "${YELLOW}[5/5] Adding Marketplace permissions to SageMaker execution roles${NC}"
+
+    # Find SageMaker execution roles
+    local roles=$(aws iam list-roles \
+        --query "Roles[?contains(RoleName, 'SageMaker') && contains(RoleName, 'Execution')].RoleName" \
+        --output text 2>/dev/null)
+
+    if [ -z "$roles" ]; then
+        echo -e "  ${CYAN}ℹ${NC} No SageMaker execution roles found"
+        return 0
+    fi
+
+    local marketplace_policy='{
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Sid": "MarketplaceAccess",
+                "Effect": "Allow",
+                "Action": [
+                    "aws-marketplace:ViewSubscriptions",
+                    "aws-marketplace:Subscribe"
+                ],
+                "Resource": "*"
+            }
+        ]
+    }'
+
+    for role in $roles; do
+        # Check if policy already exists
+        if aws iam get-role-policy --role-name "$role" --policy-name "MarketplaceAccess" &>/dev/null; then
+            echo -e "  ${GREEN}✓${NC} $role (already has MarketplaceAccess)"
+        else
+            aws iam put-role-policy \
+                --role-name "$role" \
+                --policy-name "MarketplaceAccess" \
+                --policy-document "$marketplace_policy" 2>/dev/null && \
+            echo -e "  ${GREEN}✓${NC} $role (added MarketplaceAccess)" || \
+            echo -e "  ${YELLOW}⚠${NC} $role (failed to add MarketplaceAccess)"
+        fi
+    done
 }
 
 setup_account() {
@@ -295,7 +387,9 @@ setup_account() {
     create_role "$account_id"
     create_policy "$account_id"
     attach_policy "$account_id"
-    
+    add_sagemaker_bedrock_permissions
+    add_sagemaker_marketplace_permissions
+
     # Clear credentials
     clear_assumed_role
     
@@ -339,6 +433,31 @@ check_account() {
         echo -e "${RED}✗${NC} Policy not attached to role"
     fi
 
+    # Check SageMaker execution roles for Bedrock/Marketplace permissions
+    echo ""
+    echo -e "${YELLOW}SageMaker Execution Roles:${NC}"
+    local roles=$(aws iam list-roles \
+        --query "Roles[?contains(RoleName, 'SageMaker') && contains(RoleName, 'Execution')].RoleName" \
+        --output text 2>/dev/null)
+
+    if [ -z "$roles" ]; then
+        echo -e "  ${CYAN}ℹ${NC} No SageMaker execution roles found"
+    else
+        for role in $roles; do
+            echo -e "  ${CYAN}$role${NC}"
+            if aws iam get-role-policy --role-name "$role" --policy-name "BedrockAccess" &>/dev/null; then
+                echo -e "    ${GREEN}✓${NC} BedrockAccess"
+            else
+                echo -e "    ${RED}✗${NC} BedrockAccess missing"
+            fi
+            if aws iam get-role-policy --role-name "$role" --policy-name "MarketplaceAccess" &>/dev/null; then
+                echo -e "    ${GREEN}✓${NC} MarketplaceAccess"
+            else
+                echo -e "    ${RED}✗${NC} MarketplaceAccess missing"
+            fi
+        done
+    fi
+
     clear_assumed_role
 }
 
@@ -356,6 +475,19 @@ cleanup_account() {
     fi
     
     local policy_arn="arn:aws:iam::${account_id}:policy/${POLICY_NAME}"
+
+    # Remove inline policies from SageMaker execution roles
+    echo -e "${YELLOW}Removing Bedrock/Marketplace policies from SageMaker roles...${NC}"
+    local roles=$(aws iam list-roles \
+        --query "Roles[?contains(RoleName, 'SageMaker') && contains(RoleName, 'Execution')].RoleName" \
+        --output text 2>/dev/null)
+
+    for role in $roles; do
+        aws iam delete-role-policy --role-name "$role" --policy-name "BedrockAccess" 2>/dev/null && \
+            echo -e "  ${GREEN}✓${NC} Removed BedrockAccess from $role" || true
+        aws iam delete-role-policy --role-name "$role" --policy-name "MarketplaceAccess" 2>/dev/null && \
+            echo -e "  ${GREEN}✓${NC} Removed MarketplaceAccess from $role" || true
+    done
 
     # Detach policy
     echo -e "${YELLOW}Detaching policy...${NC}"
