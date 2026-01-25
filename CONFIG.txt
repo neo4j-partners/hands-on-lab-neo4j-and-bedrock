@@ -1,0 +1,35 @@
+# Workshop Configuration
+# Fill in your credentials after completing each lab setup
+
+# =============================================================================
+# AWS Bedrock Settings (Lab 4+)
+# =============================================================================
+MODEL_ID=anthropic.claude-3-5-sonnet-20241022-v2:0
+BASE_MODEL_ID=anthropic.claude-3-5-sonnet-20241022-v2:0
+REGION=us-west-2
+
+# =============================================================================
+# Neo4j Aura Database (Lab 1 - fill in after Aura setup)
+# =============================================================================
+NEO4J_URI=neo4j+s://xxxxxxxx.databases.neo4j.io
+NEO4J_USERNAME=neo4j
+NEO4J_PASSWORD=your_password_here
+
+# =============================================================================
+# MCP Gateway (Lab 5 - fill in after AgentCore Gateway setup)
+# =============================================================================
+MCP_GATEWAY_URL=your-gateway-url-here
+MCP_ACCESS_TOKEN=your-access-token-here
+
+# =============================================================================
+# OpenAI API Key (Lab 6+ - for embeddings)
+# Get your key at: https://platform.openai.com/api-keys
+# =============================================================================
+OPENAI_API_KEY=sk-your-openai-api-key-here
+
+# =============================================================================
+# Neo4j Aura Agent API (Lab 8 - fill in after creating Aura Agent)
+# =============================================================================
+NEO4J_CLIENT_ID=your-client-id-here
+NEO4J_CLIENT_SECRET=your-client-secret-here
+NEO4J_AGENT_ENDPOINT=your-agent-endpoint-here
