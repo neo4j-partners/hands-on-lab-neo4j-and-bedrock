@@ -117,6 +117,127 @@ echo ""
 EOF
 ```
 
+## Test Models Without Marketplace Permissions
+
+These models are available immediately with just Bedrock IAM permissions (no Marketplace subscription needed).
+Good alternatives if you don't have Claude access.
+
+```bash
+cat << 'EOF' | bash
+# Test Amazon, Mistral, and OpenAI models (no Marketplace permissions required)
+# Focus on higher-quality LLM models suitable for Cypher generation
+
+REGION="us-west-2"
+
+echo "=============================================="
+echo "  Testing No-Marketplace LLM Models in $REGION"
+echo "  (Higher quality models for Cypher generation)"
+echo "=============================================="
+echo ""
+
+# Define the models to test (higher quality LLMs only, no micro/lite/multimodal)
+MODELS=(
+    # Amazon Nova - Pro and Premier (higher quality)
+    "amazon.nova-pro-v1:0"
+
+    # Mistral AI - Large models
+    "mistral.mistral-large-2402-v1:0"
+    "mistral.mistral-large-2407-v1:0"
+    "mistral.mixtral-8x7b-instruct-v0:1"
+
+    # OpenAI OSS models
+    "openai.gpt-oss-120b-1:0"
+    "openai.gpt-oss-20b-1:0"
+)
+
+echo "=== Testing Foundation Models ==="
+echo ""
+
+for MODEL_ID in "${MODELS[@]}"; do
+    echo -n "Testing: $MODEL_ID ... "
+
+    RESULT=$(aws bedrock-runtime converse \
+        --region "$REGION" \
+        --model-id "$MODEL_ID" \
+        --messages '[{"role":"user","content":[{"text":"Say hi in 3 words"}]}]' \
+        --inference-config '{"maxTokens":50}' \
+        --output json 2>&1)
+
+    if [ $? -eq 0 ]; then
+        RESPONSE=$(echo "$RESULT" | jq -r '.output.message.content[0].text' 2>/dev/null)
+        echo "ACCESS GRANTED"
+        echo "   Response: $RESPONSE"
+    else
+        if echo "$RESULT" | grep -q "AccessDeniedException"; then
+            echo "NO ACCESS"
+        elif echo "$RESULT" | grep -q "ValidationException"; then
+            echo "VALIDATION ERROR (model may not be in region)"
+        elif echo "$RESULT" | grep -q "ThrottlingException"; then
+            echo "THROTTLED (have access, try again)"
+        elif echo "$RESULT" | grep -q "ResourceNotFoundException"; then
+            echo "NOT FOUND in region"
+        else
+            echo "FAILED: $(echo $RESULT | head -c 60)"
+        fi
+    fi
+done
+
+echo ""
+echo "=== Testing Cross-Region Inference Profiles ==="
+echo ""
+
+# Test Nova Premier (cross-region only) and other profiles
+PROFILES=(
+    "us.amazon.nova-premier-v1:0"
+    "us.amazon.nova-pro-v1:0"
+    "us.meta.llama3-3-70b-instruct-v1:0"
+    "us.meta.llama3-1-70b-instruct-v1:0"
+)
+
+for PROFILE_ID in "${PROFILES[@]}"; do
+    echo -n "Testing: $PROFILE_ID ... "
+
+    RESULT=$(aws bedrock-runtime converse \
+        --region "$REGION" \
+        --model-id "$PROFILE_ID" \
+        --messages '[{"role":"user","content":[{"text":"Say hi in 3 words"}]}]' \
+        --inference-config '{"maxTokens":50}' \
+        --output json 2>&1)
+
+    if [ $? -eq 0 ]; then
+        RESPONSE=$(echo "$RESULT" | jq -r '.output.message.content[0].text' 2>/dev/null)
+        echo "ACCESS GRANTED"
+        echo "   Response: $RESPONSE"
+    else
+        if echo "$RESULT" | grep -q "AccessDeniedException"; then
+            echo "NO ACCESS"
+        elif echo "$RESULT" | grep -q "ThrottlingException"; then
+            echo "THROTTLED (have access)"
+        else
+            echo "FAILED"
+        fi
+    fi
+done
+
+echo ""
+echo "=============================================="
+echo "  Summary - No Marketplace Models"
+echo "=============================================="
+echo ""
+echo "These models work WITHOUT aws-marketplace permissions."
+echo "Best for Cypher generation (in order of quality):"
+echo ""
+echo "  1. amazon.nova-pro-v1:0           (Amazon's best, good reasoning)"
+echo "  2. us.amazon.nova-premier-v1:0    (Highest quality, cross-region)"
+echo "  3. mistral.mistral-large-2407-v1:0 (Latest Mistral Large)"
+echo "  4. us.meta.llama3-3-70b-instruct-v1:0 (Llama 3.3, cross-region)"
+echo ""
+echo "Example notebook config (no BASE_MODEL_ID needed):"
+echo "  MODEL_ID = \"amazon.nova-pro-v1:0\""
+echo ""
+EOF
+```
+
 ## Test Embedding Model Access
 
 ```bash
