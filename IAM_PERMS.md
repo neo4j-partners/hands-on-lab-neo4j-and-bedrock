@@ -34,7 +34,7 @@ The script `scripts3/setup-workshop-aws-permissions.sh` has been updated to auto
 
 ---
 
-## SageMaker Execution Role Permissions
+## SageMaker Execution Role Permissions add to setup script
 
 **The script `scripts3/setup-workshop-aws-permissions.sh` automatically adds these permissions** to all SageMaker execution roles it finds. The CLI commands below are for manual setup or troubleshooting only.
 
@@ -54,7 +54,7 @@ The script `scripts3/setup-workshop-aws-permissions.sh` has been updated to auto
 
 Run these in **AWS CloudShell** only if you didn't use the setup script.
 
-### 1. Add Bedrock Permissions
+#### 1. Add Bedrock Permissions
 
 ```bash
 aws iam put-role-policy \
@@ -79,7 +79,7 @@ aws iam put-role-policy \
     }'
 ```
 
-### 2. Add Marketplace Permissions
+#### 2. Add Marketplace Permissions
 
 ```bash
 aws iam put-role-policy \
@@ -100,13 +100,13 @@ aws iam put-role-policy \
     }'
 ```
 
-### Verify Permissions Added
+#### Verify Permissions Added
 
 ```bash
 aws iam list-role-policies --role-name SageMakerExecutionRole-Neo4jWorkshop
 ```
 
-### View Policy Details
+#### View Policy Details
 
 ```bash
 aws iam get-role-policy \

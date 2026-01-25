@@ -7,6 +7,7 @@ requires-python = ">=3.11"
 dependencies = [
     "python-dotenv>=1.0.0",
     "pydantic-settings>=2.0.0",
+    "nest-asyncio>=1.5.0",
     # neo4j-graphrag with Bedrock support from GitHub (neo4j-partners fork)
     "neo4j-graphrag[bedrock] @ git+https://github.com/neo4j-partners/neo4j-graphrag-python.git@bedrock-embeddings",
 ]

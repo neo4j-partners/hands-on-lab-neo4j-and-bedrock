@@ -157,5 +157,20 @@ def split_text(text: str, chunk_size: int = 500, chunk_overlap: int = 50) -> lis
         chunk_overlap=chunk_overlap,
         approximate=True
     )
-    result = asyncio.run(splitter.run(text))
+
+    # Handle both Jupyter (running event loop) and regular Python
+    try:
+        loop = asyncio.get_running_loop()
+    except RuntimeError:
+        loop = None
+
+    if loop is not None:
+        # Running in Jupyter or async context - use nest_asyncio
+        import nest_asyncio
+        nest_asyncio.apply()
+        result = asyncio.run(splitter.run(text))
+    else:
+        # Regular Python - use asyncio.run directly
+        result = asyncio.run(splitter.run(text))
+
     return [chunk.text for chunk in result.chunks]
