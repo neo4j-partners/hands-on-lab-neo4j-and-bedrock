@@ -7,14 +7,11 @@
 # MISTRAL LARGE (Default - good quality for Cypher generation)
 MODEL_ID=mistral.mistral-large-2407-v1:0
 #
-# AMAZON NOVA PRO (First-party, always available)
-# MODEL_ID=amazon.nova-pro-v1:0
-#
 # AMAZON NOVA PREMIER (Highest quality, cross-region)
 # MODEL_ID=us.amazon.nova-premier-v1:0
 #
-# META LLAMA 3.3 70B (Open source, cross-region)
-# MODEL_ID=us.meta.llama3-3-70b-instruct-v1:0
+# EMBEDDING MODEL (for vector search / RAG)
+EMBEDDING_MODEL_ID=amazon.titan-embed-text-v2:0
 #
 REGION=us-west-2
 
