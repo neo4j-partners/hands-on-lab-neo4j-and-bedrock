@@ -18,6 +18,25 @@ Key concepts:
 - **Inference Profile**: Enables cross-region routing for better availability
 - **ChatBedrockConverse**: LangChain's interface to Bedrock's Converse API
 
+## Sagemaker Studio Setup
+
+1 - Change your region to US West (Oregon) in the AWS Management Console.
+2 - Open SageMaker AI in the AWS Management Console.  CAUTION BE SURE TO OPEN SAGEMAKER AI NOT SAGEMAKER.
+IMAGE: 01-naviagte-to-sagemaker-ai.png
+
+3 - Be sure you are in Amazon SageMaker AI and not Amazon SageMaker!!!!
+4 - Click on Setup up for single user
+IMAGE: 02_sagemaker_setup.png
+
+5 - Click on Open Studio
+IMAGE: 03_Amazon_SageMaker_Studio.png
+
+6 - Click on JupyterLab
+IMAGE: 04_Open_JupyterLab.png
+
+7 - Click on the Quick start -> Launch now
+IMAGE: 05_Launch_JupyterLab.png
+
 ## LangGraph Agent Architecture
 
 The notebook demonstrates a minimal ReAct-style agent with two nodes:

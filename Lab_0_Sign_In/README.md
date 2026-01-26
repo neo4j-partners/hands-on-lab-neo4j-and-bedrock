@@ -7,7 +7,7 @@ Check your mailbox to get the OneBlink validation code, then copy the code.
 
 ![](images/06.png)
 
-Enter your email, the event code from the information sheet, and the validation code from your email, then click on the "Access Sandbox" button.
+Enter your email, the event code from the information sheet, and the validation code from your email, then click on the "Verify Code" button.
 
 ![](images/07.png)
 
