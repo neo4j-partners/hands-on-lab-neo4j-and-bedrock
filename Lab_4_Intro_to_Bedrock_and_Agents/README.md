@@ -35,7 +35,19 @@ IMAGE: 03_Amazon_SageMaker_Studio.png
 IMAGE: 04_Open_JupyterLab.png
 
 7 - Click on the Quick start -> Launch now
-IMAGE: 05_Launch_JupyterLab.png
+IMAGE: 05_Quick_Start_Launch_Now.png
+
+8 - Wait for the Status of the Space to be Running
+9 - Click on the Name - quickstart-default to open it
+IMAGE: 06_Click_Quick_start_space.png
+
+10 - Click on Create Folder and Create a folder named labs
+IMAGE: 07_Create_Labs_Folder.png
+
+11 - Click on the labs folder to open it
+
+12 - Click on Clone Git Repository and Clone the repository ...
+IMAGE: 08_Clone_Git_Repository.png
 
 ## LangGraph Agent Architecture
 
