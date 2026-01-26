@@ -21,21 +21,22 @@ NEO4J_CLIENT_ID=your-client-id-here
 NEO4J_CLIENT_SECRET=your-client-secret-here
 NEO4J_AGENT_ENDPOINT=your-agent-endpoint-here
 
+# -----------------------------------------------------------------------------
+# AWS Bedrock Settings (Lab 4+) ACTIVE MODEL (Claude 3 Sonnet - stable default)
+# -----------------------------------------------------------------------------
+MODEL_ID=global.anthropic.claude-sonnet-4-5-20250929-v1:0
+
 # =============================================================================
-# AWS Bedrock Settings (Lab 4+)
+# Alternative Models for AWS Bedrock Settings (Lab 4+)
 # =============================================================================
-# Run TEST_CLAUDE4.md heredoc in CloudShell to find all available models
 #
-# VERIFIED WORKING MODELS:
 # MODEL_ID=anthropic.claude-3-sonnet-20240229-v1:0
 # MODEL_ID=us.anthropic.claude-3-sonnet-20240229-v1:0
 # MODEL_ID=us.anthropic.claude-sonnet-4-5-20250929-v1:0
 # MODEL_ID=global.anthropic.claude-sonnet-4-5-20250929-v1:0
-#
-# -----------------------------------------------------------------------------
-# ACTIVE MODEL (Claude 3 Sonnet - stable default)
-# -----------------------------------------------------------------------------
-MODEL_ID=us.anthropic.claude-3-sonnet-20240229-v1:0
+
+
+
 
 # EMBEDDING MODEL (for vector search / RAG)
 EMBEDDING_MODEL_ID=amazon.titan-embed-text-v2:0

@@ -85,7 +85,13 @@ Key concepts:
 
 ![Clone Git Repository](images/09_clone_git_repository.png)
 
-## LangGraph Agent Architecture
+## Introduction to Agents
+
+In this section, we'll run the notebook `basic_langgraph_agent.ipynb` which demonstrates how to build a basic AI agent using LangGraph and Amazon Bedrock. This hands-on example shows the fundamental concepts of agent architecture - how an LLM can reason about problems, decide which tools to use, and iterate until it reaches a solution.
+
+AI agents extend beyond simple chat interactions by giving LLMs the ability to take actions. Instead of just generating text responses, agents can call functions (tools), observe the results, and continue reasoning. This creates a powerful loop where the model can break down complex tasks into steps and execute them autonomously.
+
+### LangGraph Agent Architecture
 
 The notebook demonstrates a minimal ReAct-style agent with two nodes:
 
@@ -98,30 +104,6 @@ START -> agent -> (tools -> agent) | END
 3. **Conditional Edge**: Routes back to tools if the LLM made tool calls, otherwise ends
 
 This pattern allows the agent to reason about what tools to use, execute them, observe results, and continue until it has a final answer.
-
-## Import from GitHub to SageMaker Studio
-
-For the rest of the labs, we're going to be working with notebooks in SageMaker Studio. To load them into Studio, we're going to pull them from GitHub using Studio's git integration.
-
-Click on the git icon in the upper left of Studio. It's below the folder icon on the extreme left of the menu.
-
-![](images/15.png)
-
-Now click "Clone a Repository."
-
-![](images/16.png)
-
-In the dialog, enter the address of the git repo:
-
-    https://github.com/neo4j-partners/hands-on-lab-neo4j-and-bedrock.git
-
-Then click "Clone."
-
-![](images/17.png)
-
-When complete, it will open the README.md for this repo. In the file explorer on the left, double click on "Lab_4_Intro_to_Bedrock_and_Agents."
-
-![](images/18.png)
 
 ## Run the Agent Notebook
 
