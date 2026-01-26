@@ -1,6 +1,6 @@
 # Lab 5 - GraphRAG with Neo4j
 
-This lab teaches you how to build Graph Retrieval-Augmented Generation (GraphRAG) applications using the official **neo4j-graphrag** Python library. You'll learn to load data into Neo4j, create embeddings, and use various retrieval strategies to build intelligent question-answering systems.
+This lab teaches you how to build Graph Retrieval-Augmented Generation (GraphRAG) applications using the official **neo4j-graphrag** Python library. Through four hands-on notebooks, you'll progress from understanding graph structure to building production-ready GraphRAG pipelines.
 
 ## What is GraphRAG?
 
@@ -25,49 +25,210 @@ The graph structure allows you to:
 
 The `neo4j-graphrag` package is Neo4j's official Python library for building GraphRAG applications. It provides:
 
-### Core Components
-
 | Component | Purpose |
 |-----------|---------|
-| **Retrievers** | Fetch relevant information from Neo4j |
-| **Embedders** | Generate vector embeddings from text |
+| **Retrievers** | Fetch relevant information from Neo4j (Vector, VectorCypher, Hybrid, Text2Cypher) |
+| **Embedders** | Generate vector embeddings from text (Bedrock, OpenAI, etc.) |
 | **LLM Interfaces** | Connect to language models (Bedrock, OpenAI, etc.) |
-| **GraphRAG** | Orchestrate retriever + LLM into a RAG pipeline |
-| **KG Pipelines** | Build knowledge graphs from documents (experimental) |
+| **GraphRAG** | Orchestrate retriever + LLM into a complete RAG pipeline |
 
-### Retriever Types
+---
 
-The library provides multiple retriever strategies, each suited to different use cases:
+## Notebook 1: Understanding Graph Structure for RAG
 
-#### VectorRetriever
-Pure semantic similarity search using vector embeddings.
+Before diving into embeddings and retrieval, it's essential to understand how documents should be structured in a graph database for effective RAG.
+
+### The Document-Chunk Model
+
+In GraphRAG, we don't store documents as monolithic text blobs. Instead, we:
+
+1. **Split documents into chunks** - Smaller text segments that fit within embedding model limits
+2. **Create relationships between chunks** - Preserve the sequential order with `NEXT_CHUNK` relationships
+3. **Link chunks to their source** - Track provenance with `FROM_DOCUMENT` relationships
+
+```
+┌──────────┐     NEXT_CHUNK      ┌──────────┐     NEXT_CHUNK      ┌──────────┐
+│  Chunk   │────────────────────▶│  Chunk   │────────────────────▶│  Chunk   │
+│  (1)     │                     │  (2)     │                     │  (3)     │
+└────┬─────┘                     └────┬─────┘                     └────┬─────┘
+     │                                │                                │
+     │ FROM_DOCUMENT                  │ FROM_DOCUMENT                  │ FROM_DOCUMENT
+     │                                │                                │
+     ▼                                ▼                                ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                               Document                                       │
+│                        (apple-10k-2024.pdf)                                  │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### Why Graph Structure Matters
+
+This structure enables powerful retrieval patterns:
+- **Sequential context**: When you find a relevant chunk, you can easily retrieve the chunks before and after it
+- **Document filtering**: Constrain searches to specific documents or document types
+- **Multi-hop traversal**: Follow relationships to find related entities extracted from the text
+
+### Run the Notebook
+
+**To learn these concepts hands-on, run `01_data_loading.ipynb`**
+
+In this notebook, you will:
+- Create Document and Chunk nodes using Cypher
+- Build `FROM_DOCUMENT` relationships linking chunks to their source
+- Create `NEXT_CHUNK` relationships to preserve sequential order
+- Query the graph to understand the structure
+
+**Expected outcome:** A Document-Chunk graph structure ready for embeddings.
+
+---
+
+## Notebook 2: Creating Embeddings and Vector Indexes
+
+With the graph structure in place, the next step is to enable semantic search by adding vector embeddings to your chunks.
+
+### What Are Embeddings?
+
+Embeddings are numerical representations (vectors) that capture the semantic meaning of text. Similar concepts have similar vectors, enabling "meaning-based" search rather than just keyword matching.
+
+```python
+# Text: "Apple reported strong iPhone sales"
+# Embedding: [0.023, -0.156, 0.089, ..., 0.042]  # 1024 floats for Titan
+```
+
+### The neo4j-graphrag Embeddings API
+
+The library provides embedders for various providers:
+
+```python
+# AWS Bedrock (used in this lab)
+from neo4j_graphrag.embeddings import BedrockEmbeddings
+
+embedder = BedrockEmbeddings(model_id="amazon.titan-embed-text-v2:0")
+
+# Generate an embedding
+vector = embedder.embed_query("What are the company's risk factors?")
+# Returns: list[float] with 1024 dimensions
+```
+
+### Text Chunking with FixedSizeSplitter
+
+Before embedding, documents need to be split into appropriately-sized chunks:
+
+```python
+from neo4j_graphrag.experimental.components.text_splitters import FixedSizeSplitter
+
+splitter = FixedSizeSplitter(
+    chunk_size=4000,      # Characters per chunk
+    chunk_overlap=200     # Overlap between chunks for context continuity
+)
+
+chunks = await splitter.run(text=document_text)
+```
+
+### Creating Vector Indexes in Neo4j
+
+Neo4j stores embeddings as node properties and uses vector indexes for fast similarity search:
+
+```cypher
+CREATE VECTOR INDEX chunkEmbeddings IF NOT EXISTS
+FOR (c:Chunk) ON (c.embedding)
+OPTIONS {indexConfig: {
+  `vector.dimensions`: 1024,
+  `vector.similarity_function`: 'cosine'
+}}
+```
+
+### Run the Notebook
+
+**To implement embeddings, run `02_embeddings.ipynb`**
+
+In this notebook, you will:
+- Use `FixedSizeSplitter` to chunk sample SEC filing text
+- Generate embeddings with Amazon Titan via `BedrockEmbeddings`
+- Store embeddings as properties on Chunk nodes
+- Create a vector index for fast similarity search
+- Perform raw vector searches using `db.index.vector.queryNodes()`
+
+**Expected outcome:** Chunk nodes with embeddings and a working vector index.
+
+---
+
+## Notebook 3: Building Your First GraphRAG Pipeline
+
+With embeddings in place, you can now build a complete question-answering system using the `VectorRetriever` and `GraphRAG` classes.
+
+### VectorRetriever
+
+The `VectorRetriever` performs pure semantic similarity search:
 
 ```python
 from neo4j_graphrag.retrievers import VectorRetriever
 
 retriever = VectorRetriever(
     driver=driver,
-    index_name="chunk_embeddings",
+    index_name="chunkEmbeddings",
     embedder=embedder,
-    return_properties=["text", "source"]
+    return_properties=["text"]
 )
 
-# Search by text (embedder creates the vector)
+# Search by text (embedder creates the vector automatically)
 results = retriever.search(query_text="What are the company's products?", top_k=5)
-
-# Or search by pre-computed vector
-results = retriever.search(query_vector=[0.1, 0.2, ...], top_k=5)
 ```
 
-**When to use:** Simple semantic search where graph relationships aren't needed.
+**When to use:** Simple semantic search where you need the most relevant chunks based on meaning.
 
-#### VectorCypherRetriever
-Combines vector search with custom Cypher queries for graph traversal.
+### The GraphRAG Class
+
+The `GraphRAG` class orchestrates the complete RAG pipeline - retrieval followed by LLM generation:
+
+```python
+from neo4j_graphrag.generation import GraphRAG
+from neo4j_graphrag.llm import BedrockLLM
+
+llm = BedrockLLM(model_id="us.anthropic.claude-sonnet-4-20250514-v1:0")
+
+rag = GraphRAG(
+    retriever=retriever,
+    llm=llm
+)
+
+# Ask a question - retrieves context and generates answer
+response = rag.search(
+    query_text="What are the main risk factors?",
+    retriever_config={"top_k": 5}
+)
+
+print(response.answer)           # The LLM-generated answer
+print(response.retriever_result) # The retrieved context (if return_context=True)
+```
+
+### Run the Notebook
+
+**To build your first pipeline, run `03_vector_retriever.ipynb`**
+
+In this notebook, you will:
+- Initialize a `VectorRetriever` with your vector index
+- Test retrieval with sample queries and examine results
+- Configure a `BedrockLLM` for answer generation
+- Build a complete `GraphRAG` pipeline
+- Ask questions and receive grounded answers
+
+**Expected outcome:** A working GraphRAG pipeline that answers questions using your SEC filing data.
+
+---
+
+## Notebook 4: Graph-Enhanced Retrieval
+
+The real power of GraphRAG comes from combining vector search with graph traversal. The `VectorCypherRetriever` lets you enrich retrieved chunks with additional context from the graph.
+
+### VectorCypherRetriever
+
+This retriever adds a custom Cypher query that runs after vector search, allowing you to traverse relationships:
 
 ```python
 from neo4j_graphrag.retrievers import VectorCypherRetriever
 
-# Retrieve the matched chunk plus its neighbors
+# Retrieve the matched chunk plus its neighbors for expanded context
 retrieval_query = """
 OPTIONAL MATCH (node)-[:NEXT_CHUNK]->(next)
 OPTIONAL MATCH (prev)-[:NEXT_CHUNK]->(node)
@@ -78,39 +239,70 @@ RETURN node.text AS matched_text,
 
 retriever = VectorCypherRetriever(
     driver=driver,
-    index_name="chunk_embeddings",
+    index_name="chunkEmbeddings",
     retrieval_query=retrieval_query,
     embedder=embedder
 )
 ```
 
-**When to use:** You need additional context from graph relationships after vector matching.
+The `node` variable in the retrieval query refers to each chunk returned by the vector search. You can traverse any relationships from there.
 
-#### HybridRetriever
-Combines vector search with full-text search for better recall.
+### Why This Matters
+
+Consider a question like "What were Apple's revenue trends?" The most relevant chunk might mention a specific quarter, but the surrounding chunks contain the full context needed for a complete answer. By including `NEXT_CHUNK` traversal, you get:
+
+- **Previous chunk**: Setup and context
+- **Matched chunk**: The semantically relevant content
+- **Next chunk**: Continuation and conclusions
+
+### Run the Notebook
+
+**To implement graph-enhanced retrieval, run `04_vector_cypher_retriever.ipynb`**
+
+In this notebook, you will:
+- Write custom Cypher retrieval queries
+- Configure `VectorCypherRetriever` with graph traversal
+- Retrieve matched chunks along with their neighbors
+- Compare answers from `VectorRetriever` vs `VectorCypherRetriever`
+- See how graph context improves answer quality
+
+**Expected outcome:** Understanding of how to leverage graph relationships for richer, more contextual retrieval.
+
+---
+
+## Additional Retriever Types (Reference)
+
+The neo4j-graphrag library provides additional retrievers not covered in these notebooks. These are documented here for reference:
+
+### HybridRetriever
+
+Combines vector search with full-text search for better recall on queries with specific terms:
 
 ```python
 from neo4j_graphrag.retrievers import HybridRetriever
 
 retriever = HybridRetriever(
     driver=driver,
-    vector_index_name="chunk_embeddings",
-    fulltext_index_name="chunk_text",
+    vector_index_name="chunkEmbeddings",
+    fulltext_index_name="chunkText",
     embedder=embedder
 )
 
-# alpha controls vector vs fulltext weight (0.0 = fulltext only, 1.0 = vector only)
+# ranker controls how results are combined: "naive" (default) or "linear"
+# alpha is used with "linear" ranker: 0.0 = fulltext only, 1.0 = vector only
 results = retriever.search(
     query_text="SEC Form 10-K filing requirements",
     top_k=5,
+    ranker="linear",
     alpha=0.7  # 70% vector, 30% fulltext
 )
 ```
 
-**When to use:** Queries contain specific terms (product names, codes) that benefit from exact matching.
+**When to use:** Queries containing specific terms, product names, or codes that benefit from exact matching.
 
-#### Text2CypherRetriever
-Uses an LLM to convert natural language questions into Cypher queries.
+### Text2CypherRetriever
+
+Uses an LLM to convert natural language questions into Cypher queries:
 
 ```python
 from neo4j_graphrag.retrievers import Text2CypherRetriever
@@ -125,113 +317,22 @@ retriever = Text2CypherRetriever(
 )
 
 # The LLM generates and executes a Cypher query
-results = retriever.search(query_text="What products does Acme Corp sell?")
+results = retriever.search(query_text="What products does Apple sell?")
 ```
 
-**When to use:** Questions that are better answered by structured graph queries than similarity search.
+**When to use:** Questions better answered by structured graph queries than similarity search.
 
-### The GraphRAG Class
+### Retriever Selection Guide
 
-The `GraphRAG` class orchestrates the full RAG pipeline:
+| Scenario | Recommended Retriever |
+|----------|----------------------|
+| Simple Q&A over documents | `VectorRetriever` |
+| Need surrounding context | `VectorCypherRetriever` |
+| Technical terms, codes, names | `HybridRetriever` |
+| Complex questions about entities | `Text2CypherRetriever` |
+| Best of both worlds | `HybridCypherRetriever` |
 
-```python
-from neo4j_graphrag.generation import GraphRAG
-
-rag = GraphRAG(
-    retriever=retriever,
-    llm=llm
-)
-
-# Ask a question - retrieves context and generates answer
-response = rag.search(
-    query_text="What are the main risk factors?",
-    retriever_config={"top_k": 5}
-)
-
-print(response.answer)           # The LLM-generated answer
-print(response.retriever_result) # The retrieved context
-```
-
-### Embedder and LLM Interfaces
-
-The library uses a plugin architecture for embedders and LLMs:
-
-```python
-# AWS Bedrock (used in this lab)
-from neo4j_graphrag.embeddings import BedrockEmbedder
-from neo4j_graphrag.llm import BedrockLLM
-
-embedder = BedrockEmbedder(model_id="amazon.titan-embed-text-v2:0")
-llm = BedrockLLM(model_id="us.anthropic.claude-3-sonnet-20240229-v1:0")
-
-# OpenAI
-from neo4j_graphrag.embeddings import OpenAIEmbeddings
-from neo4j_graphrag.llm import OpenAILLM
-
-embedder = OpenAIEmbeddings(model="text-embedding-3-large")
-llm = OpenAILLM(model_name="gpt-4o")
-```
-
-Supported providers:
-- **AWS Bedrock** - Claude, Titan, and other Bedrock models
-- **OpenAI** - GPT-4, GPT-3.5, embeddings
-- **Anthropic** - Claude models directly
-- **Google Vertex AI** - Gemini and PaLM models
-- **Cohere** - Command and Embed models
-- **Ollama** - Local open-source models
-- **Sentence Transformers** - Local embedding models
-
-### Knowledge Graph Construction (Experimental)
-
-Build knowledge graphs from unstructured text:
-
-```python
-from neo4j_graphrag.experimental.pipeline.kg_builder import SimpleKGPipeline
-
-kg_builder = SimpleKGPipeline(
-    llm=llm,
-    driver=driver,
-    embedder=embedder,
-    schema={
-        "node_types": ["Person", "Company", "Product"],
-        "relationship_types": ["WORKS_FOR", "PRODUCES"],
-        "patterns": [
-            ("Person", "WORKS_FOR", "Company"),
-            ("Company", "PRODUCES", "Product")
-        ]
-    }
-)
-
-# Extract entities and relationships from text
-await kg_builder.run_async(text="John Smith is CEO of Acme Corp, which makes widgets.")
-```
-
-## Lab Notebooks
-
-### 01_data_loading.ipynb - Understanding Graph Structure
-Learn the conceptual foundation:
-- Document → Chunk graph model
-- NEXT_CHUNK relationships for sequential context
-- Why graph structure matters for RAG
-
-### 02_embeddings.ipynb - Creating Vector-Enabled Data
-Build the foundation for semantic search:
-- Use `FixedSizeSplitter` to chunk text
-- Generate embeddings with Amazon Titan
-- Create Neo4j vector indexes
-- Perform raw similarity searches
-
-### 03_vector_retriever.ipynb - Basic GraphRAG
-Implement your first GraphRAG pipeline:
-- Configure `VectorRetriever`
-- Use `GraphRAG` for question answering
-- Understand retrieval results and LLM generation
-
-### 04_vector_cypher_retriever.ipynb - Graph-Enhanced Retrieval
-Leverage graph structure for richer context:
-- Write custom Cypher retrieval queries
-- Include adjacent chunks for expanded context
-- Compare results with and without graph traversal
+---
 
 ## Prerequisites
 
@@ -252,7 +353,7 @@ Ensure `CONFIG.txt` in the project root contains:
 
 ```ini
 # AWS Bedrock
-MODEL_ID=us.anthropic.claude-3-sonnet-20240229-v1:0
+MODEL_ID=us.anthropic.claude-sonnet-4-20250514-v1:0
 EMBEDDING_MODEL_ID=amazon.titan-embed-text-v2:0
 REGION=us-west-2
 
@@ -272,16 +373,6 @@ NEO4J_PASSWORD=your_password_here
 | **Retriever** | Component that fetches relevant data from Neo4j |
 | **top_k** | Number of most similar results to return |
 | **Retrieval Query** | Custom Cypher appended after vector search |
-
-## Retriever Selection Guide
-
-| Scenario | Recommended Retriever |
-|----------|----------------------|
-| Simple Q&A over documents | `VectorRetriever` |
-| Need surrounding context | `VectorCypherRetriever` |
-| Technical terms, codes, names | `HybridRetriever` |
-| Complex questions about entities | `Text2CypherRetriever` |
-| Best of both worlds | `HybridCypherRetriever` |
 
 ## Troubleshooting
 
