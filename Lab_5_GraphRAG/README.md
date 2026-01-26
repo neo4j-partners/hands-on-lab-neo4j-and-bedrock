@@ -2,6 +2,31 @@
 
 This lab teaches you how to build Graph Retrieval-Augmented Generation (GraphRAG) applications using the official **neo4j-graphrag** Python library. Through four hands-on notebooks, you'll progress from understanding graph structure to building production-ready GraphRAG pipelines.
 
+
+## Before You Begin
+
+> [!IMPORTANT]
+> Complete these steps before running the notebooks.
+
+**Prerequisites:**
+- Lab 1 completed (Neo4j Aura database running)
+- Lab 4 completed (SageMaker with repository cloned)
+
+**Configure Neo4j Connection:**
+
+Open `CONFIG.txt` in the root folder of your SageMaker JupyterLab environment and add your Neo4j credentials from Lab 1:
+
+```ini
+# Neo4j Aura (add your credentials from Lab 1)
+NEO4J_URI=neo4j+s://xxxxxxxx.databases.neo4j.io
+NEO4J_USERNAME=neo4j
+NEO4J_PASSWORD=your_password_here
+```
+
+> [!NOTE]
+> Only the Neo4j settings need to be configured. The AWS Bedrock settings (MODEL_ID, EMBEDDING_MODEL_ID, REGION) are already set to working defaults.
+
+
 ## What is GraphRAG?
 
 GraphRAG combines the semantic understanding of vector search with the structural relationships in knowledge graphs. Unlike traditional RAG that treats documents as isolated chunks, GraphRAG leverages graph connections to provide richer context to LLMs.
@@ -154,7 +179,8 @@ OPTIONS {indexConfig: {
 }}
 ```
 
-> **Important:** The `vector.dimensions` must match your embedding model output. Amazon Titan Text Embeddings V2 produces 1024-dimensional vectors.
+> [!IMPORTANT]
+> The `vector.dimensions` must match your embedding model output. Amazon Titan Text Embeddings V2 produces 1024-dimensional vectors.
 
 ### Raw Vector Search
 
@@ -417,39 +443,6 @@ results = retriever.search(query_text="What products does Apple sell?")
 | Best of both worlds | `HybridCypherRetriever` |
 
 ---
-
-## Prerequisites
-
-- **Lab 1** completed (Neo4j Aura database running)
-- **Lab 4** completed (SageMaker with `CONFIG.txt` configured)
-- AWS credentials with Bedrock access
-
-## Installation
-
-```bash
-cd Lab_5_GraphRAG/src
-pip install -e .
-```
-
-## Configuration
-
-The SageMaker Studio JupyterLab environment you created in Lab 4 includes a `CONFIG.txt` file in the root folder of the cloned repository. Open this file and add your Neo4j credentials from Lab 1.
-
-> **Note:** Only the Neo4j settings need to be configured. The AWS Bedrock settings (MODEL_ID, EMBEDDING_MODEL_ID, REGION) are already set to working defaults.
-
-Update the Neo4j section with your credentials:
-
-```ini
-# AWS Bedrock (already configured - no changes needed)
-MODEL_ID=us.anthropic.claude-sonnet-4-20250514-v1:0
-EMBEDDING_MODEL_ID=amazon.titan-embed-text-v2:0
-REGION=us-west-2
-
-# Neo4j Aura (add your credentials from Lab 1)
-NEO4J_URI=neo4j+s://xxxxxxxx.databases.neo4j.io
-NEO4J_USERNAME=neo4j
-NEO4J_PASSWORD=your_password_here
-```
 
 ## Key Concepts Reference
 
