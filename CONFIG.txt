@@ -24,50 +24,16 @@ NEO4J_AGENT_ENDPOINT=your-agent-endpoint-here
 # =============================================================================
 # AWS Bedrock Settings (Lab 4+)
 # =============================================================================
-# Run TEST_CLAUDE4.md heredoc in CloudShell to find working models for your account
+# Run TEST_CLAUDE4.md heredoc in CloudShell to find all available models
 #
-# -----------------------------------------------------------------------------
-# CLAUDE 3 MODELS (Base model IDs)
-# -----------------------------------------------------------------------------
+# VERIFIED WORKING MODELS:
 # MODEL_ID=anthropic.claude-3-sonnet-20240229-v1:0
-# MODEL_ID=anthropic.claude-3-haiku-20240307-v1:0
-#
-# -----------------------------------------------------------------------------
-# CLAUDE 3 MODELS (Cross-region inference - US)
-# -----------------------------------------------------------------------------
 # MODEL_ID=us.anthropic.claude-3-sonnet-20240229-v1:0
-# MODEL_ID=us.anthropic.claude-3-haiku-20240307-v1:0
-#
-# -----------------------------------------------------------------------------
-# CLAUDE 4 MODELS (Base model IDs)
-# -----------------------------------------------------------------------------
-# MODEL_ID=anthropic.claude-sonnet-4-20250514-v1:0
-# MODEL_ID=anthropic.claude-haiku-4-5-20251001-v1:0
-# MODEL_ID=anthropic.claude-sonnet-4-5-20250929-v1:0
-# MODEL_ID=anthropic.claude-opus-4-1-20250805-v1:0
-# MODEL_ID=anthropic.claude-opus-4-5-20251101-v1:0
-#
-# -----------------------------------------------------------------------------
-# CLAUDE 4 MODELS (Cross-region inference - US)
-# -----------------------------------------------------------------------------
-# MODEL_ID=us.anthropic.claude-sonnet-4-20250514-v1:0
-# MODEL_ID=us.anthropic.claude-haiku-4-5-20251001-v1:0
 # MODEL_ID=us.anthropic.claude-sonnet-4-5-20250929-v1:0
-# MODEL_ID=us.anthropic.claude-opus-4-1-20250805-v1:0
-# MODEL_ID=us.anthropic.claude-opus-4-5-20251101-v1:0
-#
-# -----------------------------------------------------------------------------
-# CLAUDE 4 MODELS (Cross-region inference - Global) - RECOMMENDED
-# Routes worldwide for maximum availability and ~10% cost savings
-# -----------------------------------------------------------------------------
-# MODEL_ID=global.anthropic.claude-sonnet-4-20250514-v1:0
-# MODEL_ID=global.anthropic.claude-haiku-4-5-20251001-v1:0
 # MODEL_ID=global.anthropic.claude-sonnet-4-5-20250929-v1:0
-# MODEL_ID=global.anthropic.claude-opus-4-1-20250805-v1:0
-# MODEL_ID=global.anthropic.claude-opus-4-5-20251101-v1:0
 #
 # -----------------------------------------------------------------------------
-# ACTIVE MODEL (uncomment one above or use default below)
+# ACTIVE MODEL (Claude 3 Sonnet - stable default)
 # -----------------------------------------------------------------------------
 MODEL_ID=us.anthropic.claude-3-sonnet-20240229-v1:0
 

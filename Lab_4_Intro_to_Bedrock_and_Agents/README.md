@@ -18,36 +18,72 @@ Key concepts:
 - **Inference Profile**: Enables cross-region routing for better availability
 - **ChatBedrockConverse**: LangChain's interface to Bedrock's Converse API
 
-## Sagemaker Studio Setup
+## SageMaker Studio Setup
 
-1 - Change your region to US West (Oregon) in the AWS Management Console.
-2 - Open SageMaker AI in the AWS Management Console.  CAUTION BE SURE TO OPEN SAGEMAKER AI NOT SAGEMAKER.
-IMAGE: 01-naviagte-to-sagemaker-ai.png
+### Step 1: Navigate to SageMaker AI
 
-3 - Be sure you are in Amazon SageMaker AI and not Amazon SageMaker!!!!
-4 - Click on Setup up for single user
-IMAGE: 02_sagemaker_setup.png
+1. In the AWS Management Console, click the **region selector** in the upper right corner and select **US West (Oregon)** / `us-west-2`
+2. In the search bar at the top, type `SageMaker`
+3. **Important:** Select **Amazon SageMaker AI** from the results (not "Amazon SageMaker" - they are different services!)
 
-5 - Click on Open Studio
-IMAGE: 03_Amazon_SageMaker_Studio.png
+![Navigate to SageMaker AI](images/01-naviagte-to-sagemaker-ai.png)
 
-6 - Click on JupyterLab
-IMAGE: 04_Open_JupyterLab.png
+### Step 2: Set Up for Single User
 
-7 - Click on the Quick start -> Launch now
-IMAGE: 05_Quick_Start_Launch_Now.png
+1. Verify you see **Amazon SageMaker AI** in the left sidebar (not just "Amazon SageMaker")
+2. On the landing page, look for the "New to SageMaker AI?" panel on the right
+3. Click the **Set up for single user** button - this creates a quick setup domain with default settings
 
-8 - Wait for the Status of the Space to be Running
-9 - Click on the Name - quickstart-default to open it
-IMAGE: 06_Click_Quick_start_space.png
+![SageMaker Setup](images/02_sagemaker_setup.png)
 
-10 - Click on Create Folder and Create a folder named labs
-IMAGE: 08_create_folder.png
+### Step 3: Open SageMaker Studio
 
-11 - Click on the labs folder to open it
+1. Wait while your environment is being set up (this takes 1-2 minutes)
+2. You'll see progress indicators for IAM role creation, internet access, encryption, and storage
+3. Once setup completes, click **Open Studio** at the bottom of the page
 
-12 - Click on Clone Git Repository and Clone the repository ...
-IMAGE: 08_Clone_Git_Repository.png
+![Open Studio](images/03_Amazon_SageMaker_Studio.png)
+
+### Step 4: Launch JupyterLab
+
+1. In SageMaker Studio Home, you'll see the Overview tab with different workflow options
+2. Click on the **JupyterLab** card - this lets you create and run Jupyter notebooks in a dedicated environment
+
+![Open JupyterLab](images/04_Open_JupyterLab.png)
+
+### Step 5: Create a JupyterLab Space
+
+1. Under **Space templates**, find the **Quick start** option (ml.t3.medium • 5 GB • 4 GiB RAM)
+2. Click **Launch now** to create a lightweight development environment perfect for this lab
+
+![Quick Start Launch](images/05_Quick_Start_Launch_Now.png)
+
+### Step 6: Open Your Space
+
+1. Wait for the **Status** column to show **Running** (this may take 1-2 minutes)
+2. Once running, click on the space name **quickstart-default** in the Name column to open JupyterLab
+
+![Click Quick Start Space](images/06_Click_Quick_start_space.png)
+
+### Step 7: Create a Labs Folder
+
+1. In the JupyterLab file browser on the left, click the **Create New Folder** icon (folder with a + sign)
+2. Name the folder `labs` and press Enter
+3. Double-click the **labs** folder to open it
+
+![Create Folder](images/08_create_folder.png)
+
+### Step 8: Clone the Git Repository
+
+1. With the `labs` folder open, click on the **Git icon** in the left sidebar (it looks like a diamond/branch symbol)
+2. Click **Clone a Repository** button
+3. In the "Clone Git Repository" dialog, enter the repository URL:
+   ```
+   https://github.com/neo4j-partners/hands-on-lab-neo4j-and-bedrock.git
+   ```
+4. Leave "Open README files" checked and click **Clone** to download the lab materials
+
+![Clone Git Repository](images/09_clone_git_repository.png)
 
 ## LangGraph Agent Architecture
 
