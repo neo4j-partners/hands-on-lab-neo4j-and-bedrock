@@ -193,9 +193,11 @@ These same patterns are implemented programmatically in Lab 5 (GraphRAG) and Lab
 
 ## Next Steps
 
-**This completes Part 1 (No-Code Track) of the workshop.**
+**This completes Part 1 - No-Code Getting Started.**
 
-To continue with the coding labs, proceed to [Lab 4 - Intro to Bedrock and Agents](../Lab_4_Intro_to_Bedrock_and_Agents) to set up your development environment in Amazon SageMaker.
+To continue with the coding labs, proceed to **Part 2 - Introduction to Agents and GraphRAG with Neo4j**:
+
+[Lab 4 - Intro to Bedrock and Agents](../Lab_4_Intro_to_Bedrock_and_Agents) - Set up your development environment in Amazon SageMaker and learn how AI agents work with LangGraph.
 
 ## Future Tools
 

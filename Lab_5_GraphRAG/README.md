@@ -303,7 +303,11 @@ Ensure your vector index dimensions match the embedder output:
 
 ## Next Steps
 
-Continue to [Lab 6 - Aura Agents API](../Lab_6_Aura_Agents_API) to learn how to call your Aura Agent programmatically via REST API, enabling integration into applications and automated workflows.
+**This completes Part 2 - Introduction to Agents and GraphRAG with Neo4j.**
+
+To continue, proceed to **Part 3 - Advanced Agents and API Integration**:
+
+[Lab 6 - Aura Agents API](../Lab_6_Aura_Agents_API) - Learn how to call your Aura Agent programmatically via REST API, enabling integration into applications and automated workflows.
 
 ## Additional Resources
 

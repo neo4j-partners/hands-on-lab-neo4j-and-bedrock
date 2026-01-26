@@ -87,7 +87,7 @@ Key concepts:
 
 ## Introduction to Agents
 
-In this section, we'll run the notebook `basic_langgraph_agent.ipynb` which demonstrates how to build a basic AI agent using LangGraph and Amazon Bedrock. This hands-on example shows the fundamental concepts of agent architecture - how an LLM can reason about problems, decide which tools to use, and iterate until it reaches a solution.
+In this section, we'll run the notebook [basic_langgraph_agent.ipynb](basic_langgraph_agent.ipynb) which demonstrates how to build a basic AI agent using LangGraph and Amazon Bedrock. This hands-on example shows the fundamental concepts of agent architecture - how an LLM can reason about problems, decide which tools to use, and iterate until it reaches a solution.
 
 AI agents extend beyond simple chat interactions by giving LLMs the ability to take actions. Instead of just generating text responses, agents can call functions (tools), observe the results, and continue reasoning. This creates a powerful loop where the model can break down complex tasks into steps and execute them autonomously.
 
@@ -107,7 +107,7 @@ This pattern allows the agent to reason about what tools to use, execute them, o
 
 ## Run the Agent Notebook
 
-1. Open `basic_langgraph_agent.ipynb` in this lab folder
+1. Open [basic_langgraph_agent.ipynb](basic_langgraph_agent.ipynb) in this lab folder
 2. The notebook loads configuration from `../CONFIG.txt` (MODEL_ID and REGION)
 3. Run through the cells to:
    - Install required packages
