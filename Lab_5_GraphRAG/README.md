@@ -61,6 +61,15 @@ In GraphRAG, we don't store documents as monolithic text blobs. Instead, we:
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
+### Why Split Documents into Chunks?
+
+Chunking is necessary for several reasons:
+
+- **Context window limits** - LLMs can only process a certain amount of text at once
+- **Retrieval precision** - Smaller chunks allow more precise matching to user queries
+- **Cost efficiency** - Processing smaller chunks is faster and cheaper
+- **Embedding quality** - Embedding models work better with focused, coherent text segments
+
 ### Why Graph Structure Matters
 
 This structure enables powerful retrieval patterns:
@@ -70,13 +79,15 @@ This structure enables powerful retrieval patterns:
 
 ### Run the Notebook
 
-**To learn these concepts hands-on, run `01_data_loading.ipynb`**
+**To learn these concepts hands-on, run [`01_data_loading.ipynb`](01_data_loading.ipynb)**
 
 In this notebook, you will:
-- Create Document and Chunk nodes using Cypher
-- Build `FROM_DOCUMENT` relationships linking chunks to their source
-- Create `NEXT_CHUNK` relationships to preserve sequential order
-- Query the graph to understand the structure
+- Load sample SEC 10-K filing text from a data file
+- Create Document nodes with metadata (path, page number)
+- Use `FixedSizeSplitter` to split text into chunks with configurable size and overlap
+- Create Chunk nodes linked to Documents via `FROM_DOCUMENT` relationships
+- Chain chunks together with `NEXT_CHUNK` relationships
+- Query the graph to verify the structure
 
 **Expected outcome:** A Document-Chunk graph structure ready for embeddings.
 
@@ -88,12 +99,15 @@ With the graph structure in place, the next step is to enable semantic search by
 
 ### What Are Embeddings?
 
-Embeddings are numerical representations (vectors) that capture the semantic meaning of text. Similar concepts have similar vectors, enabling "meaning-based" search rather than just keyword matching.
+Embeddings are numerical representations (vectors) that capture the semantic meaning of text. The key insight is that **similar texts have similar embeddings**, enabling "meaning-based" search rather than just keyword matching.
 
 ```python
-# Text: "Apple reported strong iPhone sales"
-# Embedding: [0.023, -0.156, 0.089, ..., 0.042]  # 1024 floats for Titan
+# These two sentences have very similar embeddings despite different words:
+"Apple makes iPhones"           → [0.12, -0.45, 0.78, ...]  # 1024 dimensions
+"The company produces smartphones" → [0.11, -0.44, 0.77, ...]  # Similar vector!
 ```
+
+This is powerful because a search for "smartphone manufacturer" will find content about "Apple makes iPhones" even though none of those exact words appear in the query.
 
 ### The neo4j-graphrag Embeddings API
 
@@ -125,6 +139,8 @@ splitter = FixedSizeSplitter(
 chunks = await splitter.run(text=document_text)
 ```
 
+The `chunk_overlap` parameter is important - it ensures that information at chunk boundaries isn't lost by including some text from the previous chunk.
+
 ### Creating Vector Indexes in Neo4j
 
 Neo4j stores embeddings as node properties and uses vector indexes for fast similarity search:
@@ -138,18 +154,33 @@ OPTIONS {indexConfig: {
 }}
 ```
 
+> **Important:** The `vector.dimensions` must match your embedding model output. Amazon Titan Text Embeddings V2 produces 1024-dimensional vectors.
+
+### Raw Vector Search
+
+Once the index is created, you can perform similarity searches directly with Cypher:
+
+```cypher
+CALL db.index.vector.queryNodes('chunkEmbeddings', 5, $query_embedding)
+YIELD node, score
+RETURN node.text, score
+ORDER BY score DESC
+```
+
 ### Run the Notebook
 
-**To implement embeddings, run `02_embeddings.ipynb`**
+**To implement embeddings, run [`02_embeddings.ipynb`](02_embeddings.ipynb)**
 
 In this notebook, you will:
-- Use `FixedSizeSplitter` to chunk sample SEC filing text
-- Generate embeddings with Amazon Titan via `BedrockEmbeddings`
-- Store embeddings as properties on Chunk nodes
-- Create a vector index for fast similarity search
+- Load sample SEC 10-K filing text
+- Use `FixedSizeSplitter` to chunk text (400 chars with 50 char overlap for demo)
+- Generate embeddings for each chunk using Amazon Titan via `BedrockEmbeddings`
+- Store embeddings as the `embedding` property on Chunk nodes
+- Create a vector index named `chunkEmbeddings`
 - Perform raw vector searches using `db.index.vector.queryNodes()`
+- Compare different queries to see how semantic search finds relevant content
 
-**Expected outcome:** Chunk nodes with embeddings and a working vector index.
+**Expected outcome:** Chunk nodes with embeddings and a working vector index that returns semantically similar results.
 
 ---
 
@@ -159,7 +190,7 @@ With embeddings in place, you can now build a complete question-answering system
 
 ### VectorRetriever
 
-The `VectorRetriever` performs pure semantic similarity search:
+The `VectorRetriever` abstracts away the complexity of vector search, handling embedding generation and Neo4j queries for you:
 
 ```python
 from neo4j_graphrag.retrievers import VectorRetriever
@@ -168,14 +199,33 @@ retriever = VectorRetriever(
     driver=driver,
     index_name="chunkEmbeddings",
     embedder=embedder,
-    return_properties=["text"]
+    return_properties=["text"]  # Which node properties to return
 )
 
 # Search by text (embedder creates the vector automatically)
 results = retriever.search(query_text="What are the company's products?", top_k=5)
 ```
 
+The `return_properties` parameter controls which properties from the matched Chunk nodes are included in the results. You can add additional properties like `index` or `source` if needed.
+
 **When to use:** Simple semantic search where you need the most relevant chunks based on meaning.
+
+### Diagnostic Search Pattern
+
+Before building the full RAG pipeline, it's useful to inspect raw retrieval results:
+
+```python
+result = retriever.search(query_text="What products does Apple make?", top_k=5)
+
+for item in result.items:
+    score = item.metadata.get('score', 'N/A')
+    print(f"Score: {score:.4f}, Content: {item.content[:100]}...")
+```
+
+This helps you verify that:
+- The vector index is working correctly
+- The right chunks are being retrieved
+- Similarity scores are reasonable (higher is better)
 
 ### The GraphRAG Class
 
@@ -195,25 +245,29 @@ rag = GraphRAG(
 # Ask a question - retrieves context and generates answer
 response = rag.search(
     query_text="What are the main risk factors?",
-    retriever_config={"top_k": 5}
+    retriever_config={"top_k": 5},  # Pass parameters to the retriever
+    return_context=True              # Include retrieved chunks in response
 )
 
 print(response.answer)           # The LLM-generated answer
-print(response.retriever_result) # The retrieved context (if return_context=True)
+print(response.retriever_result) # The retrieved context
 ```
+
+The `retriever_config` dictionary passes parameters directly to the retriever's `search()` method. Common parameters include `top_k` for controlling how many chunks to retrieve.
 
 ### Run the Notebook
 
-**To build your first pipeline, run `03_vector_retriever.ipynb`**
+**To build your first pipeline, run [`03_vector_retriever.ipynb`](03_vector_retriever.ipynb)**
 
 In this notebook, you will:
-- Initialize a `VectorRetriever` with your vector index
-- Test retrieval with sample queries and examine results
-- Configure a `BedrockLLM` for answer generation
-- Build a complete `GraphRAG` pipeline
-- Ask questions and receive grounded answers
+- Initialize a `VectorRetriever` with the `chunkEmbeddings` index
+- Run diagnostic searches to inspect retrieval results and scores
+- Configure a `BedrockLLM` for answer generation (Claude via Bedrock)
+- Build a complete `GraphRAG` pipeline combining retrieval and generation
+- Ask questions and receive grounded answers based on retrieved context
+- Experiment with different queries to see how the pipeline responds
 
-**Expected outcome:** A working GraphRAG pipeline that answers questions using your SEC filing data.
+**Expected outcome:** A working GraphRAG pipeline that answers questions using your SEC filing data, with the ability to inspect both the retrieved context and generated answers.
 
 ---
 
@@ -228,13 +282,17 @@ This retriever adds a custom Cypher query that runs after vector search, allowin
 ```python
 from neo4j_graphrag.retrievers import VectorCypherRetriever
 
-# Retrieve the matched chunk plus its neighbors for expanded context
+# Retrieve the matched chunk plus document info and neighbors
 retrieval_query = """
-OPTIONAL MATCH (node)-[:NEXT_CHUNK]->(next)
-OPTIONAL MATCH (prev)-[:NEXT_CHUNK]->(node)
-RETURN node.text AS matched_text,
-       prev.text AS previous_context,
-       next.text AS following_context
+MATCH (node)-[:FROM_DOCUMENT]->(doc:Document)
+OPTIONAL MATCH (prev:Chunk)-[:NEXT_CHUNK]->(node)
+OPTIONAL MATCH (node)-[:NEXT_CHUNK]->(next:Chunk)
+RETURN
+    node.text AS context,
+    doc.path AS document,
+    node.index AS chunk_index,
+    prev.text AS previous_chunk,
+    next.text AS next_chunk
 """
 
 retriever = VectorCypherRetriever(
@@ -245,28 +303,54 @@ retriever = VectorCypherRetriever(
 )
 ```
 
-The `node` variable in the retrieval query refers to each chunk returned by the vector search. You can traverse any relationships from there.
+The `node` variable in the retrieval query refers to each chunk returned by the vector search. You can traverse any relationships from there - to documents, to adjacent chunks, or to extracted entities.
+
+### Expanded Context Window Pattern
+
+A powerful pattern is to concatenate adjacent chunks into a single expanded context, giving the LLM more surrounding information:
+
+```python
+expanded_context_query = """
+MATCH (node)-[:FROM_DOCUMENT]->(doc:Document)
+OPTIONAL MATCH (prev:Chunk)-[:NEXT_CHUNK]->(node)
+OPTIONAL MATCH (node)-[:NEXT_CHUNK]->(next:Chunk)
+WITH node, doc, prev, next
+RETURN
+    COALESCE(prev.text + ' ', '') + node.text + COALESCE(' ' + next.text, '') AS expanded_context,
+    doc.path AS source_document,
+    node.index AS center_chunk_index
+"""
+```
+
+This query:
+1. Finds the matched chunk (`node`) from vector search
+2. Looks up its source document
+3. Finds the previous and next chunks via `NEXT_CHUNK` relationships
+4. Concatenates all three chunks into a single `expanded_context` string
 
 ### Why This Matters
 
 Consider a question like "What were Apple's revenue trends?" The most relevant chunk might mention a specific quarter, but the surrounding chunks contain the full context needed for a complete answer. By including `NEXT_CHUNK` traversal, you get:
 
-- **Previous chunk**: Setup and context
-- **Matched chunk**: The semantically relevant content
-- **Next chunk**: Continuation and conclusions
+- **Previous chunk**: Setup and context leading into the topic
+- **Matched chunk**: The semantically relevant content that matched the query
+- **Next chunk**: Continuation, conclusions, and follow-up details
+
+This expanded context often produces significantly better answers because the LLM has more information to work with.
 
 ### Run the Notebook
 
-**To implement graph-enhanced retrieval, run `04_vector_cypher_retriever.ipynb`**
+**To implement graph-enhanced retrieval, run [`04_vector_cypher_retriever.ipynb`](04_vector_cypher_retriever.ipynb)**
 
 In this notebook, you will:
-- Write custom Cypher retrieval queries
-- Configure `VectorCypherRetriever` with graph traversal
-- Retrieve matched chunks along with their neighbors
-- Compare answers from `VectorRetriever` vs `VectorCypherRetriever`
-- See how graph context improves answer quality
+- Write custom Cypher retrieval queries that traverse graph relationships
+- Configure `VectorCypherRetriever` with document and chunk context
+- Implement the expanded context window pattern
+- Inspect the retrieved context to see what the LLM receives
+- Compare answers from standard `VectorRetriever` vs `VectorCypherRetriever`
+- See how graph-enhanced context improves answer quality
 
-**Expected outcome:** Understanding of how to leverage graph relationships for richer, more contextual retrieval.
+**Expected outcome:** Understanding of how to leverage graph relationships for richer, more contextual retrieval that produces better answers.
 
 ---
 
