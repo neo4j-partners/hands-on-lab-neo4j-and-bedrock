@@ -42,7 +42,7 @@ IMAGE: 05_Quick_Start_Launch_Now.png
 IMAGE: 06_Click_Quick_start_space.png
 
 10 - Click on Create Folder and Create a folder named labs
-IMAGE: 07_Create_Labs_Folder.png
+IMAGE: 08_create_folder.png
 
 11 - Click on the labs folder to open it
 
