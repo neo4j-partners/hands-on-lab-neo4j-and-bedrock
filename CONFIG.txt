@@ -1,44 +1,42 @@
 # Workshop Configuration
-# Fill in your credentials after completing each lab setup
+#
+# IMPORTANT: For most labs, you only need to configure the Neo4j credentials below.
+# All other settings have working defaults and do not need to be modified.
 
 # =============================================================================
-# Neo4j Aura Database (Lab 1 - fill in after Aura setup)
+# Neo4j Aura Database (REQUIRED - fill in after Lab 1)
 # =============================================================================
+# Enter your credentials from Lab 1. These are shown once when you create your
+# Aura instance - make sure you saved them!
 NEO4J_URI=neo4j+s://xxxxxxxx.databases.neo4j.io
 NEO4J_USERNAME=neo4j
 NEO4J_PASSWORD=your_password_here
 
 # =============================================================================
-# MCP Gateway (Lab 5 - fill in after AgentCore Gateway setup)
+# ADVANCED LABS - The settings below do not need to be modified for most labs
 # =============================================================================
-MCP_GATEWAY_URL=your-gateway-url-here
-MCP_ACCESS_TOKEN=your-access-token-here
-
-# =============================================================================
-# Neo4j Aura Agent API (Lab 8 - fill in after creating Aura Agent)
-# =============================================================================
-NEO4J_CLIENT_ID=your-client-id-here
-NEO4J_CLIENT_SECRET=your-client-secret-here
-NEO4J_AGENT_ENDPOINT=your-agent-endpoint-here
 
 # -----------------------------------------------------------------------------
-# AWS Bedrock Settings (Lab 4+) ACTIVE MODEL (Claude 3 Sonnet - stable default)
+# AWS Bedrock Settings (Pre-configured - no changes needed)
 # -----------------------------------------------------------------------------
 MODEL_ID=global.anthropic.claude-sonnet-4-5-20250929-v1:0
+EMBEDDING_MODEL_ID=amazon.titan-embed-text-v2:0
+REGION=us-west-2
 
-# =============================================================================
-# Alternative Models for AWS Bedrock Settings (Lab 4+)
-# =============================================================================
-#
+# Alternative Models (uncomment to use a different model)
 # MODEL_ID=anthropic.claude-3-sonnet-20240229-v1:0
 # MODEL_ID=us.anthropic.claude-3-sonnet-20240229-v1:0
 # MODEL_ID=us.anthropic.claude-sonnet-4-5-20250929-v1:0
-# MODEL_ID=global.anthropic.claude-sonnet-4-5-20250929-v1:0
 
+# -----------------------------------------------------------------------------
+# MCP Gateway (Advanced - Lab 5 AgentCore Gateway setup)
+# -----------------------------------------------------------------------------
+MCP_GATEWAY_URL=your-gateway-url-here
+MCP_ACCESS_TOKEN=your-access-token-here
 
-
-
-# EMBEDDING MODEL (for vector search / RAG)
-EMBEDDING_MODEL_ID=amazon.titan-embed-text-v2:0
-
-REGION=us-west-2
+# -----------------------------------------------------------------------------
+# Neo4j Aura Agent API (Advanced - Lab 8 Aura Agent setup)
+# -----------------------------------------------------------------------------
+NEO4J_CLIENT_ID=your-client-id-here
+NEO4J_CLIENT_SECRET=your-client-secret-here
+NEO4J_AGENT_ENDPOINT=your-agent-endpoint-here

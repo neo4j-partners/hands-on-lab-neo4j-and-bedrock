@@ -1,15 +1,10 @@
 # Lab 6: Aura Agents API
 
-## What You'll Learn
+## From No-Code to Integration
 
-- How to authenticate with the Neo4j API (OAuth2)
-- How to call your Aura Agent programmatically
-- How to parse responses and extract insights
-- Patterns for token caching and async requests
+In Lab 2, you built an Aura Agent using the visual builder. Now you'll learn to call it **programmatically**.
 
 ## Why Use the API?
-
-Your no-code Aura Agent from Lab 2 can be deployed to a REST endpoint:
 
 | Use Case | Benefit |
 |----------|---------|
@@ -18,6 +13,13 @@ Your no-code Aura Agent from Lab 2 can be deployed to a REST endpoint:
 | **Batch Processing** | Ask multiple questions |
 | **Custom UIs** | Build your own chat interface |
 
+## What You'll Learn
+
+- OAuth2 authentication with the Neo4j API
+- Making REST calls to your agent
+- Parsing responses and extracting insights
+- Token management and caching
+
 ---
 
-[Next: Authentication Flow →](02-authentication.md)
+[Next: API Architecture →](02-api-architecture.md)

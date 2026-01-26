@@ -1,5 +1,9 @@
 # Lab 4: Intro to Bedrock and Agents
 
+## Part 2 Begins
+
+Welcome to the **coding labs**! In Part 1 you built a no-code agent. Now you'll learn how agents work under the hood.
+
 ## What You'll Learn
 
 - How to configure and invoke Amazon Bedrock models
@@ -9,11 +13,8 @@
 
 ## Development Environment
 
-You'll set up SageMaker Studio to run Jupyter notebooks that:
-- Connect to Amazon Bedrock for LLM access
-- Use LangGraph for agent orchestration
-- Define and execute custom tools
+You'll set up SageMaker Studio with Jupyter notebooks that connect to Amazon Bedrock.
 
 ---
 
-[Next: Amazon Bedrock →](02-amazon-bedrock.md)
+[Next: SageMaker Setup →](02-sagemaker-setup.md)

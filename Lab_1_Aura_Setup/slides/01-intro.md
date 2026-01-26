@@ -1,19 +1,18 @@
 # Lab 1: Neo4j Aura Setup
 
-## What You'll Do
+## Workshop Overview
 
-- Set up a Neo4j Aura database on AWS Marketplace
-- Restore a pre-built SEC 10-K filings knowledge graph
-- Explore your graph visually using Neo4j Explore
+Welcome to the **Neo4j and Amazon Bedrock** hands-on lab!
 
-## The Knowledge Graph
+In this workshop, you'll learn to build AI-powered applications that combine:
+- **Knowledge Graphs** - Structured data with relationships
+- **Large Language Models** - Natural language understanding
+- **GraphRAG** - Graph-enhanced retrieval for better AI responses
 
-Your database will contain:
-- SEC 10-K filings from major tech companies (Apple, Microsoft, NVIDIA, etc.)
-- Extracted entities: Companies, Risk Factors, Products, Executives
-- Asset manager ownership data
-- Text chunks with vector embeddings for semantic search
+## This Lab
+
+Set up your Neo4j Aura database and explore a pre-built SEC 10-K filings knowledge graph.
 
 ---
 
-[Next: What is Neo4j Aura? →](02-neo4j-aura.md)
+[Next: What You'll Build →](02-what-youll-build.md)
