@@ -28,13 +28,16 @@ Key concepts:
 
 ![Navigate to SageMaker AI](images/01-naviagte-to-sagemaker-ai.png)
 
-### Step 2: Set Up for Single User
+### Step 2: Set up a Domain
 
 1. Verify you see **Amazon SageMaker AI** in the left sidebar (not just "Amazon SageMaker")
-2. On the landing page, look for the "New to SageMaker AI?" panel on the right
-3. Click the **Set up for single user** button - this creates a quick setup domain with default settings
+2. In the left panel under "Environment configuration", click on **Domains**, then click the **Create domain** button in the top right corner.
 
-![SageMaker Setup](images/02_sagemaker_setup.png)
+   ![SageMaker AI Domains page showing Domains menu and Create domain button](images/A1-Create-Domain.png)
+
+3. Select **Set up for single user (Quick setup)** on the left, then click the **Set up** button. This creates a domain with default settings perfect for getting started.
+
+   ![Set up SageMaker Domain page showing Set up for single user option](images/A2-Setup-Single-User.png)
 
 ### Step 3: Open SageMaker Studio
 
@@ -61,9 +64,9 @@ Key concepts:
 ### Step 6: Open Your Space
 
 1. Wait for the **Status** column to show **Running** (this may take 1-2 minutes)
-2. Once running, click on the space name **quickstart-default** in the Name column to open JupyterLab
+2. Once running, click on the space name (e.g., **quickstart-default-t...**) in the Name column to open JupyterLab
 
-![Click Quick Start Space](images/06_Click_Quick_start_space.png)
+![JupyterLab spaces list showing Running status and space name to click](images/06_Click_Quick_start_space.png)
 
 ### Step 7: Create a Labs Folder
 
