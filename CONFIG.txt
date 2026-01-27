@@ -13,8 +13,16 @@ NEO4J_USERNAME=neo4j
 NEO4J_PASSWORD=your_password_here
 
 # =============================================================================
-# ADVANCED LABS - The settings below do not need to be modified for most labs
+# ADVANCED LABS - The settings below do not need to be modified until Lab 6
 # =============================================================================
+
+
+# -----------------------------------------------------------------------------
+# MCP Gateway (Advanced - Lab 5 AgentCore Gateway setup)
+# -----------------------------------------------------------------------------
+MCP_GATEWAY_URL=your-gateway-url-here
+MCP_ACCESS_TOKEN=your-access-token-here
+
 
 # -----------------------------------------------------------------------------
 # AWS Bedrock Settings (Pre-configured - no changes needed)
@@ -27,12 +35,6 @@ REGION=us-west-2
 # MODEL_ID=anthropic.claude-3-sonnet-20240229-v1:0
 # MODEL_ID=us.anthropic.claude-3-sonnet-20240229-v1:0
 # MODEL_ID=us.anthropic.claude-sonnet-4-5-20250929-v1:0
-
-# -----------------------------------------------------------------------------
-# MCP Gateway (Advanced - Lab 5 AgentCore Gateway setup)
-# -----------------------------------------------------------------------------
-MCP_GATEWAY_URL=your-gateway-url-here
-MCP_ACCESS_TOKEN=your-access-token-here
 
 # -----------------------------------------------------------------------------
 # Neo4j Aura Agent API (Advanced - Lab 8 Aura Agent setup)

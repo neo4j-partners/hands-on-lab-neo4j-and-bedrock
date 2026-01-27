@@ -9,12 +9,26 @@ In this lab, you will set up your Neo4j Aura database on Azure Marketplace, rest
 
 ## Part 1: Neo4j Aura Signup
 
-Follow the instructions in [Neo4j_Aura_Signup.md](Neo4j_Aura_Signup.md) to:
+Follow the instructions in [Neo4j_Aura_Signup.md](SSO_Neo4j_Aura_Signup.md) to:
 
 1. Subscribe to Neo4j Aura through Azure Marketplace
 2. Create your Neo4j Aura account
-3. Configure and provision your database instance
-4. Save your connection credentials
+
+
+4. Configure and provision your database instance - first navigate to create instance:
+IMAGE: 07_create_instance.png
+
+Or if there are existing instances, click on "Create Instance" button:
+IMAGE: 07_alternative_create_instance.png 
+
+5. Select the **Aura Professional** plan
+   - Set the instance size to **4 GB RAM/ 1 CPU**
+   - Name your instance to be a unique instance based on your name (e.g., `ryans-lab-instance`)
+
+6. 
+7. Save your connection credentials
+IMAGE: 09_Download_Credentails.png
+
 
 > **CRITICAL:** When your instance is created, you will be shown your database credentials (URI, username, and password) and given the option to download them as a file. **You must save these credentials immediately** - this is your only opportunity to see the password. Download the credentials file when prompted and store it somewhere safe. You will need these credentials in later labs to connect your applications to Neo4j.
 
