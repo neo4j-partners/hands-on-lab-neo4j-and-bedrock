@@ -19,3 +19,7 @@ To access the Neo4j Aura Console using SSO, open an **incognito/private browser 
 5. Enter your **Email** and **Password** from the OneBlink credentials page on the authentication page.
 
 6. After successful authentication, you will be redirected to the Neo4j Aura Console where you can manage your database instances.
+
+---
+
+**Next:** Return to the [Lab 1 README](README.md#create-your-database-instance) to continue setting up your database instance.

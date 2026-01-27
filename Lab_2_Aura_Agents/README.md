@@ -19,9 +19,9 @@ The pre-built backup you restored in Lab 1 already contains the complete knowled
 
 ## Step 2: Configure Agent Details
 
-Configure your new agent with the following settings:
+Configure your new agent with the following settings. It is critical that you give your agent a unique name so that it does not conflict with other users' agents in the shared environment. If you have an error try another unique name by adding your initials or a number.:
 
-**Agent Name:** `sec-filings-analyst`
+**Unique Agent Name:** `ryans-sec-filings-analyst`
 
 **Description:** An AI-powered financial analyst that helps users explore SEC 10-K filings, analyze company risk factors, investigate asset manager ownership patterns, and discover relationships across the knowledge graph.
 
