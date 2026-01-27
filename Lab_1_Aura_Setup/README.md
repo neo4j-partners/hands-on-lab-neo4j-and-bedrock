@@ -5,7 +5,8 @@ In this lab, you will set up your Neo4j Aura database, restore the knowledge gra
 ## Prerequisites
 
 - Completed **Lab 0** (environment setup)
-- Access to OneBlink credentials page
+- For **Workshop SSO Login**: Access to OneBlink credentials page (provided by your organizer)
+- For **Free Trial Signup**: A valid email address
 
 ## Part 1: Neo4j Aura Signup
 
@@ -31,7 +32,7 @@ If you're completing this lab independently or your organizer has instructed you
 
 > **Note:** If you signed up using the **Free Trial** option (Option B), your instance was already created during the signup process. You can skip ahead to [Part 2: Restore the Backup](#part-2-restore-the-backup).
 
-3. After logging in, click on **Instances** in the left sidebar under "Data services", then click the **Create instance** button.
+1. After logging in, click on **Instances** in the left sidebar under "Data services", then click the **Create instance** button.
 
    ![Neo4j Aura Console showing Instances menu and Create instance button](images/07_create_instance.png)
 
@@ -39,7 +40,7 @@ If you're completing this lab independently or your organizer has instructed you
 
    ![Instances page with Create instance button for existing instances](images/07_alternative_create_instance.png)
 
-4. Configure your new instance with the following settings:
+2. Configure your new instance with the following settings:
    - Select the **Aura Professional** plan
    - Set the **Instance name** to a unique name based on your name (e.g., `ryans-lab-instance`). If you have an error try another unique name by adding your initials or a number.
    - Set the **Sizing** to **4 GB RAM / 1 CPU**
@@ -47,9 +48,9 @@ If you're completing this lab independently or your organizer has instructed you
 
    ![Create instance configuration page showing Professional tier, naming, sizing, and vector optimization options](images/08_Create_Instance_Details.png)
 
-5. Click **Create** to provision your database instance.
+3. Click **Create** to provision your database instance.
 
-6. **Save your connection credentials immediately.** When your instance is created, a dialog will appear showing your database credentials (Username and Password). Click **Download and continue** to save the credentials file.
+4. **Save your connection credentials immediately.** When your instance is created, a dialog will appear showing your database credentials (Username and Password). Click **Download and continue** to save the credentials file.
 
    ![Credentials dialog showing username and password with download option](images/09_Download_Credentails.png)
 
