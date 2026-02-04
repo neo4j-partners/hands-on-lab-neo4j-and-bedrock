@@ -479,7 +479,7 @@ Ensure your vector index dimensions match the embedder output:
 
 To continue, proceed to **Part 3 - Advanced Agents and API Integration**:
 
-[Lab 6 - Aura Agents API](../Lab_6_Aura_Agents_API) - Learn how to call your Aura Agent programmatically via REST API, enabling integration into applications and automated workflows.
+[Lab 6 - Neo4j MCP Agent](../Lab_6_Neo4j_MCP_Agent) - Build a LangGraph agent that connects to Neo4j through the Model Context Protocol (MCP), enabling natural language interaction with your knowledge graph.
 
 ## Additional Resources
 

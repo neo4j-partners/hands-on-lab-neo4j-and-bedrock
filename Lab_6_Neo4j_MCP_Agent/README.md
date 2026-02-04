@@ -1,4 +1,4 @@
-# Lab 7 - Building AI Agents with MCP and Neo4j
+# Lab 6 - Building AI Agents with MCP and Neo4j
 
 This lab introduces two key concepts: how AI agents interact with external tools using the **Model Context Protocol (MCP)**, and how the **Neo4j MCP Server** enables natural language querying of graph databases.
 
@@ -269,13 +269,7 @@ query("What asset managers own companies with supply chain risks?")
 
 ## Next Steps
 
-**Congratulations!** You have completed all labs in the workshop.
-
-You now have hands-on experience with:
-- Building no-code AI agents with Neo4j Aura Agents
-- Building GraphRAG pipelines with the neo4j-graphrag library
-- Calling Aura Agents programmatically via REST API
-- Connecting LLM agents to Neo4j via the Model Context Protocol
+Continue to [Lab 7 - Aura Agents API](../Lab_7_Aura_Agents_API) to learn how to programmatically invoke your Aura Agent via REST API with OAuth2 authentication.
 
 ## Resources
 

@@ -117,14 +117,14 @@ You'll need a laptop with a web browser. Your browser will need to be able to ac
 - **Neo4j MCP Server**: Official Neo4j tool server exposing Cypher query capabilities
 - **AgentCore Gateway**: AWS service for hosting and managing MCP servers
 
-* [Lab 6 - Aura Agents API](Lab_6_Aura_Agents_API)
-    * Call your Lab 2 Aura Agent programmatically
-    * OAuth2 authentication with client credentials
-    * Build a reusable Python client for application integration
-* [Lab 7 - Neo4j MCP Agent](Lab_7_Neo4j_MCP_Agent)
+* [Lab 6 - Neo4j MCP Agent](Lab_6_Neo4j_MCP_Agent)
     * Connect to Neo4j via AgentCore Gateway
     * Build a LangGraph agent with MCP tools
     * Query the knowledge graph with natural language
+* [Lab 7 - Aura Agents API](Lab_7_Aura_Agents_API)
+    * Call your Lab 2 Aura Agent programmatically
+    * OAuth2 authentication with client credentials
+    * Build a reusable Python client for application integration
 * Questions and Next Steps
 
 ---
