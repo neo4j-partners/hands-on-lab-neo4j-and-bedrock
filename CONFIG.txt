@@ -8,9 +8,9 @@
 # =============================================================================
 # Enter your credentials from Lab 1. These are shown once when you create your
 # Aura instance - make sure you saved them!
-NEO4J_URI=neo4j+s://662034a2.databases.neo4j.io
+NEO4J_URI=neo4j+s://xxxxxxxx.databases.neo4j.io
 NEO4J_USERNAME=neo4j
-NEO4J_PASSWORD=T7Y-CpxAh1PBKIJ91fm3MaVvzrCumif8M0SAnU2PCV8
+NEO4J_PASSWORD=your_password_here
 
 # =============================================================================
 # ADVANCED LABS - The settings below do not need to be modified until Lab 6
